@@ -95,10 +95,17 @@
   color: white;
   display:block;
   position: relative;
-  left:90%;
+  left:85%;
   top: 3%;
 }
 
 #listside #lista{
   height: 87%;
+}
+
+#closebtn{
+  background-color: #282828;
+  border: 0.1rem solid #DB1717;
+  color: white;
+  border-radius: 15%;
 }
