@@ -17,45 +17,89 @@
     </div>
     <div id="searchside">
       <a id="close" onclick="closeNav()">X</a>
-      <input id="searchbar" type="text" placeholder="Filter..." size="15">
+      <input id="searchbar" type="text" placeholder="Filter..." onkeyup="filter()" size="15">
       <ul id="lista" style="list-style-type:none;">
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
-        <li>a</li>
-        <li>b</li>
+        <li><a>Romania 1972</a></li>
+        <li><a>Franta 1832</a></li>
+        <li><a>Germania 1933</a></li>
+        <li><a>Olanda 2012</a></li>
+        <li><a>Spania 2001</a></li>
+        <li><a>Rusia 2020</a></li>
+        <li><a>China 1980</a></li>
+        <li><a>SUA 2008</a></li>
+        <li><a>Franta 1942</a></li>
+        <li><a>Germania 1963</a></li>
+        <li><a>Olanda 2002</a></li>
+        <li><a>Germania 1988</a></li>
+        <li><a>Olanda 1988</a></li>
+        <li><a>Spania 1943</a></li>
+        <li><a>Rusia 2000</a></li>
+        <li><a>Spania 1989</a></li>
+        <li><a>Rusia 1991</a></li>
+        <li><a>SUA 2018</a></li>
+        <li><a>Franta 1967</a></li>
+        <li><a>Germania 1956</a></li>
+        <li><a>Olanda 2015</a></li>
+        <li><a>Spania 2019</a></li>
+        <li><a>Rusia 2017</a></li>
+        <li><a>Romania 2017</a></li>
+        <li><a>Franta 1999</a></li>
+        <li><a>Germania 1947</a></li>
+        <li><a>Olanda 1998</a></li>
+        <li><a>Spania 1999</a></li>
+        <li><a>Rusia 1974</a></li>
+        <li><a>China 1965</a></li>
+        <li><a>Romania 1998</a></li>
+        <li><a>Franta 1943</a></li>
+        <li><a>Germania 1978</a></li>
+        <li><a>Olanda 2010</a></li>
+        <li><a>Spania 2000</a></li>
+        <li><a>Rusia 1995</a></li>
+        <li><a>China 1966</a></li>
+        <li><a>SUA 2018</a></li>
       </ul>
     </div>
     <div id="listside">
       <a id="close" onclick="closeNav()">X</a>
         <ul id="lista" style="list-style-type:none;">
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
-          <li>a</li>
-          <li>b</li>
+          <li><a>Romania 1972</a></li>
+        <li><a>Franta 1832</a></li>
+        <li><a>Germania 1933</a></li>
+        <li><a>Olanda 2012</a></li>
+        <li><a>Spania 2001</a></li>
+        <li><a>Rusia 2020</a></li>
+        <li><a>China 1980</a></li>
+        <li><a>SUA 2008</a></li>
+        <li><a>Franta 1942</a></li>
+        <li><a>Germania 1963</a></li>
+        <li><a>Olanda 2002</a></li>
+        <li><a>Germania 1988</a></li>
+        <li><a>Olanda 1988</a></li>
+        <li><a>Spania 1943</a></li>
+        <li><a>Rusia 2000</a></li>
+        <li><a>Spania 1989</a></li>
+        <li><a>Rusia 1991</a></li>
+        <li><a>SUA 2018</a></li>
+        <li><a>Franta 1967</a></li>
+        <li><a>Germania 1956</a></li>
+        <li><a>Olanda 2015</a></li>
+        <li><a>Spania 2019</a></li>
+        <li><a>Rusia 2017</a></li>
+        <li><a>Romania 2017</a></li>
+        <li><a>Franta 1999</a></li>
+        <li><a>Germania 1947</a></li>
+        <li><a>Olanda 1998</a></li>
+        <li><a>Spania 1999</a></li>
+        <li><a>Rusia 1974</a></li>
+        <li><a>China 1965</a></li>
+        <li><a>Romania 1998</a></li>
+        <li><a>Franta 1943</a></li>
+        <li><a>Germania 1978</a></li>
+        <li><a>Olanda 2010</a></li>
+        <li><a>Spania 2000</a></li>
+        <li><a>Rusia 1995</a></li>
+        <li><a>China 1966</a></li>
+        <li><a>SUA 2018</a></li>
         </ul>
 
     </div>
@@ -90,7 +134,25 @@
       document.getElementById("searchside").style.width = "0";
       document.getElementById("listside").style.width="0";
       document.getElementById("saveside").style.width="0";
-    } </script>
+    }
+    function filter(){
+      var input,filter,ul,li,a,i,txt;
+      input=document.getElementById('searchbar');
+      filter=input.value.toUpperCase();
+      ul=document.getElementById("lista");
+      li=ul.getElementsByTagName('li');
+      for(i=0;i<li.length;i++){
+        a=li[i].getElementsByTagName("a")[0];
+        txt=a.textContent || a.innerText;
+        if(txt.toUpperCase().indexOf(filter)>-1){
+          li[i].style.display="";
+        } else{
+          li[i].style.display="none";
+        }
+      }
+    }
+
+     </script>
     
   </body>
 </html>
