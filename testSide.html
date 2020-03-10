@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="testSide.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Terrorist Map</title>
+  </head>
+  <body>
+    <div id="sidebar">
+      <a onclick="openSearch()"><i class="fa fa-fw fa-search"></i></a>
+      <a onclick="openList()"><i class="fa fa-fw fa-list"></i></a>
+      <a onclick="openSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+      <a><i class="fa fa-info-circle"></i></a>
+    </div>
+    <div id="searchside">
+      <a id="close" onclick="closeNav()">X</a>
+      <input id="searchbar" type="text" placeholder="Filter..." size="15">
+      <ul id="lista" style="list-style-type:none;">
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+        <li>a</li>
+        <li>b</li>
+      </ul>
+    </div>
+    <div id="listside">
+      <a id="close" onclick="closeNav()">X</a>
+        <ul id="lista" style="list-style-type:none;">
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+          <li>a</li>
+          <li>b</li>
+        </ul>
+
+    </div>
+    <div id="saveside">
+      <a id="close" onclick="closeNav()">X</a>
+      <div id="butoane">
+      <button class="btn btn1">CSV</button>
+      <button class="btn btn2">SVG</button>
+      <button class="btn btn3">PNG</button>
+
+    </div>
+    </div>
+    <script>
+    function openSearch() {
+      document.getElementById("searchside").style.width = "20rem";
+      document.getElementById("listside").style.width="0%";
+      document.getElementById("saveside").style.width="0%";
+
+    }
+    function openList(){
+      document.getElementById("listside").style.width="20rem";
+      document.getElementById("searchside").style.width="0%";
+      document.getElementById("saveside").style.width="0%";
+
+    }
+    function openSave(){
+      document.getElementById("saveside").style.width="20rem";
+      document.getElementById("searchside").style.width="0%";
+      document.getElementById("listside").style.width="0%";
+    }
+    function closeNav() {
+      document.getElementById("searchside").style.width = "0";
+      document.getElementById("listside").style.width="0";
+      document.getElementById("saveside").style.width="0";
+    } </script>
+    
+  </body>
+</html>

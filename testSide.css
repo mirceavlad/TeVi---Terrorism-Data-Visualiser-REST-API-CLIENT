@@ -1,0 +1,104 @@
+#sidebar{
+    height: 100%;  
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    
+    padding-top: 2%;
+  }
+
+  #searchside, #listside, #saveside{
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    align-content: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow: hidden;
+  }
+  
+
+  #sidebar a {
+    
+    padding: 0.2rem;
+    padding-left: 0.1rem;
+    padding-top: 1rem;
+    text-decoration: none;
+    font-size: 3rem;
+    color: #818181;
+    display: block;
+  }
+  
+  .fa-floppy-o, .fa-info-circle{
+      font-size: 4rem !important;
+      padding: 0.2rem;
+  }
+
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+
+
+#searchbar{
+    position: relative;
+    left: 30%;
+    top: 5%;
+}
+
+#lista{
+    height: 50%;
+    position: relative;
+    left: 20%;
+    color:white;
+    font-size:20pt;
+    width:60%;
+    height: 85%;
+    top: 5%;
+    overflow-y: scroll;
+}
+
+#lista li{
+    background-color:red;
+    border:solid 0.2rem white;
+    margin-top: 0.5rem;
+}
+
+.btn{
+    height: 3rem;
+    width: 8rem;
+    margin-top: 3rem;
+    color: black;
+    font-weight: bolder;
+    font-size: 2rem;
+    background-color: rgb(113, 223, 113);
+    border-radius:5%;
+    border:0.1rem solid white;
+}
+#butoane{
+    position: relative;
+    left: 40%;
+    width: 50%;
+    top: 20%;
+    height: 70%;
+}
+
+#close{
+  font-family:"Arial Black", Gadget, sans-serif;
+  font-size: 1rem;
+  color: white;
+  display:block;
+  position: relative;
+  left:90%;
+  top: 3%;
+}
+
+#listside #lista{
+  height: 87%;
+}
