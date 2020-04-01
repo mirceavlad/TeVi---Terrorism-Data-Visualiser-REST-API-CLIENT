@@ -1,0 +1,27 @@
+<DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <div id="map" style="width: 100%; height:100%;">
+        </div>
+        <script>
+            function initMap() {
+                var mapPointsGermany = [{lat: 15.344, lng: 131.036}, {lat: 35.344, lng: 120.036}, {lat: 45.344, lng: 140.036}, {lat: 55.344, lng: 100.036},{lat: 65.344, lng: 90.036}]
+                var mapInitPos = {lat: 25.344, lng: 131.036};
+                var points = [];
+                var map = new google.maps.Map(
+                     document.getElementById('map'), {zoom: 4, center: mapInitPos});
+                //var marker = new google.maps.Marker({position: mapInitPos, map: map});
+                var mark = new google.maps.Marker({position: mapInitPos, map: map});
+                 mark.setMap(map);
+                 for(var i = 0; i < mapPointsGermany.length; i++) {
+                     var pt = new google.maps.Marker({position: mapPointsGermany[i]});
+                     pt.setMap(map);
+                     points.push(pt);
+                 }
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo&callback=initMap"></script>
+    </body>
+</html>
