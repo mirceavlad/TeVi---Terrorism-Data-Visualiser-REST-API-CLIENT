@@ -1,13 +1,19 @@
-#sidebar{
-    height: 100%;  
-    position: fixed;
+html{
+  height:100%;
+}
+body{
+  height:100%;
+  margin: 0;
+  display: flex;
+  background-color: black;
+}
+#sidebar{  
     z-index: 10;
     top: 0;
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    
-    padding-top: 2%;
+    margin-top: 2%;
   }
 
   #searchside, #listside, #saveside{
@@ -46,28 +52,43 @@
   }
 
 
-#searchbar{
+#countryChoose, #yearChoose, #weaponChoose{
     position: relative;
-    left: 30%;
-    top: 5%;
+    top: 1%;
+    width: 60%;
+    display:block;
+    margin: 0;
+}
+#searchside label{
+  margin: 0 auto;
+  color: white;
+  position: relative;
+
 }
 
-#lista{
-    height: 50%;
+#select1, #select2,#select3{
+  position: relative;
+  left: 30%;
+  top: 4%;
+
+}
+
+#lista, #lista1{
     position: relative;
     left: 20%;
     color:white;
     font-size:20pt;
     width:60%;
-    height: 85%;
+    height: 68%;
     top: 5%;
     overflow-y: scroll;
 }
 
-#lista li{
+#lista li, #lista1 li{
     background-color:red;
     border:solid 0.2rem white;
     margin-top: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .btn{
@@ -99,7 +120,7 @@
   top: 3%;
 }
 
-#listside #lista{
+#listside #lista1{
   height: 87%;
 }
 
@@ -108,4 +129,16 @@
   border: 0.1rem solid #DB1717;
   color: white;
   border-radius: 15%;
+}
+
+#map{
+  height:100%;
+  float: right;
+  position: relative;
+  margin-left: auto;
+  flex-grow: 1;
+}
+
+.country,.year,.weapon{
+  display: block;
 }
