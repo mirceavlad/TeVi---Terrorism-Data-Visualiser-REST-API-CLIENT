@@ -5,7 +5,7 @@ class DBAcess {
     private function __construct()
     {
         if (mysqli_connect_errno()) {
-            die ('Conexiunea a esuat...');
+            die ('Conn error');
         }
         $this -> mysql = new mysqli (
                              'localhost', // locatia serverului (aici, masina locala)
@@ -23,15 +23,5 @@ class DBAcess {
         }
         return self::$instance;
     }
-    
-    public function addNote($noteString) {
-        $mysql -> query ('insert into notes values("'.$note.'")');
-        echo('insert into notes values ("'.note.'") saved');
-    }
-    
-    public function getAllNotes() {
-          return $mysql -> query ('select * from notes;');
-    }
-    
 }
 ?>
