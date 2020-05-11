@@ -1,5 +1,6 @@
 <?php
 class DBAcess {
+    //octavian
     private static $instance = null;
     private static $mysql = null;
     private function __construct()
@@ -55,5 +56,74 @@ class DBAcess {
             printf("%s",self::$mysql->error);
         }
     }
+    //mircea
+    //selects all attacks
+    public function selectAll(){
+        if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS')) 
+            printf("%s",self::$mysql->error);
+        else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS');
+    
+}
+//mircea
+//selects attacks between 2 nr
+public function selectBetween($nr,$country,$year,$weapon){
+    if($country=='Any')
+    $country='%';
+    if($year=='Any')
+    $year='%';
+    if($weapon=='Any')
+    $weapon='%';
+    if(!self::$mysql -> query('SELECT ROW_NUMBER() OVER (),country_txt,iyear,weaptype1_txt FROM ATTACKS  WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'.'LIMIT '.$nr.',500')) 
+        printf("%s",self::$mysql->error);
+    else return self::$mysql->query('SELECT ROW_NUMBER() OVER (),country_txt,iyear,weaptype1_txt FROM ATTACKS  WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'.'LIMIT '.$nr.',500');
+
+}
+
+//mircea
+//selects total nr of attacks
+public function totalNr(){
+    if(!self::$mysql -> query('SELECT COUNT(*) FROM ATTACKS')) 
+            printf("%s",self::$mysql->error);
+        else return self::$mysql->query('SELECT COUNT(*) AS NR FROM ATTACKS');
+}
+
+//mircea
+//select by country, year and weapon
+public function selectBy($country,$year,$weapon){
+    if($country=='Any')
+    $country='%';
+    if($year=='Any')
+    $year='%';
+    if($weapon=='Any')
+    $weapon='%';
+    if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"')) 
+            printf("%s",self::$mysql->error);
+        else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
+}
+
+//mircea
+//get all countries
+public function getCountries(){
+    if(!self::$mysql -> query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt')) 
+            printf("%s",self::$mysql->error);
+        else return self::$mysql->query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt');
+}
+
+//mircea
+//get all years
+public function getYears(){
+    if(!self::$mysql -> query('SELECT DISTINCT iyear FROM ATTACKS ORDER BY iyear')) 
+            printf("%s",self::$mysql->error);
+        else return self::$mysql->query('SELECT DISTINCT iyear FROM ATTACKS ORDER BY iyear');
+}
+
+//mircea
+//get all weapons
+public function getWeapons(){
+    if(!self::$mysql -> query('SELECT DISTINCT weaptype1_txt FROM ATTACKS ORDER BY weaptype1_txt')) 
+            printf("%s",self::$mysql->error);
+        else return self::$mysql->query('SELECT DISTINCT weaptype1_txt FROM ATTACKS ORDER BY weaptype1_txt');
+}
+
 }
 ?>
