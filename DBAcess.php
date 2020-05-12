@@ -73,18 +73,24 @@ public function selectBetween($nr,$country,$year,$weapon){
     $year='%';
     if($weapon=='Any')
     $weapon='%';
-    if(!self::$mysql -> query('SELECT ROW_NUMBER() OVER (),country_txt,iyear,weaptype1_txt FROM ATTACKS  WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'.'LIMIT '.$nr.',500')) 
+    if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS  WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'.'LIMIT '.$nr.',3500')) 
         printf("%s",self::$mysql->error);
-    else return self::$mysql->query('SELECT ROW_NUMBER() OVER (),country_txt,iyear,weaptype1_txt FROM ATTACKS  WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'.'LIMIT '.$nr.',500');
+    else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS  WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'.'LIMIT '.$nr.',3500');
 
 }
 
 //mircea
 //selects total nr of attacks
-public function totalNr(){
-    if(!self::$mysql -> query('SELECT COUNT(*) FROM ATTACKS')) 
+public function totalNr($country,$year,$weapon){
+    if($country=='Any')
+    $country='%';
+    if($year=='Any')
+    $year='%';
+    if($weapon=='Any')
+    $weapon='%';
+    if(!self::$mysql -> query('SELECT COUNT(*) AS NR ,country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"')) 
             printf("%s",self::$mysql->error);
-        else return self::$mysql->query('SELECT COUNT(*) AS NR FROM ATTACKS');
+        else return self::$mysql->query('SELECT COUNT(*) AS NR ,country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');;
 }
 
 //mircea

@@ -11,6 +11,9 @@
   <title>Attacks list</title>
 </head>
 <body>
+<form method="post" action="index.php">
+    <button type="submit">Back to the map</button>
+</form>
   <?php
 include 'DBAcess.php';
   ?>
@@ -34,20 +37,17 @@ include 'valYear.php';
 include 'valWeapon.php';
 ?>
 </select>
-<input name="submit" type="submit" value="Filter">
-</form>
-<form method="post" action="" name="form">  
-<!--<select name="pages">
+<label>Page:</label>
+<select name="pages">
 <?php
-//include 'nrpagcont.php';
+include 'nrpagcont.php';
 ?>
 </select>
 <input name="submit" type="submit" value="Submit">
-</form> -->
+</form>
     <ol id="lista" style="position:relative; left: 200px">
     <?php
     include "filter.php";
-    //include "pagcont.php";
     ?></ol>
       </body>
       </html>

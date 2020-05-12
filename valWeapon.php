@@ -7,6 +7,11 @@ $nr=$rez->fetch_assoc();
 echo "<option value=Any selected>Any</option>";
 while($atacuri=$rez->fetch_assoc()){
     $weapon=$atacuri["weaptype1_txt"];
-    echo "<option value=$weapon>$weapon</option>";
+    if($weapon==$_POST['weapon'])
+    $isSelected = ' selected="selected"';
+    else{
+        $isSelected = '';
+    }
+    echo "<option value=$weapon".$isSelected.">$weapon</option>";
 }
 ?>
