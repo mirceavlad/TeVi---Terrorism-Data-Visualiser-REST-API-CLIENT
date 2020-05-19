@@ -109,6 +109,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT COUNT(*) AS NR ,country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');;
         }
+
+        //maria
+        //selects total nr of attacks
+        //returns a string representin data as json
+        public function totalNrJson($country,$year,$weapon){
+            $queryResult = self::totalNr($country,$year,$weapon);
+            return self::toJsonString($queryResult);
+        }
         
         //mircea
         //select by country, year and weapon
@@ -123,6 +131,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
+
+        //maria
+         //select by country, year and weapon
+        //returns a string representin data as json
+        public function selectByJson($country,$year,$weapon){
+            $queryResult = self::selectBy($country,$year,$weapon);
+            return self::toJsonString($queryResult);
+        }
         
         //mircea
         //get all countries
@@ -130,6 +146,14 @@
             if(!self::$mysql -> query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt'))
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt');
+        }
+
+        //maria
+        //get all countries
+        //returns a string representin data as json
+        public function getCountriesJson(){
+            $queryResult = self::getCountries();
+            return self::toJsonString($queryResult);
         }
         
         //mircea
@@ -139,6 +163,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT iyear FROM ATTACKS ORDER BY iyear');
         }
+
+        //maria
+         //get all years
+        //returns a string representin data as json
+        public function getYearsJson(){
+            $queryResult = self::getYears();
+            return self::toJsonString($queryResult);
+        }
         
         //mircea
         //get all weapons
@@ -147,7 +179,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT weaptype1_txt FROM ATTACKS ORDER BY weaptype1_txt');
         }
-        
+
+        //maria
+        //get all weapons
+       //returns a string representin data as json
+       public function getWeaponsJson(){
+        $queryResult = self::getWeapons();
+        return self::toJsonString($queryResult);
+       }
         //milea octavian
         // encodes a db query into a json, (key: int, value-> array of each db select result), and a pair(key: "size", value: "int"))
         // which represents the numberof results;
