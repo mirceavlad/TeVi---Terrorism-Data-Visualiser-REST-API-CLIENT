@@ -197,7 +197,7 @@
                 $resultsArrayMapping[$resultsCount] = $attacks;
                 $resultsCount = $resultsCount + 1;
             }
-            $resultsArrayMapping["size"] = $resultsCount;
+            $resultsArrayMapping["dataSz"] = $resultsCount;
             return json_encode($resultsArrayMapping);
         }
     }

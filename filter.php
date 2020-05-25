@@ -1,4 +1,4 @@
-<?php
+ <?php
 //mircea
 //filter by selects
     if(isset($_POST["country"]))
