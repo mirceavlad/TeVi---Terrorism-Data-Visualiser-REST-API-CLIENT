@@ -13,16 +13,16 @@
       var map = new google.maps.Map(
         document.getElementById('map'), { zoom: 4, center: mapInitPos });
    <?php
-    if(isset($_POST["country"]))
-    {$country  = $_POST["country"];
+    if(isset($_GET["country"]))
+    {$country  = $_GET["country"];
     }
     else $country="Any";
-    if(isset($_POST["year"]))
-    {$year  = $_POST["year"];
+    if(isset($_GET["year"]))
+    {$year  = $_GET["year"];
     }
     else $year="Any";
-    if(isset($_POST["weapon"]))
-    {$weapon  = $_POST["weapon"];
+    if(isset($_GET["weapon"]))
+    {$weapon  = $_GET["weapon"];
     }
     else $weapon="Any"; 
     $country= str_replace(' ', '%20', $country);
