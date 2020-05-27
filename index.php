@@ -25,13 +25,13 @@
     <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
     <div id="select1">
       <label for="countryChoose">Choose a country:</label>
-      <select id="countryChoose" onchange="filter()"></select></div>
+      <select id="countryChoose" name="country"></select></div>
     <div id="select2">
       <label for="yearChoose">Choose a year:</label>
-      <select id="yearChoose" onchange="filter()"></select></div>
+      <select id="yearChoose" name="year"></select></div>
     <div id="select3">
       <label for="weaponChoose">Choose a weapon:</label>
-      <select id="weaponChoose" onchange="filter()"></select></div>
+      <select id="weaponChoose" name="weapon"></select></div>
   </div>
   <div id="listside">
     <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
@@ -69,21 +69,42 @@
     }
    //octavian + mircea + maria
     function initMap() {
-
-      
-      var mapPointsGermany = [{ lat: 15.344, lng: 131.036 }, { lat: 35.344, lng: 120.036 }, { lat: 45.344, lng: 140.036 }, { lat: 55.344, lng: 100.036 }, { lat: 65.344, lng: 90.036 }]
       var mapInitPos = { lat: 25.344, lng: 131.036 };
       var points = [];
       var map = new google.maps.Map(
         document.getElementById('map'), { zoom: 4, center: mapInitPos });
+   <?php
+   
+   
+   $jsonString = file_get_contents("http://localhost/web/WebTechnologiesProj/mapDataServiceProvider.php/");
+//deserialization to array
+$resultsArray = json_decode($jsonString, true);
+// getting the array size
+$responseSize = $resultsArray["dataSz"];
+echo "var mapPoints=[];";
+for($i = 0; $i < $responseSize ; $i ++) {
+      $long=$resultsArray[$i]["longitude"];
+      $lat=$resultsArray[$i]["latitude"];
+     echo " var pt = new google.maps.Marker({ position: {lat : parseFloat( ".$lat." ),
+      lng : parseFloat( ".$long." ) });
+        pt.setMap(map);
+        points.push(pt);";
+    }
+
+?>}
+      //var mapPointsGermany = [{ lat: 15.344, lng: 131.036 }, { lat: 35.344, lng: 120.036 }, { lat: 45.344, lng: 140.036 }, { lat: 55.344, lng: 100.036 }, { lat: 65.344, lng: 90.036 }]
+     // var mapInitPos = { lat: 25.344, lng: 131.036 };
+     // var points = [];
+      //var map = new google.maps.Map(
+        //document.getElementById('map'), { zoom: 4, center: mapInitPos });
       //var marker = new google.maps.Marker({position: mapInitPos, map: map});
-      var mark = new google.maps.Marker({ position: mapInitPos, map: map });
-      mark.setMap(map);
-      for (var i = 0; i < mapPointsGermany.length; i++) {
-        var pt = new google.maps.Marker({ position: mapPointsGermany[i] });
+    //  var mark = new google.maps.Marker({ position: mapInitPos, map: map });
+    //  mark.setMap(map);
+      /*for (var i = 0; i < mapPoints.length; i++) {
+        var pt = new google.maps.Marker({ position: mapPoints[i] });
         pt.setMap(map);
         points.push(pt);
-      }
+      }*/
     }
   </script>
   <script async defer
