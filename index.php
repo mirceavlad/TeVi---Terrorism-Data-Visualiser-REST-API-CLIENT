@@ -86,7 +86,7 @@ for($i = 0; $i < $responseSize ; $i ++) {
       $long=$resultsArray[$i]["longitude"];
       $lat=$resultsArray[$i]["latitude"];
      echo " var pt = new google.maps.Marker({ position: {lat : parseFloat( ".$lat." ),
-      lng : parseFloat( ".$long." ) });
+      lng : parseFloat( ".$long." ) }});
         pt.setMap(map);
         points.push(pt);";
     }
@@ -105,7 +105,7 @@ for($i = 0; $i < $responseSize ; $i ++) {
         pt.setMap(map);
         points.push(pt);
       }*/
-    }
+    
   </script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo&callback=initMap"></script>
