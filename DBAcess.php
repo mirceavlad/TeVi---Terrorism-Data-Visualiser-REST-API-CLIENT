@@ -72,14 +72,26 @@
             return self::toJsonString($query_results);
         }
 
-         //mircea
-        //selects all attacks with lat long
-        public function selectAllCoord(){
-            if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS'))
+
+        //maria
+        public function selectByCoord($country,$year,$weapon){
+            if($country=='Any')
+                $country='%';
+            if($year=='Any')
+                $year='%';
+            if($weapon=='Any')
+                $weapon='%';
+            if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt, latitude, longitude FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"'))
                 printf("%s",self::$mysql->error);
-            else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS');
+            else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt, latitude, longitude FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-        
+
+        //maria
+        public function selectByCoordJson($country,$year,$weapon){
+            $queryResult = self::selectByCoord($country,$year,$weapon);
+            return self::toJsonString($queryResult);
+        }
+
         //mircea
         //selects attacks between 2 nr
         public function selectBetween($nr,$country,$year,$weapon){

@@ -67,8 +67,10 @@
       document.getElementById("listside").style.width = "0";
       document.getElementById("saveside").style.width = "0";
     }
-   //octavian
+   //octavian + mircea + maria
     function initMap() {
+
+      
       var mapPointsGermany = [{ lat: 15.344, lng: 131.036 }, { lat: 35.344, lng: 120.036 }, { lat: 45.344, lng: 140.036 }, { lat: 55.344, lng: 100.036 }, { lat: 65.344, lng: 90.036 }]
       var mapInitPos = { lat: 25.344, lng: 131.036 };
       var points = [];
