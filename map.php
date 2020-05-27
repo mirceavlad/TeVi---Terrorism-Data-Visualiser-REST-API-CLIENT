@@ -32,21 +32,33 @@
 $resultsArray = json_decode($jsonString, true);
 // getting the array size
 $responseSize = $resultsArray["dataSz"];
-echo "var mapPoints=[];";
+echo "var mapPoints=[];
+
+function createMarker(coordonates,data){
+  var content=data;
+  var marker=new google.maps.Marker({
+    position: coordonates,
+    map: map
+  });
+  google.maps.event.addListener(marker,'click', function() {
+    infowindow.setContent(content); 
+    infowindow.open(map,marker);
+    });
+    return marker;
+}
+";
 for($i = 0; $i < $responseSize ; $i ++) {
       $long=$resultsArray[$i]["longitude"];
       $lat=$resultsArray[$i]["latitude"];
       $currentYear=$resultsArray[$i]["iyear"];
       $currentWeapon=$resultsArray[$i]["weaptype1_txt"];
+      if($long!=NULL && $lat!=NULL)
      echo " 
+     var infowindow = new google.maps.InfoWindow();
      var info=\"Year: ".$currentYear." Weapon: ".$currentWeapon."\"; 
-     var infoWindow=new google.maps.InfoWindow({ content:info});
-     var pt = new google.maps.Marker({ position: {lat : parseFloat( ".$lat." ),
-      lng : parseFloat( ".$long." ) }});
-      
-      pt.setMap(map);
-        points.push(pt);
-        google.maps.event.addListener(pt,'click',function(){infoWindow.open(map,pt)});
+     var coord=new google.maps.LatLng($lat,$long);
+     var pt = createMarker(coord,info);
+    
         ";
     }
 
