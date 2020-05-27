@@ -14,9 +14,6 @@ list all attacks and filter
 <form method="post" action="index.php">
 <button type="submit">Back to the map</button>
 </form>
-<?php
-    include 'DBAcess.php';
-    ?>
 <form method="post" action="" name="form">  
 <label>Country:</label>
 
@@ -28,7 +25,7 @@ list all attacks and filter
 <label>Year:</label>
 <select name="year">
 <?php
-    include 'valYear.php';
+   include 'valYear.php';
     ?>
 </select>
 <label>Weapon:</label>
@@ -40,14 +37,14 @@ list all attacks and filter
 <label>Page:</label>
 <select name="pages">
 <?php
-    include 'nrpagcont.php';
+   include 'nrpagcont.php';
     ?>
 </select>
 <input name="submit" type="submit" value="Submit">
 </form>
 <ol id="lista" style="position:relative; left: 200px">
 <?php
-    include "filter.php";
+   include "filter.php";
     ?></ol>
 </body>
 </html>

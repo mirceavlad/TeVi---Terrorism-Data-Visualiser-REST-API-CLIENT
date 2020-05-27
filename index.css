@@ -37,8 +37,9 @@ body{
     padding-left: 0.1rem;
     padding-top: 1rem;
     text-decoration: none;
-    font-size: 3rem;
-    color: #818181;
+    font-size: 2rem;
+    color: white;
+    font-weight: bolder;
     display: block;
   }
   
@@ -68,7 +69,7 @@ body{
 
 #select1, #select2,#select3{
   position: relative;
-  left: 30%;
+  left: 40%;
   top: 4%;
 
 }

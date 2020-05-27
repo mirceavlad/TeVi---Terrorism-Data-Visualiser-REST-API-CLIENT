@@ -14,10 +14,10 @@
   <!--mircea
   sidebar with buttons -->
   <div id="sidebar">
-    <a onclick="openSearch()"><i class="fa fa-fw fa-search"></i></a>
-    <a href="pag.php"><i class="fa fa-fw fa-list"></i></a>
-    <a onclick="openSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-    <a href="CharColour.html"><i class="fa fa-info-circle"></i></a>
+    <a onclick="openSearch()" class="txt filterTxt">FILTER</a>
+    <a href="pag.php" class="txt listTxt">LIST</a>
+    <a onclick="openSave()" class="txt saveTxt">SAVE</a>
+    <a href="CharColour.html" class="txt statsTxt">STATS</a>
   </div>
   <div id="map">
   </div>

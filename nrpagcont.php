@@ -13,9 +13,14 @@ if(isset($_POST["country"]))
     {$weapon  = $_POST["weapon"];
     }
     else $weapon="Any"; 
-$rez=DBAcess::getInstance()::totalNr($country,$year,$weapon);
-$nr=$rez->fetch_assoc();
-$total=$nr["NR"]/3500+1;
+
+$jsonString = file_get_contents("http://localhost/web/WebTechnologiesProj/countDataServiceProvider.php/?country=$country&year=$year&weapon=$weapon");
+//deserialization to array
+$resultsArray = json_decode($jsonString, true);
+// getting the array size
+$responseSize = $resultsArray["dataSz"];
+$nr=$resultsArray[0]["NR"];
+$total=$nr/3500+1;
 for($i=1;$i<=$total;$i++){
     if($i==$_POST['pages'])
     $isSelected = ' selected="selected"';

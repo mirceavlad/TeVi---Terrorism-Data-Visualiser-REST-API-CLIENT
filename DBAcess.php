@@ -71,6 +71,14 @@
             $query_results = self::selectAll();
             return self::toJsonString($query_results);
         }
+
+         //mircea
+        //selects all attacks with lat long
+        public function selectAllCoord(){
+            if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS'))
+                printf("%s",self::$mysql->error);
+            else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS');
+        }
         
         //mircea
         //selects attacks between 2 nr

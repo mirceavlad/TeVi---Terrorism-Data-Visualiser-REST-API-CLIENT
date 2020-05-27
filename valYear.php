@@ -1,16 +1,30 @@
 <?php
 //mircea
 //put all years in select
-$rez=DBAcess::getInstance()::getYears();
-$nr=$rez->fetch_assoc();
-echo "<option value=Any selected>Any</option>";
-while($atacuri=$rez->fetch_assoc()){
-    $year=$atacuri["iyear"];
-    if($year==$_POST['year'])
+
+//making an array with all the years
+for($i = 0; $i < $responseSize ; $i ++) {
+    $year[$i]=$resultsArray[$i]["iyear"];
+    
+}
+//remove duplicates
+$year=array_unique($year);
+//sort alphabetically
+sort($year);
+if('Any'==$_POST['year'])
     $isSelected = ' selected="selected"';
     else{
         $isSelected = '';
     }
-    echo "<option value=$year".$isSelected.">$year</option>";
-}
+echo "<option value='Any'".$isSelected.">Any</option>";
+//put the option in the select
+for($i = 0; $i < $responseSize ; $i ++){
+if($year[$i]!=NULL){
+if($year[$i]==$_POST['year'])
+    $isSelected = ' selected="selected"';
+    else{
+        $isSelected = '';
+    }
+    echo "<option value='".$year[$i]."'".$isSelected.">".$year[$i]."</option>";
+}}
 ?>

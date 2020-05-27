@@ -1,16 +1,36 @@
 <?php
 //mircea
 //put all countries in select
-$rez=DBAcess::getInstance()::getCountries();
-$nr=$rez->fetch_assoc();
-echo "<option value=Any selected>Any</option>";
-while($atacuri=$rez->fetch_assoc()){
-    $country=$atacuri["country_txt"];
-    if($country==$_POST['country'])
+
+$jsonString = file_get_contents("http://localhost/web/WebTechnologiesProj/getAllDataServiceProvider.php/");
+//deserialization to array
+$resultsArray = json_decode($jsonString, true);
+// getting the array size
+$responseSize = $resultsArray["dataSz"];
+
+//making an array with all the country names
+for($i = 0; $i < $responseSize ; $i ++) {
+    $country[$i]=$resultsArray[$i]["country_txt"];
+    
+}
+//remove duplicates
+$country=array_unique($country);
+//sort alphabetically
+sort($country);
+//put the option in the select
+if('Any'==$_POST['country'])
     $isSelected = ' selected="selected"';
     else{
         $isSelected = '';
     }
-    echo "<option value='".$country."'".$isSelected.">$country</option>";
-}
+echo "<option value='Any'".$isSelected.">Any</option>";
+for($i = 0; $i < $responseSize ; $i ++){
+if($country[$i]!=NULL){
+if($country[$i]==$_POST['country'])
+    $isSelected = ' selected="selected"';
+    else{
+        $isSelected = '';
+    }
+    echo "<option value='".$country[$i]."'".$isSelected.">".$country[$i]."</option>";
+}}
 ?>
