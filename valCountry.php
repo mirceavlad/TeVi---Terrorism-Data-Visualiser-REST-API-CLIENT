@@ -2,7 +2,7 @@
 //mircea
 //put all countries in select
 
-$jsonString = file_get_contents("http://localhost/web/WebTechnologiesProj/getAllDataServiceProvider.php/");
+$jsonString = file_get_contents("http://localhost/WebTechnologiesProj/getAllDataServiceProvider.php/");
 //deserialization to array
 $resultsArray = json_decode($jsonString, true);
 // getting the array size

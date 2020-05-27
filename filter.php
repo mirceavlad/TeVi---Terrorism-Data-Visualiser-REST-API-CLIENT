@@ -40,7 +40,9 @@
       {$nr  = $_POST["pages"];
       }
       else $nr=1;
-$jsonString = file_get_contents("http://localhost/web/WebTechnologiesProj/attacksDataServiceProvider.php/?pages=$nr&country=$country&year=$year&weapon=$weapon");
+      $country= str_replace(' ', '%20', $country);
+      $weapon= str_replace(' ', '%20', $weapon);
+$jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?pages=$nr&country=$country&year=$year&weapon=$weapon");
     //deserialization to array
     $resultsArray = json_decode($jsonString, true);
     // getting the array size

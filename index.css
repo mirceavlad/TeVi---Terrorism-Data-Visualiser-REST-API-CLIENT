@@ -67,7 +67,7 @@ body{
 
 }
 
-#select1, #select2,#select3{
+#selectForm{
   position: relative;
   left: 40%;
   top: 4%;

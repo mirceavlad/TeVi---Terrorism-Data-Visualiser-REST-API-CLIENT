@@ -4,7 +4,7 @@
     
     // makes a request to attacks api, and it sould output an html containing the app frontend
     //performing request
-    $jsonString = file_get_contents("http://localhost/web/WebTechnologiesProj/attacksDataServiceProvider.php/");
+    $jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/");
     //deserialization to array
     $resultsArray = json_decode($jsonString, true);
     // getting the array size
