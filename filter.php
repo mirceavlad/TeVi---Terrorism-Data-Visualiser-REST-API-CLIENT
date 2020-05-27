@@ -24,20 +24,20 @@
         $weapon=$atacuri["weaptype1_txt"];
       echo "<li><a class='country'>$country</a><a>$year</a><a>$weapon</a></li>"; 
       }*/
-      if(isset($_GET["country"]))
-      {$country  = $_GET["country"];
+      if(isset($_POST["country"]))
+      {$country  = $_POST["country"];
       }
       else $country="Any";
-      if(isset($_GET["year"]))
-      {$year  = $_GET["year"];
+      if(isset($_POST["year"]))
+      {$year  = $_POST["year"];
       }
       else $year="Any";
-      if(isset($_GET["weapon"]))
-      {$weapon  = $_GET["weapon"];
+      if(isset($_POST["weapon"]))
+      {$weapon  = $_POST["weapon"];
       }
       else $weapon="Any"; 
-      if(isset($_GET["pages"]))
-      {$nr  = $_GET["pages"];
+      if(isset($_POST["pages"]))
+      {$nr  = $_POST["pages"];
       }
       else $nr=1;
       $country= str_replace(' ', '%20', $country);
