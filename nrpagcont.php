@@ -14,7 +14,7 @@ if(isset($_POST["country"]))
     }
     else $weapon="Any"; 
 
-$jsonString = file_get_contents("http://localhost/WebTechnologiesProj/countDataServiceProvider.php/?country=$country&year=$year&weapon=$weapon");
+$jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?flag=4&country=$country&year=$year&weapon=$weapon");
 //deserialization to array
 $resultsArray = json_decode($jsonString, true);
 // getting the array size

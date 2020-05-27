@@ -27,7 +27,7 @@
     else $weapon="Any"; 
     $country= str_replace(' ', '%20', $country);
     $weapon= str_replace(' ', '%20', $weapon);
-   $jsonString = file_get_contents("http://localhost/WebTechnologiesProj/mapDataServiceProvider.php/?country=$country&year=$year&weapon=$weapon");
+   $jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?flag=1&country=$country&year=$year&weapon=$weapon");
 //deserialization to array
 $resultsArray = json_decode($jsonString, true);
 // getting the array size
@@ -36,10 +36,18 @@ echo "var mapPoints=[];";
 for($i = 0; $i < $responseSize ; $i ++) {
       $long=$resultsArray[$i]["longitude"];
       $lat=$resultsArray[$i]["latitude"];
-     echo " var pt = new google.maps.Marker({ position: {lat : parseFloat( ".$lat." ),
+      $currentYear=$resultsArray[$i]["iyear"];
+      $currentWeapon=$resultsArray[$i]["weaptype1_txt"];
+     echo " 
+     var info=\"Year: ".$currentYear." Weapon: ".$currentWeapon."\"; 
+     var infoWindow=new google.maps.InfoWindow({ content:info});
+     var pt = new google.maps.Marker({ position: {lat : parseFloat( ".$lat." ),
       lng : parseFloat( ".$long." ) }});
-        pt.setMap(map);
-        points.push(pt);";
+      
+      pt.setMap(map);
+        points.push(pt);
+        google.maps.event.addListener(pt,'click',function(){infoWindow.open(map,pt)});
+        ";
     }
 
 ?>}
