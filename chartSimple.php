@@ -71,6 +71,6 @@
     </script>
 </head>
 <body>
-    <div id="regions_div" style="width: 100%; height: 1000px;"></div>
+    <div id="regions_div" style="width: 100%; height: 100%;"></div>
 </body>
 </html>

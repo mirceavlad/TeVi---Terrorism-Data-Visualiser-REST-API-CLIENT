@@ -80,6 +80,6 @@
     </script>
 </head>
 <body>
-    <div id="geochart-colors" style="width: 100%; height: 1000px;"></div>
+    <div id="geochart-colors" style="width: 100%; height: 100%;"></div>
 </body>
 </html>
