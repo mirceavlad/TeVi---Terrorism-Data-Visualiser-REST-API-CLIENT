@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html>  
-   <head>
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<html>
+<head>
+  <!-- maria -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {
         'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+  
         'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
+      google.charts.setOnLoadCallback(rawRegionsMapAfrica());
 
       function drawRegionsMap() {
         <?php
-         //maria
-         $year = "Any";
+        $year = "Any";
          $weapon = "Any";
 
          $country = array();
@@ -50,10 +50,8 @@
           
          }
         
-        
-       
-            echo "
-        var data = google.visualization.arrayToDataTable([
+        echo "
+            var data = google.visualization.arrayToDataTable([
           ['Country',   'Terrorist Attacks'],";
           for($i = 0; $i < sizeof($country) - 1; $i ++) {
           echo "[\"".$country[$i]."\", ".$value[$i]."],";
@@ -62,24 +60,17 @@
           
         echo" 
         ]);";
-        
-        
-        echo"
-        var options = {
-          
-          colorAxis: {colors: ['#00853f', 'black', '#e31b23']},
-          backgroundColor: '#81d4fa',
-          datalessRegionColor: '#f8bbd0',
-          defaultColor: '#f5f5f5',
-        };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
-        chart.draw(data, options);";
-        ?>
-      };
+          echo "var options = {};
+
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+          chart.draw(data, options);";
+          ?>
+      }
     </script>
 </head>
 <body>
-    <div id="geochart-colors" style="width: 100%; height: 1000px;"></div>
+    <div id="regions_div" style="width: 100%; height: 1000px;"></div>
 </body>
 </html>
