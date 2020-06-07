@@ -17,7 +17,7 @@
     <a onclick="openSearch()" class="txt filterTxt">FILTER</a>
     <a href="pag.php" class="txt listTxt">LIST</a>
     <a onclick="openSave()" class="txt saveTxt">SAVE</a>
-    <a href="CharColour.html" class="txt statsTxt">STATS</a>
+    <a href="chartColour.php" class="txt statsTxt">STATS</a>
   </div>
   <div id="map">
   </div>
