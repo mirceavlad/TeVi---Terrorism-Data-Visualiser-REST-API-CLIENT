@@ -3,12 +3,69 @@
    <head>
    </head>
    <body>
+   <form method="post" action="" name="form">  
+<label>Country</label>
+
+<select name="country">
+<?php
+//maria 
+    $countries = array();
+    $jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?flag=3");
+    //deserialization to array
+    $resultsArray = json_decode($jsonString, true);
+    // getting the array size
+    $responseSize = $resultsArray["dataSz"];
+    
+    //making an array with all the country names
+    for($i = 0; $i < $responseSize ; $i ++) {
+        $countries[$i] = $resultsArray[$i]["country_txt"];
+    }
+    //remove duplicates
+    $countries = array_unique($countries);
+    //sort alphabetically
+    sort($countries);
+    //put the option in the select
+    if(isset($_POST['country']) && 'Any'==$_POST['country'])
+        $isSelected = ' selected="selected"';
+        else{
+            $isSelected = '';
+        }
+
+    echo "<option value='Any'".$isSelected.">Any</option>";
+
+    for($i = 0; $i < sizeof($countries); $i ++){
+        if($countries[$i] != NULL){
+            if(isset($_POST['country']) && $countries[$i] == $_POST['country'])
+                $isSelected = ' selected = "selected"';
+                
+            else{
+            $isSelected = '';
+            }
+        echo "<option value='".$countries[$i]."'".$isSelected.">".$countries[$i]."</option>";
+        }
+    }
+    
+    ?>
+
+
+</select>
+
+</form>
       <div id="barGraph" style="width: 100%; height:100%;">
       </div>
       
       
       <script>
-      //maria 
+      
+         function drawByCountrySelect(){
+            <?php
+             if(isset($_POST["country"]))
+                 {$country  = $_POST["country"];
+                  echo $country;
+                 }
+            ?>
+
+         }
          function draw() {
          /* Accepting and seperating comma seperated values */
          
@@ -231,6 +288,7 @@
           var canvas = document.getElementById('myCanvas');
           var ctx = canvas.getContext('2d');
          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     }
       
       </script>
@@ -240,7 +298,9 @@
     <input type="button" value="Weapon Stats" name="submit" onclick="drawWeaponStats()">
     <input type="button" value="Year Stats" name="submit" onclick="drawYearStats()">
     <input type="button" value="Clear" name="Clear" onclick="reset()">
+    <input name="submit" type="button" value="Submit " onclick="drawByCountrySelect()">
       <canvas id="myCanvas" width="7800" height="10500"
  style=" border:1px="" solid="" #c3c3c3;"="">
+
     </canvas>
 </html>
