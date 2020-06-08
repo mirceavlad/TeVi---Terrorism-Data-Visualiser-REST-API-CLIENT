@@ -28,23 +28,23 @@
       <label for="countryChoose">Choose a country:</label>
       <select id="countryChoose" name="country">
        <?php
-        include 'valCountry.php';
-       ?>
-      </select></div>
+include 'valCountry.php';
+?>
+    </select></div>
     <div id="select2">
       <label for="yearChoose">Choose a year:</label>
       <select id="yearChoose" name="year">
       <?php
-        include 'valYear.php';
-       ?>
-      </select></div>
+include 'valYear.php';
+?>
+    </select></div>
     <div id="select3">
       <label for="weaponChoose">Choose a weapon:</label>
       <select id="weaponChoose" name="weapon">
       <?php
-        include 'valWeapon.php';
-       ?>
-      </select></div>
+include 'valWeapon.php';
+?>
+    </select></div>
       <input name="submit" type="submit" value="Submit">
 </form>
   </div>
@@ -59,8 +59,9 @@
     <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
     <div id="butoane">
       <button class="btn btn1">CSV</button>
-      <button class="btn btn2">SVG</button>
-      <a id="save" onclick="savePNG()"><button class="btn btn3">PNG</button>
+      <button class="btn btn2" >SVG</button>
+      <button class="btn btn3" onclick = "location.href='downloadPNG.php'">PNG</button>
+      
 
     </div>
   </div>
@@ -84,54 +85,12 @@
  
    }
 
-   function savePNG(){
-     //maria
-      <?php
-      $country="Any";
-      $year="Any";
-      $weapon="Any"; 
 
-
-      $jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?flag=1&country=$country&year=$year&weapon=$weapon");
-
-      $resultsArray = json_decode($jsonString, true);
-
-      $responseSize = $resultsArray["dataSz"];
-
-    $long = array();
-    $lat = array();
-
-    for($i = 0; $i < $responseSize ; $i ++) {
-      $long[$i]=$resultsArray[$i]["longitude"];
-      $lat[$i]=$resultsArray[$i]["latitude"];
-      
-    }
-    
-    $totalMarkers = 'markers=color:red%7Clabel:%7C'.$lat[0].','.$long[0];
-    /*$image = file_get_contents
-    ('https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=1&size=1024x2048&key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo'); */
-    for($i = 1; $i < 100 ; $i ++){
-      if($long[$i]!=NULL && $lat[$i]!=NULL){
-
-       $totalMarkers =  $totalMarkers.'&markers=color:red%7Clabel:%7C'.$lat[$i].','.$long[$i];
-      }
-    }
-
-
-   
-    $image = file_get_contents("https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=1&size=2024x4048&maptype=roadmap&".$totalMarkers."&key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo");
-    $fp  = fopen('GoogleMap.png', 'w+'); 
-
-    fputs($fp, $image); 
-
-     ?>
-
-   }
 
   </script>
     <?php
-    include 'map.php';
-    ?>
+include 'map.php';
+?>
 </body>
 
 </html>
