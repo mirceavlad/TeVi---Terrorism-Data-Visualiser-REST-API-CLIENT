@@ -52,7 +52,12 @@ include 'valWeapon.php';
   <div id="saveside">
     <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
     <div id="butoane">
-      <button class="btn btn1">CSV</button>
+    <form action="downloadCSV.php" method="post">
+      <?php
+        include 'paramCSV.php';
+      ?>
+      <input type="submit" class="btn btn1" value="CSV">
+    </form>
       <button class="btn btn2" >SVG</button>
       <button class="btn btn3" onclick = "location.href='downloadPNG.php'">PNG</button>
       
