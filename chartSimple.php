@@ -10,7 +10,7 @@
         'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
-      google.charts.setOnLoadCallback(rawRegionsMapAfrica());
+    
 
       function drawRegionsMap() {
         <?php
