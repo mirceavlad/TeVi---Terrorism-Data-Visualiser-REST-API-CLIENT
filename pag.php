@@ -14,7 +14,7 @@ list all attacks and filter
 <form method="post" action="index.php">
 <button type="submit">Back to the map</button>
 </form>
-<form method="post" action="" name="form">  
+<form method="post" name="form">  
 <label>Country:</label>
 
 <select name="country">

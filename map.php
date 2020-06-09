@@ -1,6 +1,9 @@
-<DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Map</title>
     </head>
     <body>
     <div id="map" style="width: 100%; height:100%;">
@@ -65,7 +68,6 @@ for($i = 0; $i < $responseSize ; $i ++) {
 ?>}
     
   </script>
-        </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo&callback=initMap"></script>
     </body>
 </html>

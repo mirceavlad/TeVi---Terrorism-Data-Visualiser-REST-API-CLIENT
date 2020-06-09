@@ -42,11 +42,6 @@ body{
     font-weight: bolder;
     display: block;
   }
-  
-  .fa-floppy-o, .fa-info-circle{
-      font-size: 4rem !important;
-      padding: 0.2rem;
-  }
 
   .sidebar a:hover {
     color: #f1f1f1;
@@ -74,24 +69,6 @@ body{
 
 }
 
-#lista, #lista1{
-    position: relative;
-    left: 20%;
-    color:white;
-    font-size:20pt;
-    width:60%;
-    height: 68%;
-    top: 5%;
-    overflow-y: scroll;
-}
-
-#lista li, #lista1 li{
-    background-color:red;
-    border:solid 0.2rem white;
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-}
-
 .btn{
     height: 3rem;
     width: 8rem;
@@ -103,7 +80,7 @@ body{
     border-radius:5%;
     border:0.1rem solid white;
 }
-#butoane{
+.butoane{
     position: relative;
     left: 40%;
     width: 50%;
@@ -122,25 +99,15 @@ body{
     border: 0.1rem solid white;
 }
 
-#close{
-  font-family:"Arial Black", Gadget, sans-serif;
-  font-size: 1rem;
-  color: white;
-  display:block;
-  position: relative;
-  left:85%;
-  top: 3%;
-}
-
-#listside #lista1{
-  height: 87%;
-}
-
-#closebtn{
+.closebtn{
   background-color: #282828;
   border: 0.1rem solid #DB1717;
   color: white;
   border-radius: 15%;
+  display:block;
+  position: relative;
+  left:90%;
+  top: 3%;
 }
 
 #map{

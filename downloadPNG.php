@@ -1,7 +1,18 @@
 <?php
-$country = "Any";
-$year    = "Any";
-$weapon  = "Any";
+if(isset($_POST["country"]))
+{$country  = $_POST["country"];
+}
+else $country="Any";
+if(isset($_POST["year"]))
+{$year  = $_POST["year"];
+}
+else $year="Any";
+if(isset($_POST["weapon"]))
+{$weapon  = $_POST["weapon"];
+}
+else $weapon="Any"; 
+$country= str_replace(' ', '%20', $country);
+$weapon= str_replace(' ', '%20', $weapon);
 
 
 $jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?flag=1&country=$country&year=$year&weapon=$weapon");
@@ -21,8 +32,10 @@ for ($i = 0; $i < $responseSize; $i++) {
 
 $totalMarkers = 'markers=color:red%7Clabel:%7C' . $lat[0] . ',' . $long[0];
 
-
-for ($i = 1; $i < 300; $i++) {
+$maxNr=300;
+if($maxNr>$responseSize)
+$maxNr=$responseSize;
+for ($i = 1; $i < $maxNr; $i++) {
     if ($long[$i] != NULL && $lat[$i] != NULL) {
         
         $totalMarkers = $totalMarkers . '&markers=color:red%7Clabel:%7C' . $lat[$i] . ',' . $long[$i];
