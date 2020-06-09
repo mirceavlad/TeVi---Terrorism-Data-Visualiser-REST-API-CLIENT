@@ -21,7 +21,8 @@ for ($i = 0; $i < $responseSize; $i++) {
 
 $totalMarkers = 'markers=color:red%7Clabel:%7C' . $lat[0] . ',' . $long[0];
 
-for ($i = 1; $i < 100; $i++) {
+
+for ($i = 1; $i < 300; $i++) {
     if ($long[$i] != NULL && $lat[$i] != NULL) {
         
         $totalMarkers = $totalMarkers . '&markers=color:red%7Clabel:%7C' . $lat[$i] . ',' . $long[$i];

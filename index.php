@@ -17,7 +17,7 @@
     <a onclick="openSearch()" class="txt filterTxt">FILTER</a>
     <a href="pag.php" class="txt listTxt">LIST</a>
     <a onclick="openSave()" class="txt saveTxt">SAVE</a>
-    <a href="chartColour.php" class="txt statsTxt">STATS</a>
+    <a onclick="openStats()" class="txt statsTxt">STATS</a>
   </div>
   <div id="map">
   </div>
@@ -64,13 +64,29 @@ include 'valWeapon.php';
       
 
     </div>
-  </div>
+    </div>
+    <div id="statsside">
+    <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
+    <div id="butoane">
+      <button class="btn btn1">1</button>
+      <button class="btn btn2" >2</button>
+      <button class="btn btn3" >3</button>
+      
+
+    </div>
+</div>
   <script>
     function openSearch() {
       document.getElementById("searchside").style.width = "20rem";
       document.getElementById("listside").style.width = "0%";
       document.getElementById("saveside").style.width = "0%";
 
+    }
+
+    function openStats() {
+      document.getElementById("statsside").style.width = "20rem";
+      document.getElementById("saveside").style.width = "0%";
+      document.getElementById("searchside").style.width = "0";
     }
     
     function openSave() {

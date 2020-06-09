@@ -16,7 +16,7 @@ body{
     margin-top: 2%;
   }
 
-  #searchside, #listside, #saveside{
+  #searchside, #listside, #saveside, #statsside{
     height: 100%;
     width: 0%;
     position: fixed;
