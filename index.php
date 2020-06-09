@@ -48,13 +48,7 @@ include 'valWeapon.php';
       <input name="submit" type="submit" value="Submit">
 </form>
   </div>
-  <div id="listside">
-    <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
-    <ul id="lista1" style="list-style-type:none;">
-    
-    </ul>
-
-  </div>
+  
   <div id="saveside">
     <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
     <div id="butoane">
@@ -65,12 +59,12 @@ include 'valWeapon.php';
 
     </div>
     </div>
-    <div id="statsside">
+  <div id="statsside">
     <a id="close" onclick="closeNav()"><button id="closebtn">X</button></a>
     <div id="butoane">
-      <button class="btn btn1">1</button>
-      <button class="btn btn2" >2</button>
-      <button class="btn btn3" >3</button>
+      <button class="btn btn4" onclick = "location.href='chartSimple.php'">Geo Map Simple</button>
+      <button class="btn btn5" onclick = "location.href='barGraph.php'">Bar Chart</button>
+      <button class="btn btn6" onclick = "location.href='chartColour.php'">Geo Map Coloured</button>
       
 
     </div>
@@ -78,8 +72,8 @@ include 'valWeapon.php';
   <script>
     function openSearch() {
       document.getElementById("searchside").style.width = "20rem";
-      document.getElementById("listside").style.width = "0%";
       document.getElementById("saveside").style.width = "0%";
+      document.getElementById("statsside").style.width = "0%";
 
     }
 
@@ -92,12 +86,12 @@ include 'valWeapon.php';
     function openSave() {
       document.getElementById("saveside").style.width = "20rem";
       document.getElementById("searchside").style.width = "0%";
-      document.getElementById("listside").style.width = "0%";
+      document.getElementById("statsside").style.width = "0%";
     }
     function closeNav() {
       document.getElementById("searchside").style.width = "0";
-      document.getElementById("listside").style.width = "0";
       document.getElementById("saveside").style.width = "0";
+      document.getElementById("statsside").style.width = "0%";
  
    }
 

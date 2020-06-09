@@ -110,6 +110,17 @@ body{
     top: 20%;
     height: 70%;
 }
+.btn4,.btn5,.btn6 {
+    height: 10rem;
+    width: 10rem;
+    margin-top: 3rem;
+    color: black;
+    font-weight: bolder;
+    font-size: 2rem;
+    background-color: rgb(113, 223, 113);
+    border-radius: 5%;
+    border: 0.1rem solid white;
+}
 
 #close{
   font-family:"Arial Black", Gadget, sans-serif;
