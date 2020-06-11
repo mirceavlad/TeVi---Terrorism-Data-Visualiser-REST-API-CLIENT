@@ -111,7 +111,6 @@ body{
 }
 
 #map{
-  height:100%;
   float: right;
   position: relative;
   margin-left: auto;
