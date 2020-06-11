@@ -10,9 +10,9 @@
             }
             self::$mysql = new mysqli (
                                        'localhost', // locatia serverului (aici, masina locala)
-                                       'lyvinfro_usr',       // numele de cont
-                                       'Tavi1609',    // parola (atentie, in clar!)
-                                       'lyvinfro_terror'   // baza de date
+                                       'root',       // numele de cont
+                                       '',    // parola (atentie, in clar!)
+                                       'terrordb'   // baza de date
                                        );
         }
         
