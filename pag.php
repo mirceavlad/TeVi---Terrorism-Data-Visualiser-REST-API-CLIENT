@@ -11,10 +11,10 @@ list all attacks and filter
 <title>Attacks list</title>
 </head>
 <body>
-<form method="post" action="index.php">
+<form method="post" action="http://www.lyvinfront.ro/WebTechnologiesProj/index.php">
 <button type="submit">Back to the map</button>
 </form>
-<form method="post" name="form">  
+<form method="post" name="form">
 <label>Country:</label>
 
 <select name="country">
@@ -44,7 +44,7 @@ list all attacks and filter
 </form>
 <ol id="lista" style="position:relative; left: 200px">
 <?php
-   include "filter.php";
+   include "http://www.lyvinfront.ro/WebTechnologiesProj/filter.php";
     ?></ol>
 </body>
 </html>

@@ -10,9 +10,9 @@
             }
             self::$mysql = new mysqli (
                                        'localhost', // locatia serverului (aici, masina locala)
-                                       'root',       // numele de cont
-                                       '',    // parola (atentie, in clar!)
-                                       'terrordb'   // baza de date
+                                       'lyvinfro_usr',       // numele de cont
+                                       'Tavi1609',    // parola (atentie, in clar!)
+                                       'lyvinfro_terror'   // baza de date
                                        );
         }
         
@@ -71,8 +71,8 @@
             $query_results = self::selectAll();
             return self::toJsonString($query_results);
         }
-
-
+        
+        
         //maria
         public function selectByCoord($country,$year,$weapon){
             if($country=='Any')
@@ -85,13 +85,13 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt, latitude, longitude FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-
+        
         //maria
         public function selectByCoordJson($country,$year,$weapon){
             $queryResult = self::selectByCoord($country,$year,$weapon);
             return self::toJsonString($queryResult);
         }
-
+        
         //mircea
         //selects attacks between 2 nr
         public function selectBetween($nr,$country,$year,$weapon){
@@ -129,7 +129,7 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT COUNT(*) AS NR ,country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');;
         }
-
+        
         //maria
         //selects total nr of attacks
         //returns a string representin data as json
@@ -151,9 +151,9 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-
+        
         //maria
-         //select by country, year and weapon
+        //select by country, year and weapon
         //returns a string representin data as json
         public function selectByJson($country,$year,$weapon){
             $queryResult = self::selectBy($country,$year,$weapon);
@@ -167,7 +167,7 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt');
         }
-
+        
         //maria
         //get all countries
         //returns a string representin data as json
@@ -183,9 +183,9 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT iyear FROM ATTACKS ORDER BY iyear');
         }
-
+        
         //maria
-         //get all years
+        //get all years
         //returns a string representin data as json
         public function getYearsJson(){
             $queryResult = self::getYears();
@@ -199,14 +199,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT weaptype1_txt FROM ATTACKS ORDER BY weaptype1_txt');
         }
-
+        
         //maria
         //get all weapons
-       //returns a string representin data as json
-       public function getWeaponsJson(){
-        $queryResult = self::getWeapons();
-        return self::toJsonString($queryResult);
-       }
+        //returns a string representin data as json
+        public function getWeaponsJson(){
+            $queryResult = self::getWeapons();
+            return self::toJsonString($queryResult);
+        }
         //milea octavian
         // encodes a db query into a json, (key: int, value-> array of each db select result), and a pair(key: "size", value: "int"))
         // which represents the numberof results;

@@ -1,6 +1,7 @@
 <?php
     //octavian+mircea
     include 'DBAcess.php';
+    $key = "some_key";
     if(isset($_GET["flag"]))
     $flag=$_GET["flag"];
     else $flag=1;
@@ -20,7 +21,7 @@
     {$nr  = $_GET["pages"];
     }
     else $nr=1;
-    if(!isset($_GET["csv"])) {
+    if(!isset($_GET["csv"]) && !isset($_POST["key"])) {
         switch ($flag) {
             case 1:
                 $rez=DBAcess::getInstance()::selectByCoordJson($country, $year, $weapon);
@@ -42,7 +43,7 @@
                 $rez=DBAcess::getInstance()::selectByCoordJson($country, $year, $weapon);
                 echo $rez;
         }
-    } else {
+    } else if(!isset($_POST["key"]) && isset($_GET["csv"])) {
         $rez = null;
         switch ($flag) {
             case 1:
@@ -83,5 +84,13 @@
             readfile($filename);
         }
         unlink($filename);
+    } else if(isset($_POST["key"])) {
+        if($_POST["key"] == $key) {
+            $valuesToInsert = $_POST;
+            unset($valuesToInsert["key"]);
+            DBAcess::getInstance()::addAttack($valuesToInsert);
+        } else {
+            echo "status 400 bad request";
+        }
     }
     ?>
