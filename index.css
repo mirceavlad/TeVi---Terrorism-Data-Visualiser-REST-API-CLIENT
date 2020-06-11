@@ -84,11 +84,12 @@ body{
     position: relative;
     left: 40%;
     width: 50%;
-    top: 20%;
+  top: 15%;
     height: 70%;
 }
+
 .btn4,.btn5,.btn6 {
-    height: 10rem;
+    height: 6rem;
     width: 10rem;
     margin-top: 3rem;
     color: black;
