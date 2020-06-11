@@ -2,7 +2,7 @@
 <html>  
    <head>
    </head>
-   <body style = "background-color:#202020;">
+   <body>
 
 <form action="#" method="post">    
 
@@ -130,7 +130,7 @@ if(isset($_POST['submit'])){
 
          ctx.fillStyle = '#4da6ff';
 
-         var currentyear = \"".$year[$i].": ".$value[$i]."\";
+         var currentyear = \"".$year[$i]."\";
          ctx.fillText(currentyear, X - 50 , canvas.height - h - 10);";
          
      }
@@ -197,7 +197,7 @@ if(isset($_POST['submit'])){
 
           ctx.fillStyle = '#852252';
 
-          var currentweapon = \"".$weapon[$i].": ".$value[$i]."\";
+          var currentweapon = \"".$weapon[$i]."\";
           ctx.fillText(currentweapon, X - 50 + 1000 , canvas.height - h - 10);";
           
       }
@@ -272,7 +272,7 @@ if(isset($_POST['submit'])){
 
              ctx.fillStyle = '#4da6ff';
 
-             var currentCountry = \"".$country[$i].": ".$value[$i]."\";
+             var currentCountry = \"".$country[$i]."\";
              ctx.fillText(currentCountry, X - 50 , canvas.height - h - 10);";
              
          }
@@ -345,7 +345,7 @@ if(isset($_POST['submit'])){
 
              ctx.fillStyle = '#4da6ff';
 
-             var currentweapon = \"".$weapon[$i].": ".$value[$i]."\";
+             var currentweapon = \"".$weapon[$i]."\";
              ctx.fillText(currentweapon, X - 50 , canvas.height - h - 10);";
              
          }
@@ -418,7 +418,7 @@ if(isset($_POST['submit'])){
 
              ctx.fillStyle = '#4da6ff';
 
-             var currentyear = \"".$year[$i].": ".$value[$i]."\";;
+             var currentyear = \"".$year[$i]."\";
              ctx.fillText(currentyear, X - 50 , canvas.height - h - 10);";
              
          }

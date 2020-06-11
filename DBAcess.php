@@ -10,9 +10,9 @@
             }
             self::$mysql = new mysqli (
                                        'localhost', // locatia serverului (aici, masina locala)
-                                       'lyvinfro_usr',       // numele de cont
-                                       'Tavi1609',    // parola (atentie, in clar!)
-                                       'lyvinfro_terror'   // baza de date
+                                       'root',       // numele de cont
+                                       '',    // parola (atentie, in clar!)
+                                       'terrordb'   // baza de date
                                        );
         }
         
@@ -43,6 +43,12 @@
         //where the key value(array index) should be a string representing the columnName and the value
         //should be a string representing the value to be added at the respective column
         public function addAttack(array $attakDataMap) {
+            foreach ($attakDataMap as $key => $value) {
+                if((strpos($key, '\'') !== false || strpos($value, '\'') !== false)) {
+                    echo $key."".$value."not alphanumeric";
+                    return;
+                }
+            }
             $columnsToInsert = '';
             $valuesToInsert = '';
             foreach ($attakDataMap as $key => $value) {
@@ -71,10 +77,14 @@
             $query_results = self::selectAll();
             return self::toJsonString($query_results);
         }
-        
-        
+
+
         //maria
         public function selectByCoord($country,$year,$weapon){
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             if($country=='Any')
                 $country='%';
             if($year=='Any')
@@ -85,16 +95,24 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt, latitude, longitude FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-        
+
         //maria
         public function selectByCoordJson($country,$year,$weapon){
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             $queryResult = self::selectByCoord($country,$year,$weapon);
             return self::toJsonString($queryResult);
         }
-        
+
         //mircea
         //selects attacks between 2 nr
         public function selectBetween($nr,$country,$year,$weapon){
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             if($country=='Any')
                 $country='%';
             if($year=='Any')
@@ -112,6 +130,10 @@
         //selects attacks between 2 nr
         //returns a string representin data as json
         public function selectBetweenJson($nr, $country, $year, $weapon) {
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             $queryResult = self::selectBetween($nr, $country, $year, $weapon);
             return self::toJsonString($queryResult);
         }
@@ -119,6 +141,10 @@
         //mircea
         //selects total nr of attacks
         public function totalNr($country,$year,$weapon){
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             if($country=='Any')
                 $country='%';
             if($year=='Any')
@@ -129,11 +155,15 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT COUNT(*) AS NR ,country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');;
         }
-        
+
         //maria
         //selects total nr of attacks
         //returns a string representin data as json
         public function totalNrJson($country,$year,$weapon){
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             $queryResult = self::totalNr($country,$year,$weapon);
             return self::toJsonString($queryResult);
         }
@@ -141,6 +171,10 @@
         //mircea
         //select by country, year and weapon
         public function selectBy($country,$year,$weapon){
+            if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                echo "status 400 bad request";
+                return;
+            }
             if($country=='Any')
                 $country='%';
             if($year=='Any')
@@ -151,9 +185,9 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-        
+
         //maria
-        //select by country, year and weapon
+         //select by country, year and weapon
         //returns a string representin data as json
         public function selectByJson($country,$year,$weapon){
             $queryResult = self::selectBy($country,$year,$weapon);
@@ -167,7 +201,7 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt');
         }
-        
+
         //maria
         //get all countries
         //returns a string representin data as json
@@ -183,9 +217,9 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT iyear FROM ATTACKS ORDER BY iyear');
         }
-        
+
         //maria
-        //get all years
+         //get all years
         //returns a string representin data as json
         public function getYearsJson(){
             $queryResult = self::getYears();
@@ -199,14 +233,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT weaptype1_txt FROM ATTACKS ORDER BY weaptype1_txt');
         }
-        
+
         //maria
         //get all weapons
-        //returns a string representin data as json
-        public function getWeaponsJson(){
-            $queryResult = self::getWeapons();
-            return self::toJsonString($queryResult);
-        }
+       //returns a string representin data as json
+       public function getWeaponsJson(){
+        $queryResult = self::getWeapons();
+        return self::toJsonString($queryResult);
+       }
         //milea octavian
         // encodes a db query into a json, (key: int, value-> array of each db select result), and a pair(key: "size", value: "int"))
         // which represents the numberof results;
