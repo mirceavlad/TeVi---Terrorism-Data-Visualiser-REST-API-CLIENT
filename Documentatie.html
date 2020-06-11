@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentatie</title>
+</head>
+<body prefix="schema: http://schema.org/">
+    <header>
+        <p class="title" style="font-size: 2rem;font-weight: bolder;text-align: center;">Terrorism Web Project</p>
+    </header>
+
+    <article id="doc" typeof="schema:ScholarlyArticle" resource="#">
+        <h1>Documentation</h1>
+        <section id="structure">
+            <h3>The project is composed of 3 main parts:</h3>
+            <ol>
+                <li>
+                    The api which returns data representations of the terrorist attacks table data.
+                </li>
+                <li>
+                    The backend of the web app whis is displaying the data.
+                </li>
+                <li>
+                    The frontend of the app, containing the code for controlling the UI which the user can see
+                </li>
+            </ol>
+        </section>
+        <section id="implementation">
+            <h3>Implementation details</h3>
+            <ol>
+                <li>
+                    The API: - The only part that talks directly to the database, filtering data and returning either csv representations of the data, or JSON representations of the data.
+                    JSON Representations are created through array serialization, and there is also a field, called dataSz, which contains the serialized  array internal size, so it can be deserialized and  iterated.
+                    Regarding .CSV representations, the API gets the data from the database, generates a .csv file with a random unique id, writes the data from the database into it, then it sends the file to the client(by performing a read operation,  using the default stdin/stdout(which is actually the client browser)), and when the read is complete, it deletes the file from the server.                </li>
+                <li>
+                    The app backend - Performs queries to the API, processes the data, and generates redirects to the correct html files.
+                </li>
+                <li>
+                    Frontend - Places the markers on the map and displays the data to the user.                </li>
+            </ol>
+        </section>
+        <section id="design">
+            <h3>General concepts for design:</h3>
+            <ul>
+                <li>
+                    MVC design - Data acces is made through a  Singleton connection
+                </li>
+                <li>
+                    Controllers - Get the data and creates the views
+                </li>
+
+                <li>
+                    Views are independent from controllers
+                </li>
+                
+            </ul>
+        </section>
+        </article>
+</body>
+</html>
