@@ -2,7 +2,7 @@
 <html>  
    <head>
    </head>
-   <body>
+   <body style = "background-color:#202020;">
 
 <form action="#" method="post">    
 
@@ -127,10 +127,8 @@ if(isset($_POST['submit'])){
          ctx.fillRect(X, canvas.height - h, width, h);
           
          X +=  width+15;
-
          ctx.fillStyle = '#4da6ff';
-
-         var currentyear = \"".$year[$i]."\";
+         var currentyear = \"".$year[$i].": ".$value[$i]."\";
          ctx.fillText(currentyear, X - 50 , canvas.height - h - 10);";
          
      }
@@ -194,10 +192,8 @@ if(isset($_POST['submit'])){
           ctx.fillRect(X + 1000, canvas.height - h, width, h);
            
           X +=  width+15;
-
           ctx.fillStyle = '#852252';
-
-          var currentweapon = \"".$weapon[$i]."\";
+          var currentweapon = \"".$weapon[$i].": ".$value[$i]."\";
           ctx.fillText(currentweapon, X - 50 + 1000 , canvas.height - h - 10);";
           
       }
@@ -269,10 +265,8 @@ if(isset($_POST['submit'])){
              ctx.fillRect(X, canvas.height - h, width, h);
               
              X +=  width+15;
-
              ctx.fillStyle = '#4da6ff';
-
-             var currentCountry = \"".$country[$i]."\";
+             var currentCountry = \"".$country[$i].": ".$value[$i]."\";
              ctx.fillText(currentCountry, X - 50 , canvas.height - h - 10);";
              
          }
@@ -342,10 +336,8 @@ if(isset($_POST['submit'])){
              ctx.fillRect(X, canvas.height - h, width, h);
               
              X +=  width+15;
-
              ctx.fillStyle = '#4da6ff';
-
-             var currentweapon = \"".$weapon[$i]."\";
+             var currentweapon = \"".$weapon[$i].": ".$value[$i]."\";
              ctx.fillText(currentweapon, X - 50 , canvas.height - h - 10);";
              
          }
@@ -415,10 +407,8 @@ if(isset($_POST['submit'])){
              ctx.fillRect(X, canvas.height - h, width, h);
               
              X +=  width+15;
-
              ctx.fillStyle = '#4da6ff';
-
-             var currentyear = \"".$year[$i]."\";
+             var currentyear = \"".$year[$i].": ".$value[$i]."\";;
              ctx.fillText(currentyear, X - 50 , canvas.height - h - 10);";
              
          }
