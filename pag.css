@@ -1,4 +1,9 @@
 a{
     position: relative;
-    margin-left: 5px;
+    margin-left: 0.2rem;
+}
+
+#lista{
+    position:relative;
+    left:2rem;
 }

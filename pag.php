@@ -42,7 +42,7 @@ list all attacks and filter
 </select>
 <input name="submit" type="submit" value="Submit">
 </form>
-<ol id="lista" style="position:relative; left: 200px">
+<ol id="lista">
 <?php
    include "filter.php";
     ?></ol>
