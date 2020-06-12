@@ -20,7 +20,7 @@
       else $nr=1;
       $country= str_replace(' ', '%20', $country);
       $weapon= str_replace(' ', '%20', $weapon);
-$jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?pages=$nr&country=$country&year=$year&weapon=$weapon");
+$jsonString = file_get_contents("http://localhost/WebTechnologiesProj/attacksDataServiceProvider.php/?flag=2&pages=$nr&country=$country&year=$year&weapon=$weapon");
     //deserialization to array
     $resultsArray = json_decode($jsonString, true);
     // getting the array size
