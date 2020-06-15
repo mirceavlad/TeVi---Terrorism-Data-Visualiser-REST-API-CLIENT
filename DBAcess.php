@@ -62,23 +62,83 @@
                 printf("%s",self::$mysql->error);
             }
         }
-        //mircea
-        //selects all attacks
-        public function selectAll(){
-            if(!self::$mysql -> query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS'))
-                printf("%s",self::$mysql->error);
-            else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS');
+        
+        public function getAvailableFilterValuesAsJson($filtersDict) {
+            $res = self::getAttacksByFilters($filtersDict);
+            return self::mapPosibileFiltersValuesToJson($res);
+        }
+        
+        public function getAllAvailableFilters() {
+            $res = self::selectAll();
+            return self::mapPosibileFiltersValuesToJson($res);
+        }
+        
+        
+        public function getAttacksByFilters($filtersDict, $limit = null) {
+            $whereClause = "WHERE";
+            $isInitial = 1;
+            foreach($filtersDict as $key => $value) {
+                if($key == "intervals") {
+                    foreach($value as $intervalFilter => $intervalArray) {
+                        foreach($intervalArray as $intervalFieldName => $intervalEndpoints) {
+                            foreach($intervalEndpoints as $index => $intervalEndpoint) {
+                                if($index % 2 == 0) {
+                                    if($whereClause == "WHERE") {
+                                        $whereClause = $whereClause." ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
+                                        $isInitial = 0;
+                                    } else {
+                                        $whereClause = $whereClause." OR ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
+                                    }
+                                } else {
+                                    $whereClause = $whereClause." AND ".$intervalEndpoint;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    var_dump($value);
+                        if($whereClause == "WHERE") {
+                            $whereClause = $whereClause." ".$key." LIKE '".$value."'";
+                        } else {
+                            $whereClause = $whereClause." OR ".$key." LIKE '".$value."'";
+                        }
+                }
+            }
+            $res = null;
+            if($limit == null) {
+                $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause);
+            } else {
+                $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause.' LIMIT '.$limit.',3500');
+            }
+            echo'SELECT * FROM ATTACKS '.$whereClause;
+            return $res;
+        }
+        
+        public function getAttacksByFiltersAsJson($filtersDict, $limit = null) {
+            $res = null;
+            $res = self::getAttacksByFilters($filtersDict,$limit);
+            return self::toJsonString($res);
+        }
+        
+        
+        public function selectAll($limit = null) {
+            if($limit != null) {
+                $res = self::$mysql->query('SELECT * FROM ATTACKS LIMIT '.$limit.',3500');
+                return $res;
+            }
+            $res = self::$mysql->query('SELECT * FROM ATTACKS');
+            return $res;
         }
         
         //octavian
         //selects all from the terror db, converts it to a json,
         //returns a string representing data as json
-        public function selectAllAsJson() {
-            $query_results = self::selectAll();
+        public function selectAllAsJson($limit = null) {
+            $query_results = self::selectAll($limit);
             return self::toJsonString($query_results);
         }
-
-
+        
+        
         //maria
         public function selectByCoord($country,$year,$weapon){
             if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
@@ -95,7 +155,7 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt, latitude, longitude FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-
+        
         //maria
         public function selectByCoordJson($country,$year,$weapon){
             if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
@@ -105,7 +165,7 @@
             $queryResult = self::selectByCoord($country,$year,$weapon);
             return self::toJsonString($queryResult);
         }
-
+        
         //mircea
         //selects attacks between 2 nr
         public function selectBetween($nr,$country,$year,$weapon){
@@ -155,7 +215,7 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT COUNT(*) AS NR ,country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');;
         }
-
+        
         //maria
         //selects total nr of attacks
         //returns a string representin data as json
@@ -185,9 +245,9 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT country_txt,iyear,weaptype1_txt FROM ATTACKS WHERE country_txt LIKE "'.$country.'" AND iyear LIKE "'.$year.'" AND weaptype1_txt LIKE "'.$weapon.'"');
         }
-
+        
         //maria
-         //select by country, year and weapon
+        //select by country, year and weapon
         //returns a string representin data as json
         public function selectByJson($country,$year,$weapon){
             $queryResult = self::selectBy($country,$year,$weapon);
@@ -201,7 +261,7 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT country_txt FROM ATTACKS ORDER BY country_txt');
         }
-
+        
         //maria
         //get all countries
         //returns a string representin data as json
@@ -217,9 +277,9 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT iyear FROM ATTACKS ORDER BY iyear');
         }
-
+        
         //maria
-         //get all years
+        //get all years
         //returns a string representin data as json
         public function getYearsJson(){
             $queryResult = self::getYears();
@@ -233,14 +293,14 @@
                 printf("%s",self::$mysql->error);
             else return self::$mysql->query('SELECT DISTINCT weaptype1_txt FROM ATTACKS ORDER BY weaptype1_txt');
         }
-
+        
         //maria
         //get all weapons
-       //returns a string representin data as json
-       public function getWeaponsJson(){
-        $queryResult = self::getWeapons();
-        return self::toJsonString($queryResult);
-       }
+        //returns a string representin data as json
+        public function getWeaponsJson(){
+            $queryResult = self::getWeapons();
+            return self::toJsonString($queryResult);
+        }
         //milea octavian
         // encodes a db query into a json, (key: int, value-> array of each db select result), and a pair(key: "size", value: "int"))
         // which represents the numberof results;
@@ -253,6 +313,20 @@
             }
             $resultsArrayMapping["dataSz"] = $resultsCount;
             return json_encode($resultsArrayMapping);
+        }
+        
+        private function mapPosibileFiltersValuesToJson($fromQuery) {
+            $filtersOutputMap = array();
+            $filtersArray = array();
+            while($attack = $fromQuery -> fetch_assoc()) {
+                foreach($attack as $column => $value) {
+                    //if(!isset($filtersOutputMap[$column])) {
+                      //  $filtersOutputMap[$column] = array();
+                   // }
+                    $filtersOutputMap[$value] = $column;
+                }
+            }
+            return json_encode($filtersOutputMap);
         }
     }
     ?>

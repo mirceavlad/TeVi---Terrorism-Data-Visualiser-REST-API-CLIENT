@@ -189,12 +189,12 @@ if(isset($_POST['submit'])){
       for ($i = 0; $i < sizeof($weapon); $i ++) {
           echo "ctx.fillStyle = '#852252'; 
           var h = ".$value[$i].";
-          ctx.fillRect(X + 1000, canvas.height - h, width, h);
+          ctx.fillRect(X + 4500, canvas.height - h, width, h);
            
           X +=  width+15;
           ctx.fillStyle = '#852252';
           var currentweapon = \"".$weapon[$i].": ".$value[$i]."\";
-          ctx.fillText(currentweapon, X - 50 + 1000 , canvas.height - h - 10);";
+          ctx.fillText(currentweapon, X - 50 + 4500 , canvas.height - h - 10);";
           
       }
 
