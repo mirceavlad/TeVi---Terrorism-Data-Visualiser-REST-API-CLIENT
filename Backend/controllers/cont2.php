@@ -31,6 +31,16 @@ public function removeInterval($id, $cookiesArray){
         }
     }
     }
+
+
+    public function initFilters(){
+        echo "<form method=\"post\" action=\"cont.php\">";
+        echo "<select id=\"filter\" name=\"filter\">";
+        echo "<option value=\"Country\">Country</option>";
+        echo "</select>";
+        echo "<input type=\"Submit\" value=\"Submit\"/>";
+        echo "</form>";
+    }
 }
 
 ?>
