@@ -12,9 +12,12 @@ foreach($_COOKIE as $cookie_name=>$cookie_value){
 $name=substr($cookie_name, 0, strpos($cookie_name, '/'));
 echo "<label>".$name."</label>";
 echo "<select value=".$name."></select>";}
-$filterOne = new FilterDataObj(false, 1, null, "any", "country_txt");
+$filterOne = new FilterDataObj(true, 2, 1 , "1970", "iyear");
+$filterTwo = new FilterDataObj(true, 1, null, "2000", "iyear");
+$filterThree = new FilterDataObj(false, 3, null, "2010", "iyear");
 $filtersArray = array();
-var_dump($filterOne);
-array_push($filtersArray, $filterOne);
-var_dump(FilterConfigurator::getInstance()::configureFilters($filtersArray)[0] -> allPossibleValues);
+$filtersArray[2] = $filterOne;
+$filtersArray[1] = $filterTwo;
+$filtersArray[3] = $filterThree;
+var_dump(FilterConfigurator::getInstance()::configureFilters($filtersArray)[1]);
 ?>

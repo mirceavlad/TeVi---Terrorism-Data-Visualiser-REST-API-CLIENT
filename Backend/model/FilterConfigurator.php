@@ -28,7 +28,7 @@
             $filtersOptions = array();
                 foreach($filtersArray as $filterId => $filterObj) {
                     if($filterObj -> currentSelectedValue != "any" && $filterObj -> id != null) {
-                        if($filterObj -> isInterval) {
+                        if($filterObj -> isInterval && $filterObj -> otherIntervalId != null) {
                             if(!isset($filtersOptions["intervals"])) {
                                 $filtersOptions["intervals"] = array();
                             }
@@ -37,9 +37,7 @@
                                 $filtersOptions["intervals"][$filterObj -> pointingToCategory] = array();
                             }
                             array_push($filtersOptions["intervals"][$filterObj -> pointingToCategory], $filterObj -> currentSelectedValue);
-                            if($filterObj -> otherIntervalId != null) {
-                                array_push($filtersOptions["intervals"][$filterObj -> pointingToCategory], $filtersArray[$filterObj -> otherIntervalId] -> currentSelectedValue);
-                            }
+                            array_push($filtersOptions["intervals"][$filterObj -> pointingToCategory], $filtersArray[$filterObj -> otherIntervalId] -> currentSelectedValue);
                         } else if(!$filterObj -> isInterval) {
                                 if(!isset($filtersOptions[$filterObj -> pointingToCategory])) {
                                     $filtersOptions[$filterObj -> pointingToCategory] = array();
@@ -66,8 +64,7 @@
                     'http' => array(
                         'method' => 'POST',
                         'content' => $filtersJson,
-                        'header'=>  "Content-Type: application/json\r\n" .
-                                    "Accept: application/json\r\n"
+                        'header'=>  "Content-Type: application/json\r\n"
                     )
                     );
                 $context  = stream_context_create( $post_options );

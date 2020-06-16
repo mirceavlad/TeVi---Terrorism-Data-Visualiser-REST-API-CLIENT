@@ -3,7 +3,7 @@
     include 'DBAcess.php';
     if($_GET["initialPath"] == "attacks") {
         $filter_options_json = file_get_contents('php://input');
-        $filters_map = json_decode($filter_options_json);
+        $filters_map = json_decode($filter_options_json, true);
         if($_GET["option"] == "all") {
             if(isset($_GET["pag"])) {
                 $res = DBAcess::getInstance()::selectAllAsJson($_GET["pag"]);
