@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="pag.css">
+<link rel="stylesheet" href="../views/pag.css">
 <title>
 Lista
 </title>
 </head>
 <body>
-<form method="post" action="cont.php">
+<form method="post" action="../controllers/cont.php">
 <select id="filter" name="filter">
 <option value="Country">Country</option>
 <option value="Year">Year</option>
@@ -17,7 +17,7 @@ Lista
 <form id="filtere">
 <input type="submit" value="Search"/>
 </form>
-<form action="cont1.php">
+<form action="../controllers/cont1.php">
 <input type="submit" value="RESET"/> 
 </form>
 </body>

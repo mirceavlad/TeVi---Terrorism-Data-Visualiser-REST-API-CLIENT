@@ -1,14 +1,12 @@
 <?php
     //octavian+mircea
     include 'DBAcess.php';
-    var_dump($_GET);
     if($_GET["initialPath"] == "attacks") {
         $filter_options_json = file_get_contents('php://input');
         $filters_map = json_decode($filter_options_json);
         if($_GET["option"] == "all") {
             if(isset($_GET["pag"])) {
                 $res = DBAcess::getInstance()::selectAllAsJson($_GET["pag"]);
-                echo $_GET["pag"];
                 echo $res;
             } else {
                 $res = DBAcess::getInstance()::selectAllAsJson();
@@ -19,14 +17,13 @@
                 echo "status 400 bad request";
             } else {
                 if(isset($_GET["pag"])) {
-                echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map, $_GET["pag"]);
+                 echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map, $_GET["pag"]);
                 } else {
-                     echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map);
+                   echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map);
                 }
             }
         } else if($_GET["option"] == "availablefilters") {
             if(isset($_GET["all"])) {
-                echo "enters here";
                 $res = DBAcess::getInstance()::getAllAvailableFilters();
                 echo $res;
             } else {

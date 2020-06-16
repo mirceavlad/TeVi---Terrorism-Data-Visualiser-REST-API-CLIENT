@@ -96,12 +96,13 @@
                         }
                     }
                 } else {
-                    var_dump($value);
+                    foreach($value as $val) {
                         if($whereClause == "WHERE") {
-                            $whereClause = $whereClause." ".$key." LIKE '".$value."'";
+                            $whereClause = $whereClause." ".$key." LIKE '".$val."'";
                         } else {
-                            $whereClause = $whereClause." OR ".$key." LIKE '".$value."'";
+                            $whereClause = $whereClause." OR ".$key." LIKE '".$val."'";
                         }
+                    }
                 }
             }
             $res = null;
@@ -110,7 +111,6 @@
             } else {
                 $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause.' LIMIT '.$limit.',3500');
             }
-            echo'SELECT * FROM ATTACKS '.$whereClause;
             return $res;
         }
         
