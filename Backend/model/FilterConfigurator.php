@@ -57,7 +57,7 @@
             $availableFiltersMapByCategories = array();
             if(empty($withFilterMap)) {
                 echo "enters here";
-                $jsonString = file_get_contents("http://192.168.64.2/attacks/availablefilters/all");
+                $jsonString = file_get_contents("http://localhost/attacks/availablefilters/all");
                 urldecode($jsonString);
                 $availableFiltersValues = json_decode($jsonString,true);
             } else {
@@ -71,7 +71,7 @@
                     )
                     );
                 $context  = stream_context_create( $post_options );
-                $jsonString = file_get_contents( "http://192.168.64.2/attacks/availablefilters", false, $context );
+                $jsonString = file_get_contents( "http://localhost/attacks/availablefilters", false, $context );
                 $availableFiltersValues = json_decode( $jsonString, true );
             }
             foreach($availableFiltersValues as $data => $specificCategory) {
