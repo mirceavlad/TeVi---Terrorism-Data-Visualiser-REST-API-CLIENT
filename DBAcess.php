@@ -79,8 +79,7 @@
             $isInitial = 1;
             foreach($filtersDict as $key => $value) {
                 if($key == "intervals") {
-                    foreach($value as $intervalFilter => $intervalArray) {
-                        foreach($intervalArray as $intervalFieldName => $intervalEndpoints) {
+                        foreach($value as $intervalFieldName => $intervalEndpoints) {
                             foreach($intervalEndpoints as $index => $intervalEndpoint) {
                                 if($index % 2 == 0) {
                                     if($whereClause == "WHERE") {
@@ -93,7 +92,6 @@
                                     $whereClause = $whereClause." AND ".$intervalEndpoint;
                                 }
                             }
-                        }
                     }
                 } else {
                     foreach($value as $val) {
