@@ -3,7 +3,13 @@
         private static $instance = null;
         public static $availableFieldsForSelect = null;
         private function __construct() {
-            $availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
+        }
+
+        public function getFiltersTitles() {
+            if(self::$availableFieldsForSelect ==  null) {
+                self::$availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
+            }
+            return self::$availableFieldsForSelect;
         }
 
         public static function getInstance() {
@@ -26,6 +32,7 @@
 
         public function mapFilters($filtersArray) {
             $filtersOptions = array();
+            var_dump($filtersArray);
                 foreach($filtersArray as $filterId => $filterObj) {
                     if($filterObj -> currentSelectedValue != "any" && $filterObj -> id != null) {
                         if($filterObj -> isInterval && $filterObj -> otherIntervalId != null) {
@@ -72,11 +79,13 @@
                 $jsonString = file_get_contents( "http://localhost/attacks/availablefilters", false, $context );
                 $availableFiltersValues = json_decode( $jsonString, true );
             }
-            foreach($availableFiltersValues as $data => $specificCategory) {
-                if(!isset($availableFiltersMapByCategories[$specificCategory])) {
-                    $availableFiltersMapByCategories[$specificCategory] = array();
+            foreach($availableFiltersValues as $column => $valuesArray) {
+                if(!isset($availableFiltersMapByCategories[$column])) {
+                    $availableFiltersMapByCategories[$column] = array();
                 }
-                array_push($availableFiltersMapByCategories[$specificCategory], $data);
+                foreach($valuesArray as $filterValue => $rand_data) {
+                    array_push($availableFiltersMapByCategories[$column], $filterValue);
+                }
             }
             return $availableFiltersMapByCategories;
         } 

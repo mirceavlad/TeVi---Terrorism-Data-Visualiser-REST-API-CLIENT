@@ -8,5 +8,5 @@ if (isset($_SERVER['HTTP_COOKIE'])) {
         setcookie($name, '', time()-1000, '/');
     }
 }
-header("Refresh:0; url=./cont.php");
+header("Refresh:0; url=./filters.php");
 ?>
