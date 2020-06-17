@@ -7,14 +7,15 @@
         public $allPossibleValues;
         public $pointingToCategory;
         public $isNumeric;
-
-        function __construct($isInterval, $id, $otherIntervalId, $currentSelectedValue, $pointingToCategory, $isNumeric) {
+        public $isValid;
+        function __construct($isInterval, $id, $otherIntervalId, $currentSelectedValue, $pointingToCategory, $isNumeric, $isValid = true) {
             $this -> isInterval = $isInterval;
             $this -> id = $id;
             $this -> otherIntervalId = $otherIntervalId;
             $this -> currentSelectedValue = $currentSelectedValue;
             $this -> pointingToCategory = $pointingToCategory;
             $this -> isNumeric = $isNumeric;
+            $this -> isValid = $isValid;
             if($this->currentSelectedValue == null) {
                 $this -> currentSelectedValue = "any";
             }
