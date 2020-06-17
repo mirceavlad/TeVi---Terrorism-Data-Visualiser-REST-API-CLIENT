@@ -4,7 +4,11 @@ public function showSelects($cookiesArray){
     foreach($cookiesArray as $item){
         $name=$item->pointingToCategory;
         echo "<label id=".$name.">".$name."</label>";
-    echo "<select value=".$name."></select>";
+    echo "<select value=".$name.">";
+    foreach($item -> allPossibleValues as $selectValue) {
+        echo "<option value=".$selectValue.">".$selectValue."</option>";
+    }
+    echo "</select>";
     echo "<form method=\"post\">";
 echo "<input type=\"submit\" class=\"closebtn\" id=".$item->id."close name=".$item->id."close value=\"X\">";
 echo "</form>";
@@ -33,10 +37,12 @@ public function removeInterval($id, $cookiesArray){
     }
 
 
-    public function initFilters(){
+    public function initFilters($filtersMap){
         echo "<form method=\"post\" action=\"cont.php\">";
         echo "<select id=\"filter\" name=\"filter\">";
-        echo "<option value=\"Country\">Country</option>";
+        foreach($filtersMap as $filterOption => $filterData) {
+            echo "<option value=".$filterOption.">".$filterOption."</option>";
+        }
         echo "</select>";
         echo "<input type=\"Submit\" value=\"Submit\"/>";
         echo "</form>";

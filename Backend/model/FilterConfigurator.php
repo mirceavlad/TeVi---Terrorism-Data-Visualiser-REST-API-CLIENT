@@ -3,7 +3,13 @@
         private static $instance = null;
         public static $availableFieldsForSelect = null;
         private function __construct() {
-            $availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
+        }
+
+        public function getFiltersTitles() {
+            if(self::$availableFieldsForSelect ==  null) {
+                self::$availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
+            }
+            return self::$availableFieldsForSelect;
         }
 
         public static function getInstance() {

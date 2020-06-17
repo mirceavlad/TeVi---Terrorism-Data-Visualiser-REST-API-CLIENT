@@ -13,6 +13,9 @@
             $this -> otherIntervalId = $otherIntervalId;
             $this -> currentSelectedValue = $currentSelectedValue;
             $this -> pointingToCategory = $pointingToCategory;
+            if($this->currentSelectedValue == null) {
+                $this -> currentSelectedValue = "any";
+            }
         }
 
         function isNumeric() {
