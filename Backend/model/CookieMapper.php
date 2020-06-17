@@ -19,8 +19,11 @@ class CookieMapper{
                 $ok=true;
             else 
                 $ok=false;
+                $isNumeric=false;
+                if($name=="iyear" || $name=="latitude" || $name=="longitude" || $name=="iday" || $name=="imonth")
+                $isNumeric=true;
             $id=substr($cookie_name, strpos($cookie_name, "/")+1);
-            $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name);
+            $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric);
             $filtersArray[$id]=$filterOne;
         }
         return $filtersArray;

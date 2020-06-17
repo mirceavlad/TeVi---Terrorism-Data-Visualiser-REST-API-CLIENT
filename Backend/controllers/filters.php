@@ -6,7 +6,7 @@ include '../model/CookieMapper.php';
 include 'selectsController.php';
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
-    setcookie($cookie_name."/".uniqid(),"ok",time()+(86400*30),"/");
+    setcookie($cookie_name."/".uniqid(),"any",time()+(86400*30),"/");
     header("Refresh:0");
 }
 foreach($_COOKIE as $cookie_name=>$cookie_value){
@@ -16,16 +16,15 @@ foreach($_COOKIE as $cookie_name=>$cookie_value){
     if(isset($_POST[$id])){
         setcookie($cookie_name,$_POST[$id]."/",time()+(86400*30),"/");
         header("Refresh:0");
-
     }
-/*if(isset($_POST[$id]))
+if(isset($_POST[$id."interval"]))
 {   
     $lastname=substr($cookie_name, strpos($cookie_name, "/") + 1);
     $newCookieId=uniqid();
-    setcookie($cookie_name, "upd/".$newCookieId, time()+(86400*30), "/");
-    setcookie($name."/".$newCookieId,"bet/".$lastname,time()+(86400*30),"/");
+    setcookie($cookie_name, $cookie_value."/".$newCookieId, time()+(86400*30), "/");
+    setcookie($name."/".$newCookieId,"Any/".$lastname,time()+(86400*30),"/");
     header("Refresh:0");
-}*/
+}
 
 if(isset($_POST[$id."close"])){
 
