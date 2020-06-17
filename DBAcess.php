@@ -86,7 +86,7 @@
                                         $whereClause = $whereClause." ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
                                         $isInitial = 0;
                                     } else {
-                                        $whereClause = $whereClause." OR ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
+                                        $whereClause = $whereClause." AND ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
                                     }
                                 } else {
                                     $whereClause = $whereClause." AND ".$intervalEndpoint;
@@ -98,7 +98,7 @@
                         if($whereClause == "WHERE") {
                             $whereClause = $whereClause." ".$key." LIKE '".$val."'";
                         } else {
-                            $whereClause = $whereClause." OR ".$key." LIKE '".$val."'";
+                            $whereClause = $whereClause." AND ".$key." LIKE '".$val."'";
                         }
                     }
                 }
