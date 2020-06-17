@@ -321,7 +321,10 @@
                     //if(!isset($filtersOutputMap[$column])) {
                       //  $filtersOutputMap[$column] = array();
                    // }
-                    $filtersOutputMap[$value] = $column;
+                   if(!isset($filtersOutputMap[$column])) {
+                       $filtersOutputMap[$column] = array();
+                   }
+                    $filtersOutputMap[$column][$value] = 1;
                 }
             }
             return json_encode($filtersOutputMap);

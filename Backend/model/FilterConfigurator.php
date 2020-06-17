@@ -78,11 +78,13 @@
                 $jsonString = file_get_contents( "http://localhost/attacks/availablefilters", false, $context );
                 $availableFiltersValues = json_decode( $jsonString, true );
             }
-            foreach($availableFiltersValues as $data => $specificCategory) {
-                if(!isset($availableFiltersMapByCategories[$specificCategory])) {
-                    $availableFiltersMapByCategories[$specificCategory] = array();
+            foreach($availableFiltersValues as $column => $valuesArray) {
+                if(!isset($availableFiltersMapByCategories[$column])) {
+                    $availableFiltersMapByCategories[$column] = array();
                 }
-                array_push($availableFiltersMapByCategories[$specificCategory], $data);
+                foreach($valuesArray as $filterValue => $rand_data) {
+                    array_push($availableFiltersMapByCategories[$column], $filterValue);
+                }
             }
             return $availableFiltersMapByCategories;
         } 
