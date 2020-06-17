@@ -6,7 +6,7 @@ include '../model/CookieMapper.php';
 include 'selectsController.php';
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
-    setcookie($cookie_name."/".uniqid(),"any",time()+(86400*30),"/");
+    setcookie($cookie_name.'/'.uniqid(),"any"."/"."0/",time()+(86400*30),"/");
     header("Refresh:0");
 }
 foreach($_COOKIE as $cookie_name=>$cookie_value){
@@ -14,23 +14,24 @@ foreach($_COOKIE as $cookie_name=>$cookie_value){
     $id=substr($cookie_name, strpos($cookie_name, "/")+1);
     $name=substr($cookie_name, 0, strpos($cookie_name, "/"));
     if(isset($_POST[$id])){
-        setcookie($cookie_name,$_POST[$id]."/",time()+(86400*30),"/");
+        setcookie($cookie_name,$_POST[$id]."/"."0/",time()+(86400*30),"/");
         header("Refresh:0");
     }
 if(isset($_POST[$id."interval"]))
-{   
-    $lastname=substr($cookie_name, strpos($cookie_name, "/") + 1);
+{   $lastname=substr($cookie_name, strpos($cookie_name, "/") + 1);
     $newCookieId=uniqid();
-    setcookie($cookie_name, $cookie_value."/".$newCookieId, time()+(86400*30), "/");
-    setcookie($name."/".$newCookieId, $cookie_value."/".$lastname,time()+(86400*30),"/");
+    $value=substr($cookie_value, 0, strpos($cookie_value, '/'));
+    setcookie($cookie_name, $value."/"."1/".$newCookieId, time()+(86400*30), "/");
+    setcookie($name."/".$newCookieId, $value."/"."1/",time()+(86400*30),"/");
     header("Refresh:0");
 }
 
 if(isset($_POST[$id."close"])){
-
-    if($name=="Year" && ($value=="bet" || $value=="upd"))
+    $aux=substr($cookie_value, strpos($cookie_value, "/")+1);
+    $isInterval=substr($aux, 0, strpos($aux, '/'));
+    if($isInterval==1)
     {
-        $secondId=substr($cookie_value, strpos($cookie_value, "/") + 1);
+        $secondId=substr($aux, strpos($aux, "/") + 1);
         selectsController::removeInterval($secondId,$cookiesArray);
     }
     setcookie($cookie_name,"",-1,"/");
