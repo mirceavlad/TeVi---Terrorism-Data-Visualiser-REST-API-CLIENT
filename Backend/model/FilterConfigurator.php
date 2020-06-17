@@ -32,6 +32,7 @@
 
         public function mapFilters($filtersArray) {
             $filtersOptions = array();
+            var_dump($filtersArray);
                 foreach($filtersArray as $filterId => $filterObj) {
                     if($filterObj -> currentSelectedValue != "any" && $filterObj -> id != null) {
                         if($filterObj -> isInterval && $filterObj -> otherIntervalId != null) {

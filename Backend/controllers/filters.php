@@ -22,7 +22,7 @@ if(isset($_POST[$id."interval"]))
     $lastname=substr($cookie_name, strpos($cookie_name, "/") + 1);
     $newCookieId=uniqid();
     setcookie($cookie_name, $cookie_value."/".$newCookieId, time()+(86400*30), "/");
-    setcookie($name."/".$newCookieId,"Any/".$lastname,time()+(86400*30),"/");
+    setcookie($name."/".$newCookieId, $cookie_value."/".$lastname,time()+(86400*30),"/");
     header("Refresh:0");
 }
 
