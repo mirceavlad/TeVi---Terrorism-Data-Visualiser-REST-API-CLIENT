@@ -4,6 +4,8 @@ include '../model/FilterConfigurator.php';
 include '../model/FilterDataObj.php';
 include '../model/CookieMapper.php';
 include 'cont2.php';
+
+cont2::initFilters();
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
     setcookie($cookie_name."/".uniqid(),"ok",time()+(86400*30),"/");
@@ -37,7 +39,7 @@ if(isset($_POST[$id."close"])){
     setcookie($cookie_name,"",-1,"/");
     header("Refresh:0");
 }
-}
+
 //////////////////////////////////////
 $name=substr($cookie_name, 0, strpos($cookie_name, '/'));
 echo "<label>".$name."</label>";

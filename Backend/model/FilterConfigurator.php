@@ -1,9 +1,9 @@
 <?php
     class FilterConfigurator {
         private static $instance = null;
-        
+        public static $availableFieldsForSelect = null;
         private function __construct() {
-
+            $availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
         }
 
         public static function getInstance() {
@@ -49,6 +49,7 @@
             return $filtersOptions;
         }
 
+        
 
         public function makeQueryForAvailableFiltersData($withFilterMap) {
             $availableFiltersValues = null;
