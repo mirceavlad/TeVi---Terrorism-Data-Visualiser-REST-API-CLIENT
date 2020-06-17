@@ -19,10 +19,10 @@
                   <i class="fas fa-bars"></i>
                   <i class="fas fa-times"></i>
                </div>
-               <a href="index.html" class="logo"><img src="./assets/logo.png" alt=""</a>
+               <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""</a>
                <ul class="nav-list">
                   <li class="nav-item">
-                     <a href="index.html" class="nav-link active">Home</a>
+                     <a href="index.php" class="nav-link active">Home</a>
                   </li>
                   <li class="nav-item">
                      <a href="#" class="nav-link">List</a>
@@ -41,6 +41,7 @@
          </div>
       </header>
       <!--Header ends-->
+      
       <section class="hero" id="hero">
          <div class="container">
             <h2 class="sub-headline">
@@ -62,41 +63,70 @@
       </section>
       <!--Hero ends-->
       <section class="section_2">
-         <div class="container">
-            <div class="statistics-headline">
+      <div class="container">
+      <div class="list-info">
+            <h2 class="sub-headline_section_2 animate-left">
+               <span class="first-letter">L</span>ist
+            </h2>
+            
+            <div class="headline-description_section_2">
+               <div class="single-animation">
+                  <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br>
+                  incididunt ut labore et dolore magna aliqua <br>
+                  tellus orci ac.<br><br>
+
+                  Tortor consequat id porta nibh venenatis cras sed.<br>
+                  Semper feugiat nibh sed pulvinar.<br>
+                  </h5>
+                  <a href="#" class="explore cta-btn_section_2"><span>Explore</span></a>
+               </div>
+            </div>
             </div>
          </div>
       </section>
       <section class="section_3">
          <div class="container">
-            <div class="statistics-headline">
+         <h2 class="sub-headline_section_2">
+               <span class="first-letter">M</span>ap
+            </h2>
+            
+            <div class="headline-description_section_2">
+               <div class="single-animation">
+                  <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br>
+                  incididunt ut labore et dolore magna aliqua <br>
+                  tellus orci ac.<br><br>
+
+                  Tortor consequat id porta nibh venenatis cras sed.<br>
+                  Semper feugiat nibh sed pulvinar.<br>
+                  </h5>
+                  <a href="#" class="explore cta-btn_section_3"><span>Explore</span></a>
+               </div>
             </div>
          </div>
       </section>
       <section class="section_4">
          <div class="container">
-         <div class="statistics-headline">
+         <h2 class="sub-headline_section_2">
+               <span class="first-letter">S</span>tatistics
+            </h2>
+            
+            <div class="headline-description_section_2">
+               <div class="single-animation">
+                  <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br>
+                  incididunt ut labore et dolore magna aliqua <br>
+                  tellus orci ac.<br><br>
+
+                  Tortor consequat id porta nibh venenatis cras sed.<br>
+                  Semper feugiat nibh sed pulvinar.<br>
+                  </h5>
+                  <a href="#" class="explore cta-btn_section_2"><span>Explore</span></a>
+               </div>
+            </div>
          </div>
       </section>
       <section class="section_5">
          <div class="container">
-            <div id="map">
-            </div>
-            <script>
-               function initMap() {
-                var mapInitPos = { lat: 25.344, lng: 131.036 };
-                 map = new google.maps.Map(document.getElementById("map"), {
-                   center: { lat: -34.397, lng: 150.644 },
-                   zoom: 8
-                 });
-               
-                       var map = new google.maps.Map(
-                       document.getElementById('map'), { zoom: 4, center: mapInitPos });
-                     }
-                   
-            </script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo&callback=initMap"></script>
-         </div>
+         
       </section>
       <script src="main.js"></script>
       
