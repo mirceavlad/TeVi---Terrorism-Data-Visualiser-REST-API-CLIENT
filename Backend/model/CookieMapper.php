@@ -29,9 +29,13 @@ class CookieMapper{
             // run and it will set default to true
             
             //if one interval is valid
-            if($ok==true && $otherIntervalId!=NULL && $cookie_value!='any'){
+            echo "ok=".$ok;
+            echo "otherintervalid=".$otherIntervalId;
+            echo "value=".$value;
+            if($ok==true && $otherIntervalId!=NULL && $value!='any'){
                 $otherCookie=$_COOKIE[$name."/".$otherIntervalId];
                 $otherValue=substr($otherCookie, 0, strpos($otherCookie, '/'));
+                echo "othervalue=".$otherValue;
                 // if the other interval is not valid
                 if($otherValue!='any')
                     {
@@ -61,7 +65,7 @@ class CookieMapper{
             $filtersArray[$id]=$filterOne;
             } 
             // if the first interval not valid, set both intervals as not valid
-            else if($ok == true && $otherIntervalId!=NULL && $cookie_value == 'any') {
+            else if($ok == true && $otherIntervalId!=NULL && $value == 'any') {
                 echo "enters 56";
                 $otherCookie=$_COOKIE[$name."/".$otherIntervalId];
                 $otherValue=substr($otherCookie, 0, strpos($otherCookie, '/'));

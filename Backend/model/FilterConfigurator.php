@@ -22,6 +22,7 @@
         public function configureFilters($filtersArray) {
             $filtersMap = self::mapFilters($filtersArray);
             $availableFiltersMap = self::makeQueryForAvailableFiltersData($filtersMap);
+            var_dump($availableFiltersMap);
             foreach($filtersArray as $filterObj) {
                 if($filterObj -> id != null) {
                     $filterObj -> allPossibleValues = $availableFiltersMap[$filterObj -> pointingToCategory];

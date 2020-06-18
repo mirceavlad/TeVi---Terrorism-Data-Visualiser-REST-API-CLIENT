@@ -14,7 +14,10 @@ foreach($_COOKIE as $cookie_name=>$cookie_value){
     $id=substr($cookie_name, strpos($cookie_name, "/")+1);
     $name=substr($cookie_name, 0, strpos($cookie_name, "/"));
     if(isset($_POST[$id])){
-        setcookie($cookie_name,$_POST[$id]."/"."0/",time()+(86400*30),"/");
+        $aux=substr($cookie_value, strpos($cookie_value, "/")+1);
+        $isInterval=substr($aux, 0, strpos($aux, '/'));
+        $otherIntervalId=substr($aux, strpos($aux, "/")+1);
+        setcookie($cookie_name,$_POST[$id]."/".$isInterval."/".$otherIntervalId,time()+(86400*30),"/");
         header("Refresh:0");
     }
 if(isset($_POST[$id."interval"]))
