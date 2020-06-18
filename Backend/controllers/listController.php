@@ -6,7 +6,7 @@ class listController{
         foreach($filtersArray as $item){
             echo "<ul>";
             var_dump($filtersArray);
-           var_dump($item);
+            var_dump($item);
             foreach($item as $camp){
                 echo $camp;
             }
