@@ -32,7 +32,13 @@ class CookieMapper{
             echo "ok=".$ok;
             echo "otherintervalid=".$otherIntervalId;
             echo "value=".$value;
-            if($ok==true && $otherIntervalId!=NULL && $value!='any' && (($ignoreFilters != null && $name != $ignoreFilters) || $ignoreFilters == null)){
+
+            if($ok==true && $otherIntervalId!=NULL && array_key_exists($name."/".$otherIntervalId, $_COOKIE)==FALSE){
+                $ok=false;
+                $otherIntervalId=NULL;
+                $cookie_value=$value."/"."0/";
+            }
+            if($ok==true && $otherIntervalId!=NULL && $value!='any'){
                 $otherCookie=$_COOKIE[$name."/".$otherIntervalId];
                 $otherValue=substr($otherCookie, 0, strpos($otherCookie, '/'));
                 echo "othervalue=".$otherValue;

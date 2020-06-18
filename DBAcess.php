@@ -143,10 +143,8 @@ class DBAcess {
         }
         $res = null;
         if($limit == null) {
-            echo 'SELECT * FROM ATTACKS '.$whereClause;
             $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause);
         } else {
-            echo 'SELECT * FROM ATTACKS '.$whereClause.' LIMIT '.$limit.',3500';
             $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause.' LIMIT '.$limit.',3500');
         }
         return $res;
