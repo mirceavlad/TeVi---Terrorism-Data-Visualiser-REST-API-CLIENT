@@ -38,7 +38,9 @@ echo "</form>";
 public function removeInterval($id, $cookiesArray){
     foreach($cookiesArray as $item){
         if($item->id==$id){
-            setcookie($item->pointingToCategory."/".$id,"ok",time()+(86400*30),"/");
+            $value=$item->currentSelectedValue;
+            setcookie($item->pointingToCategory."/".$id,"",-1,"/");
+            setcookie($item->pointingToCategory."/".$id,$value."/"."0/",time()+(86400*30),"/");
         }
     }
     }

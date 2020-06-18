@@ -16,7 +16,8 @@
             $this -> pointingToCategory = $pointingToCategory;
             $this -> isNumeric = $isNumeric;
             $this -> isValid = $isValid;
-            if($this->currentSelectedValue == null) {
+            if($this->currentSelectedValue == null || $this->currentSelectedValue == "Any")
+            {
                 $this -> currentSelectedValue = "any";
             }
         }

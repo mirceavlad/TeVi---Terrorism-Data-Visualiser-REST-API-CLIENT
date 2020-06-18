@@ -20,10 +20,14 @@
         }
 
         public function configureFilters($filtersArray) {
+
             $filtersMap = self::mapFilters($filtersArray);
+
             $availableFiltersMap = self::makeQueryForAvailableFiltersData($filtersMap);
+
             foreach($filtersArray as $filterObj) {
                 if($filterObj -> id != null) {
+
                     $filterObj -> allPossibleValues = $availableFiltersMap[$filterObj -> pointingToCategory];
                 }
             }
@@ -32,9 +36,8 @@
 
         public function mapFilters($filtersArray) {
             $filtersOptions = array();
-            var_dump($filtersArray);
                 foreach($filtersArray as $filterId => $filterObj) {
-                    if($filterObj -> currentSelectedValue != "any" && $filterObj -> id != null) {
+                    if($filterObj -> currentSelectedValue != "any" && $filterObj -> id != null && $filterObj -> isValid == true) {
                         if($filterObj -> isInterval && $filterObj -> otherIntervalId != null) {
                             if(!isset($filtersOptions["intervals"])) {
                                 $filtersOptions["intervals"] = array();

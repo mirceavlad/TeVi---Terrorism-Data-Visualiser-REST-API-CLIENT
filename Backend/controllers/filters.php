@@ -3,9 +3,13 @@ include '../views/pag.php';
 include '../model/FilterConfigurator.php';
 include '../model/FilterDataObj.php';
 include '../model/CookieMapper.php';
+include '../model/FilterMapper.php';
 include 'selectsController.php';
+include 'listController.php';
+$ignoreFilter = null;
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
+    $ignoreFilter = $_POST['filter'];
     setcookie($cookie_name.'/'.uniqid(),"any"."/"."0/",time()+(86400*30),"/");
     header("Refresh:0");
 }
@@ -14,7 +18,10 @@ foreach($_COOKIE as $cookie_name=>$cookie_value){
     $id=substr($cookie_name, strpos($cookie_name, "/")+1);
     $name=substr($cookie_name, 0, strpos($cookie_name, "/"));
     if(isset($_POST[$id])){
-        setcookie($cookie_name,$_POST[$id]."/"."0/",time()+(86400*30),"/");
+        $aux=substr($cookie_value, strpos($cookie_value, "/")+1);
+        $isInterval=substr($aux, 0, strpos($aux, '/'));
+        $otherIntervalId=substr($aux, strpos($aux, "/")+1);
+        setcookie($cookie_name,$_POST[$id]."/".$isInterval."/".$otherIntervalId,time()+(86400*30),"/");
         header("Refresh:0");
     }
 if(isset($_POST[$id."interval"]))
@@ -22,7 +29,7 @@ if(isset($_POST[$id."interval"]))
     $newCookieId=uniqid();
     $value=substr($cookie_value, 0, strpos($cookie_value, '/'));
     setcookie($cookie_name, $value."/"."1/".$newCookieId, time()+(86400*30), "/");
-    setcookie($name."/".$newCookieId, $value."/"."1/",time()+(86400*30),"/");
+    setcookie($name."/".$newCookieId, "any/"."1/",time()+(86400*30),"/");
     header("Refresh:0");
 }
 
@@ -32,6 +39,7 @@ if(isset($_POST[$id."close"])){
     if($isInterval==1)
     {
         $secondId=substr($aux, strpos($aux, "/") + 1);
+        if($secondId!=NULL)
         selectsController::removeInterval($secondId,$cookiesArray);
     }
     setcookie($cookie_name,"",-1,"/");
@@ -39,11 +47,16 @@ if(isset($_POST[$id."close"])){
 }
 }
 
+
 selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
-$cookiesArray=CookieMapper::mapCookies();
+$cookiesArray=CookieMapper::mapCookies($ignoreFilter);
 $cookiesArray=FilterConfigurator::getInstance()::configureFilters($cookiesArray);
 selectsController::showSelects($cookiesArray);
-
+if(isset($_POST["Search"]))
+{
+    $filtersArray=FilterMapper::mapFilters($cookiesArray);
+    listController::showList($filtersArray);
+}
 
 //////////////////////////////////////
 // $name=substr($cookie_name, 0, strpos($cookie_name, '/'));
