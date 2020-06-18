@@ -170,6 +170,7 @@ header{
     text-align: center;
 }
 
+
 .single-animation{
     opacity: 0;
     animation: fadeDown .5s forwards;
