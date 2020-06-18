@@ -20,10 +20,14 @@
         }
 
         public function configureFilters($filtersArray) {
+
             $filtersMap = self::mapFilters($filtersArray);
+
             $availableFiltersMap = self::makeQueryForAvailableFiltersData($filtersMap);
+
             foreach($filtersArray as $filterObj) {
                 if($filterObj -> id != null) {
+
                     $filterObj -> allPossibleValues = $availableFiltersMap[$filterObj -> pointingToCategory];
                 }
             }
@@ -34,7 +38,6 @@
             $filtersOptions = array();
                 foreach($filtersArray as $filterId => $filterObj) {
                     if($filterObj -> currentSelectedValue != "any" && $filterObj -> id != null && $filterObj -> isValid == true) {
-                        var_dump($filterObj);
                         if($filterObj -> isInterval && $filterObj -> otherIntervalId != null) {
                             if(!isset($filtersOptions["intervals"])) {
                                 $filtersOptions["intervals"] = array();
@@ -61,7 +64,6 @@
         public function makeQueryForAvailableFiltersData($withFilterMap) {
             $availableFiltersValues = null;
             $availableFiltersMapByCategories = array();
-            var_dump($withFilterMap);
             if(empty($withFilterMap)) {
                 echo "enters here";
                 $jsonString = file_get_contents("http://localhost/attacks/availablefilters/all");

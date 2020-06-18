@@ -7,8 +7,8 @@ Lista
 </title>
 </head>
 <body>
-<form id="filtere">
-<input type="submit" value="Search"/>
+<form method="post" id="filtere">
+<input name="Search" type="submit" value="Search"/>
 </form>
 <form action="../controllers/resetController.php">
 <input type="submit" value="RESET"/> 

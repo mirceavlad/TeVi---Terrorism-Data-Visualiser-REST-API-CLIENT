@@ -32,6 +32,11 @@ class CookieMapper{
             echo "ok=".$ok;
             echo "otherintervalid=".$otherIntervalId;
             echo "value=".$value;
+            if($ok==true && $otherIntervalId!=NULL && array_key_exists($name."/".$otherIntervalId, $_COOKIE)==FALSE){
+                $ok=false;
+                $otherIntervalId=NULL;
+                $cookie_value=$value."/"."0/";
+            }
             if($ok==true && $otherIntervalId!=NULL && $value!='any'){
                 $otherCookie=$_COOKIE[$name."/".$otherIntervalId];
                 $otherValue=substr($otherCookie, 0, strpos($otherCookie, '/'));
@@ -42,18 +47,18 @@ class CookieMapper{
                         //set both interval ends to not valid
                         echo "enters 33";
                         $id=substr($cookie_name, strpos($cookie_name, "/")+1);
-                        $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric, false);
+                        $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric, true);
                         $filtersArray[$id]=$filterOne;
-                        $filterOne = new FilterDataObj($ok, $otherIntervalId, NULL, $otherValue, $name, $isNumeric, false);
+                        $filterOne = new FilterDataObj($ok, $otherIntervalId, NULL, $otherValue, $name, $isNumeric, true);
                         $filtersArray[$otherIntervalId]=$filterOne;
                         //if other interval valid
                     } else {
                         // set both interval ends to valid
                         echo "enters 40";
                         $id=substr($cookie_name, strpos($cookie_name, "/")+1);
-                        $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric, true);
+                        $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric, false);
                         $filtersArray[$id]=$filterOne;
-                        $filterOne = new FilterDataObj($ok, $otherIntervalId, NULL, $otherValue, $name, $isNumeric, true);
+                        $filterOne = new FilterDataObj($ok, $otherIntervalId, NULL, $otherValue, $name, $isNumeric, false);
                         $filtersArray[$otherIntervalId]=$filterOne;
                     }
             }
