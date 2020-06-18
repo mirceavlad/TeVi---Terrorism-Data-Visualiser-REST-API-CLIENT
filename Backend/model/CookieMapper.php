@@ -38,12 +38,12 @@ class CookieMapper{
                 $otherIntervalId=NULL;
                 $cookie_value=$value."/"."0/";
             }
-            if($ok==true && $otherIntervalId!=NULL && $value!='any'){
+            if($ok==true && $otherIntervalId!=NULL && $value!='any'&& $ignoreFilterName != $name){
                 $otherCookie=$_COOKIE[$name."/".$otherIntervalId];
                 $otherValue=substr($otherCookie, 0, strpos($otherCookie, '/'));
                 echo "othervalue=".$otherValue;
                 // if the other interval is not valid
-                if($otherValue!='any' && (($ignoreFilters != null && $name != $ignoreFilters) || $ignoreFilters == null))
+                if($otherValue!='any' && (($ignoreFilterName != null && $name != $ignoreFilterName) || $ignoreFilterName == null))
                     {
                         //set both interval ends to not valid
                         echo "enters 33";
@@ -67,8 +67,13 @@ class CookieMapper{
             {
                 echo "enters 50";
             $id=substr($cookie_name, strpos($cookie_name, "/")+1);
-            $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric);
-            $filtersArray[$id]=$filterOne;
+            $filterOne = null;
+                if($name == $ignoreFilterName) {
+                    $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric, false);
+                } else {
+                    $filterOne = new FilterDataObj($ok, $id, $otherIntervalId, $value, $name, $isNumeric, true);
+                }
+                $filtersArray[$id]=$filterOne;
             } 
             // if the first interval not valid, set both intervals as not valid
             else if($ok == true && $otherIntervalId!=NULL && $value == 'any') {

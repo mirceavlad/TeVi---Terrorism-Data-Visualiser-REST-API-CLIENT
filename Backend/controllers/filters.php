@@ -6,8 +6,10 @@ include '../model/CookieMapper.php';
 include '../model/FilterMapper.php';
 include 'selectsController.php';
 include 'listController.php';
+$ignoreFilter = null;
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
+    $ignoreFilter = $_POST['filter'];
     setcookie($cookie_name.'/'.uniqid(),"any"."/"."0/",time()+(86400*30),"/");
     header("Refresh:0");
 }
@@ -47,7 +49,7 @@ if(isset($_POST[$id."close"])){
 
 
 selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
-$cookiesArray=CookieMapper::mapCookies();
+$cookiesArray=CookieMapper::mapCookies($ignoreFilter);
 $cookiesArray=FilterConfigurator::getInstance()::configureFilters($cookiesArray);
 selectsController::showSelects($cookiesArray);
 if(isset($_POST["Search"]))
