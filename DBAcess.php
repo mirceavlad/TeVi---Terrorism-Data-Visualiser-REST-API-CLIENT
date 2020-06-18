@@ -76,30 +76,58 @@
         
         public function getAttacksByFilters($filtersDict, $limit = null) {
             $whereClause = "WHERE";
-            $isInitial = 1;
-            foreach($filtersDict as $key => $value) {
-                if($key == "intervals") {
-                        foreach($value as $intervalFieldName => $intervalEndpoints) {
-                            foreach($intervalEndpoints as $index => $intervalEndpoint) {
-                                if($index % 2 == 0) {
-                                    if($whereClause == "WHERE") {
-                                        $whereClause = $whereClause." ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
-                                        $isInitial = 0;
-                                    } else {
-                                        $whereClause = $whereClause." AND ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
-                                    }
-                                } else {
-                                    $whereClause = $whereClause." AND ".$intervalEndpoint;
-                                }
+            $isInitial = true;
+            if(isset($filtersDict["intervals"])) {
+                $intervals = $filtersDict["intervals"];
+                foreach($intervals as $intervalFieldName => $intervalEndpoints) {
+                    $isInitial = true;
+                    foreach($intervalEndpoints as $index => $intervalEndpoint) {
+                        if($isInitial) {
+                            if($whereClause == "WHERE") {
+                                $whereClause = $whereClause." ( ";
+                            } else {
+                                $whereClause = $whereClause." AND ( ";
                             }
-                    }
-                } else {
-                    foreach($value as $val) {
-                        if($whereClause == "WHERE") {
-                            $whereClause = $whereClause." ".$key." LIKE '".$val."'";
-                        } else {
-                            $whereClause = $whereClause." AND ".$key." LIKE '".$val."'";
+                            //  $isInitial = false;
                         }
+                        if($index % 2 == 0) {
+                            if($isInitial) {
+                                $whereClause = $whereClause." ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
+                            } else {
+                                $whereClause = $whereClause." OR ".'CAST('.$intervalFieldName.' AS DECIMAL(50))'.' BETWEEN '.$intervalEndpoint.'';
+                            }
+                            $isInitial = false;
+                        } else {
+                            $whereClause = $whereClause." AND ".$intervalEndpoint;
+                            if(array_key_last($intervalEndpoints) == $index) {
+                                if(isset($filtersDict[$intervalFieldName])) {
+                                    foreach($filtersDict[$intervalFieldName] as $filterValue) {
+                                        $whereClause = $whereClause." OR ".$intervalFieldName." LIKE '".$filterValue."'";
+                                    }
+                                    unset($filtersDict[$intervalFieldName]);
+                                }
+                                $whereClause = $whereClause.") ";
+                            }
+                        }
+                    }
+                }
+            }
+            $isInitial = true;
+            foreach($filtersDict as $filterName => $filterValues) {
+                if($filterName != "intervals") {
+                    $isInitial = true;
+                    foreach($filterValues as $key => $val) {
+                        if($isInitial && $whereClause == "WHERE") {
+                            $whereClause = $whereClause." ( ".$filterName." LIKE '".$val."'";
+                        } else if($isInitial) {
+                            $whereClause = $whereClause." AND ( ".$filterName." LIKE '".$val."'";
+                        } else {
+                            $whereClause = $whereClause." OR ".$filterName." LIKE '".$val."'";
+                        }
+                        if(array_key_last($filterValues) == $key) {
+                            $whereClause = $whereClause.") ";
+                        }
+                        $isInitial = false;
                     }
                 }
             }
@@ -319,11 +347,11 @@
             while($attack = $fromQuery -> fetch_assoc()) {
                 foreach($attack as $column => $value) {
                     //if(!isset($filtersOutputMap[$column])) {
-                      //  $filtersOutputMap[$column] = array();
-                   // }
-                   if(!isset($filtersOutputMap[$column])) {
-                       $filtersOutputMap[$column] = array();
-                   }
+                    //  $filtersOutputMap[$column] = array();
+                    // }
+                    if(!isset($filtersOutputMap[$column])) {
+                        $filtersOutputMap[$column] = array();
+                    }
                     $filtersOutputMap[$column][$value] = 1;
                 }
             }

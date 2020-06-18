@@ -17,9 +17,9 @@
                 echo "status 400 bad request";
             } else {
                 if(isset($_GET["pag"])) {
-                 echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map, $_GET["pag"]);
+                  DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map, $_GET["pag"]);
                 } else {
-                   echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map);
+                    DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map);
                 }
             }
         } else if($_GET["option"] == "availablefilters") {
