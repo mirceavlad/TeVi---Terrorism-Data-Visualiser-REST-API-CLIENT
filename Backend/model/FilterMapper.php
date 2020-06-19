@@ -2,15 +2,14 @@
 class FilterMapper{
     public function mapFilters($filtersArray){
         $withFilterMap=FilterConfigurator::mapFilters($filtersArray);
+       // var_dump($withFilterMap);
         $availableFiltersValues = null;
             $availableFiltersMapByCategories = array();
             if(empty($withFilterMap)) {
-                echo "enters here";
                 $jsonString = file_get_contents("http://localhost/attacks/all");
                 urldecode($jsonString);
                 $availableFiltersValues = json_decode($jsonString,true);
             } else {
-                echo "AAAAAAAA";
                 $filtersJson = json_encode($withFilterMap);
                 $post_options = array(
                     'http' => array(

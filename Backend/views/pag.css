@@ -6,6 +6,15 @@ select{
     float: left;
 }
 
+body{
+    display:flex;
+    width: 100%;
+}
+
+input{
+    display:block;
+}
+
 .closebtn{
     position: relative;
     display: inline-block;
@@ -15,5 +24,23 @@ select{
     color: gray;
 }
 #list{
-float:right;
+position:relative;
+width: 70%;
+float: right;
+}
+
+th{
+    background: lightgray;
+    position:sticky;
+    top:0;
+}
+
+td,th{
+    border: 1px solid black;
+    text-align: center;
+}
+#param{
+    display:block;
+    float:left;
+    width: 20%;
 }

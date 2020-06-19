@@ -65,7 +65,6 @@
             $availableFiltersValues = null;
             $availableFiltersMapByCategories = array();
             if(empty($withFilterMap)) {
-                echo "enters here";
                 $jsonString = file_get_contents("http://localhost/attacks/availablefilters/all");
                 urldecode($jsonString);
                 $availableFiltersValues = json_decode($jsonString,true);

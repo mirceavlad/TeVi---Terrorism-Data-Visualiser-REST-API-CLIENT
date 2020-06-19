@@ -11,6 +11,7 @@ if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
     $ignoreFilter = $_POST['filter'];
     setcookie($cookie_name.'/'.uniqid(),"any"."/"."0/",time()+(86400*30),"/");
+    setcookie("current",$ignoreFilter,time()+(86400*30),"/");
     header("Refresh:0");
 }
 foreach($_COOKIE as $cookie_name=>$cookie_value){
@@ -22,6 +23,7 @@ foreach($_COOKIE as $cookie_name=>$cookie_value){
         $isInterval=substr($aux, 0, strpos($aux, '/'));
         $otherIntervalId=substr($aux, strpos($aux, "/")+1);
         setcookie($cookie_name,$_POST[$id]."/".$isInterval."/".$otherIntervalId,time()+(86400*30),"/");
+        setcookie("current",null,time()+(86400*30),"/");
         header("Refresh:0");
     }
 if(isset($_POST[$id."interval"]))
@@ -30,6 +32,7 @@ if(isset($_POST[$id."interval"]))
     $value=substr($cookie_value, 0, strpos($cookie_value, '/'));
     setcookie($cookie_name, $value."/"."1/".$newCookieId, time()+(86400*30), "/");
     setcookie($name."/".$newCookieId, "any/"."1/",time()+(86400*30),"/");
+    setcookie("current",$name,time()+(86400*30),"/");
     header("Refresh:0");
 }
 
@@ -49,12 +52,16 @@ if(isset($_POST[$id."close"])){
 
 
 selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
-$cookiesArray=CookieMapper::mapCookies($ignoreFilter);
+if(array_key_exists("current", $_COOKIE)==TRUE)
+$cookiesArray=CookieMapper::mapCookies($_COOKIE["current"]);
+else $cookiesArray=CookieMapper::mapCookies(NULL);
 $cookiesArray=FilterConfigurator::getInstance()::configureFilters($cookiesArray);
 selectsController::showSelects($cookiesArray);
+//var_dump($cookiesArray);
+$filtersArray=FilterMapper::mapFilters($cookiesArray);
+//var_dump($filtersArray);
 if(isset($_POST["Search"]))
 {
-    $filtersArray=FilterMapper::mapFilters($cookiesArray);
     listController::showList($filtersArray);
 }
 

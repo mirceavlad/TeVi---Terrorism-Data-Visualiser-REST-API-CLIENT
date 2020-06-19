@@ -9,8 +9,8 @@ public function showSelects($cookiesArray){
     if($item->currentSelectedValue!='any')
     echo "<option value=\"".$item->currentSelectedValue."\" selected='selected' >".$item->currentSelectedValue."</option>";
     else
-    {echo "<option value=\"Any\">Any</option>";
-    
+    {echo "<option value=\"any\">any</option>";
+    sort($item->allPossibleValues);
     foreach($item -> allPossibleValues as $selectValue) {
         echo "<option value=\"".$selectValue."\" >".$selectValue."</option>";
     }}
@@ -32,7 +32,7 @@ echo "</form>";
 }
 
 }
-
+echo "</div>";
 }
 
 public function removeInterval($id, $cookiesArray){
@@ -50,10 +50,7 @@ public function removeInterval($id, $cookiesArray){
         echo "<form method=\"post\" action=\"filters.php\">";
         echo "<select id=\"filter\" name=\"filter\">";
         foreach($filtersMap as $filterOption => $filterData) {
-            $ok="";
-            if(isset($_POST["filter"]) && $_POST["filter"]==$filterOption)
-$ok=" selected=\"selected\" ";
-            echo "<option value=\"".$filterOption."\" $ok >".$filterOption."</option>";
+            echo "<option value=\"".$filterOption."\" >".$filterOption."</option>";
         }
         echo "</select>";
         echo "<input type=\"Submit\" value=\"Submit\"/>";
