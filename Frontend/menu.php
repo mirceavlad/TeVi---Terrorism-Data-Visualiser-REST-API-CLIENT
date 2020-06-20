@@ -18,7 +18,6 @@
                <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""></a>
                <ul class="nav-list">
                   <li class="nav-item">
-                     <a href="#" class="nav-link">Home</a>
                   </li>
                 
                </ul>
