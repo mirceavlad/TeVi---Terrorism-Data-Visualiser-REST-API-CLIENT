@@ -29,6 +29,18 @@ body {
   --body-font-color: #515151;
 }
 
+.close .wrapper{
+  display: none;
+}
+
+.map{
+  position: absolute;
+  top: 3%;
+  left: 25%;
+  width: 1000px;
+  height: 900px;
+
+}
 .wrapper {
   position: absolute;
   top: 20%;

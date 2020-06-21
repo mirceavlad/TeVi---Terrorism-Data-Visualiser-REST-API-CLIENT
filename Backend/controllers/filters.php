@@ -6,6 +6,7 @@ include '../model/CookieMapper.php';
 include '../model/FilterMapper.php';
 include 'selectsController.php';
 include 'listController.php';
+include 'geoChartController.php';
 $ignoreFilter = null;
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
@@ -62,7 +63,8 @@ $filtersArray=FilterMapper::mapFilters($cookiesArray);
 //var_dump($filtersArray);
 if(isset($_POST["Search"]))
 {
-    listController::showList($filtersArray);
+    geoChartController::showList($filtersArray);
+    //listController::showList($filtersArray);
 }
 
 //////////////////////////////////////

@@ -9,7 +9,7 @@
 </head>
 
 
-<body>
+<body  style = "background-color:white;">
 
 <header>
 <div class="container_menu">
@@ -31,7 +31,9 @@
 </div>
  
 
-<div class="wrapper">
+<div class="map" id = "map">
+</div>
+<div class="wrapper" id = "wrapper">
      <h1> Choose the visual mode</h1>
 	<div class="container" id="c0">
 		<div class="image" id="i0">
@@ -195,5 +197,7 @@
 </div>
 
 
+<script src="menu.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body></html>
