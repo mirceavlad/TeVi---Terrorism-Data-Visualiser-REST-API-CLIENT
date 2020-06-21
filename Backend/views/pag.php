@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="../views/pag.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>
 Lista
 </title>

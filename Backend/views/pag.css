@@ -9,6 +9,7 @@ select{
 body{
     display:flex;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 input{
@@ -23,11 +24,37 @@ input{
     border: none;
     color: gray;
 }
+
 #list{
 position:relative;
-width: 70%;
+height: 100%;
 float: right;
+display: block;
+overflow: visible;
 }
+
+
+@media only screen and (min-width: 1100px) {
+    #list, input, select, label {
+        font-size: 1rem;
+        margin: 1px;
+      }
+      select{
+          width: 200px;
+      }
+      #list{
+        width: 79%;
+      }
+
+  }
+
+  @media only screen and (max-width: 1100px) {
+    #list, input, select, label {
+        font-size: 2rem;
+        margin: 1px;
+      }
+      #list{ width: 100%;}
+  }
 
 th{
     background: lightgray;
@@ -44,3 +71,4 @@ td,th{
     float:left;
     width: 20%;
 }
+

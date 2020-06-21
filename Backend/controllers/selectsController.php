@@ -6,7 +6,9 @@ public function showSelects($cookiesArray){
         echo "<form method=\"post\">";
         echo "<label id=".$name.">".$name."</label>";
     echo "<select id=\"$item->id\" name=\"".$item->id."\" value=".$item->id." onchange='this.form.submit()'>";
+    echo "<optgroup>";
     if($item->currentSelectedValue!='any')
+    
     echo "<option value=\"".$item->currentSelectedValue."\" selected='selected' >".$item->currentSelectedValue."</option>";
     else
     {echo "<option value=\"any\">any</option>";
@@ -14,6 +16,7 @@ public function showSelects($cookiesArray){
     foreach($item -> allPossibleValues as $selectValue) {
         echo "<option value=\"".$selectValue."\" >".$selectValue."</option>";
     }}
+    echo "</optgroup>";
     echo "</select>";
     echo "</form>";
     echo "<form method=\"post\">";
@@ -39,8 +42,8 @@ public function removeInterval($id, $cookiesArray){
     foreach($cookiesArray as $item){
         if($item->id==$id){
             $value=$item->currentSelectedValue;
-            setcookie($item->pointingToCategory."/".$id,"",-1,"/");
-            setcookie($item->pointingToCategory."/".$id,$value."/"."0/",time()+(86400*30),"/");
+            setcookie($item->pointingToCategory."ß".$id,"",-1,"/");
+            setcookie($item->pointingToCategory."ß".$id,$value."ß"."0ß",time()+(86400*30),"/");
         }
     }
     }
@@ -49,9 +52,11 @@ public function removeInterval($id, $cookiesArray){
     public function initFilters($filtersMap){
         echo "<form method=\"post\" action=\"filters.php\">";
         echo "<select id=\"filter\" name=\"filter\">";
+        echo "<optgroup>";
         foreach($filtersMap as $filterOption => $filterData) {
             echo "<option value=\"".$filterOption."\" >".$filterOption."</option>";
         }
+        echo "</optgroup>";
         echo "</select>";
         echo "<input type=\"Submit\" value=\"Submit\"/>";
         echo "</form>";

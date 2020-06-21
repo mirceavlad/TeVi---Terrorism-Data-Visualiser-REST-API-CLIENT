@@ -20,7 +20,7 @@
         }
 
         public function configureFilters($filtersArray) {
-
+            //var_dump($filtersArray);
             $filtersMap = self::mapFilters($filtersArray);
 
             $availableFiltersMap = self::makeQueryForAvailableFiltersData($filtersMap);
