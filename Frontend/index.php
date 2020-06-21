@@ -99,7 +99,7 @@
                   Tortor consequat id porta nibh venenatis cras sed.<br>
                   Semper feugiat nibh sed pulvinar.<br>
                   </h5>
-                  <a href="#" class="explore cta-btn_section_3"><span>Explore</span></a>
+                
                </div>
             </div>
          </div>
