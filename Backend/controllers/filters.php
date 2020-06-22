@@ -7,10 +7,6 @@ include '../model/FilterMapper.php';
 include 'selectsController.php';
 include 'listController.php';
 include 'geoChartController.php';
-include 'coloumnChartController.php';
-include 'pieChartController.php';
-include 'scatterChartController.php';
-
 $ignoreFilter = null;
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
@@ -67,17 +63,13 @@ $filtersArray=FilterMapper::mapFilters($cookiesArray);
 //var_dump($filtersArray);
 if(isset($_POST["Search"]))
 {
-    //coloumnChartController::showList($filtersArray);//listController::showList($filtersArray);
-    //pieChartController::showList($filtersArray);
-    scatterChartController::showList($filtersArray);
+    listController::showList($filtersArray);
 }
-/*
 if(isset($_POST["Chart"]))
 {
     geoChartController::showList($filtersArray);
 
-}*/
-
+}
 
 //////////////////////////////////////
 // $name=substr($cookie_name, 0, strpos($cookie_name, '/'));

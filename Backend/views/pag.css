@@ -15,25 +15,6 @@ select{
   
   }
 
-.columnchart_values{
-    position: absolute;
-    top: 3%;
-    left: 25%;
-    width: 900px;
-    height: 900px;
-
-  
-  }  
-
-  .piechart_3d{
-    position: absolute;
-    top: 3%;
-    left: 25%;
-    width: 900px;
-    height: 2000px;
-
-  
-  } 
 
 body{
     display:flex;

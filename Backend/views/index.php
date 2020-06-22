@@ -19,7 +19,7 @@
                   <i class="fas fa-bars"></i>
                   <i class="fas fa-times"></i>
                </div>
-               <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""></a>
+               <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""</a>
                <ul class="nav-list">
                   <li class="nav-item">
                      <a href="../views/index.php" class="nav-link active">Home</a>
@@ -126,7 +126,7 @@
       </section>
       <section class="section_5">
          <div class="container">
-         </div>
+         
       </section>
       <script src="main.js"></script>
       
