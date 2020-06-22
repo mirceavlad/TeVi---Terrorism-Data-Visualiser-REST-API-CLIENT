@@ -51,38 +51,38 @@ $ignoreFilter = null;
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
     $ignoreFilter = $_POST['filter'];
-    setcookie($cookie_name.'ß'.uniqid(),"any"."ß"."0ß",time()+(86400*30),"/");
+    setcookie($cookie_name.'/'.uniqid(),"any"."/"."0/",time()+(86400*30),"/");
     setcookie("current",$ignoreFilter,time()+(86400*30),"/");
     header("Refresh:0");
 }
 foreach($_COOKIE as $cookie_name=>$cookie_value){
-    $value=substr($cookie_value, 0, strpos($cookie_value, 'ß'));
-    $id=substr($cookie_name, strpos($cookie_name, "ß")+1);
-    $name=substr($cookie_name, 0, strpos($cookie_name, "ß"));
+    $value=substr($cookie_value, 0, strpos($cookie_value, '/'));
+    $id=substr($cookie_name, strpos($cookie_name, "/")+1);
+    $name=substr($cookie_name, 0, strpos($cookie_name, "/"));
     if(isset($_POST[$id])){
-        $aux=substr($cookie_value, strpos($cookie_value, "ß")+1);
-        $isInterval=substr($aux, 0, strpos($aux, 'ß'));
-        $otherIntervalId=substr($aux, strpos($aux, "ß")+1);
-        setcookie($cookie_name,$_POST[$id]."ß".$isInterval."ß".$otherIntervalId,time()+(86400*30),"/");
+        $aux=substr($cookie_value, strpos($cookie_value, "/")+1);
+        $isInterval=substr($aux, 0, strpos($aux, '/'));
+        $otherIntervalId=substr($aux, strpos($aux, "/")+1);
+        setcookie($cookie_name,$_POST[$id]."/".$isInterval."/".$otherIntervalId,time()+(86400*30),"/");
         setcookie("current",null,time()+(86400*30),"/");
         header("Refresh:0");
     }
 if(isset($_POST[$id."interval"]))
-{   $lastname=substr($cookie_name, strpos($cookie_name, "ß") + 1);
+{   $lastname=substr($cookie_name, strpos($cookie_name, "/") + 1);
     $newCookieId=uniqid();
-    $value=substr($cookie_value, 0, strpos($cookie_value, 'ß'));
-    setcookie($cookie_name, $value."ß"."1ß".$newCookieId, time()+(86400*30), "/");
-    setcookie($name."ß".$newCookieId, "anyß"."1ß",time()+(86400*30),"/");
-    setcookie("current",$name,time()+(86400*30),"ß");
+    $value=substr($cookie_value, 0, strpos($cookie_value, '/'));
+    setcookie($cookie_name, $value."/"."1/".$newCookieId, time()+(86400*30), "/");
+    setcookie($name."/".$newCookieId, "any/"."1/",time()+(86400*30),"/");
+    setcookie("current",$name,time()+(86400*30),"/");
     header("Refresh:0");
 }
 
 if(isset($_POST[$id."close"])){
-    $aux=substr($cookie_value, strpos($cookie_value, "ß")+1);
-    $isInterval=substr($aux, 0, strpos($aux, 'ß'));
+    $aux=substr($cookie_value, strpos($cookie_value, "/")+1);
+    $isInterval=substr($aux, 0, strpos($aux, '/'));
     if($isInterval==1)
     {
-        $secondId=substr($aux, strpos($aux, "ß") + 1);
+        $secondId=substr($aux, strpos($aux, "/") + 1);
         if($secondId!=NULL)
         selectsController::removeInterval($secondId,$cookiesArray);
     }

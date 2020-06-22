@@ -1,13 +1,12 @@
 <?php
-require_once '../vendor/autoload.php';
+include '../views/pag.php';
 include '../model/FilterConfigurator.php';
 include '../model/FilterDataObj.php';
 include '../model/CookieMapper.php';
 include '../model/FilterMapper.php';
 include 'selectsController.php';
+include 'listController.php';
 include 'geoChartController.php';
-$loader = new \Twig\Loader\FilesystemLoader('../views');
-$twig = new \Twig\Environment($loader);
 $ignoreFilter = null;
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
@@ -16,11 +15,6 @@ if(isset($_POST['filter'])){
     setcookie("current",$ignoreFilter,time()+(86400*30),"/");
     header("Refresh:0");
 }
-if(array_key_exists("current", $_COOKIE)==TRUE)
-$cookiesArray=CookieMapper::mapCookies($_COOKIE["current"]);
-else $cookiesArray=CookieMapper::mapCookies(NULL);
-$cookiesArray=FilterConfigurator::getInstance()::configureFilters($cookiesArray);
-
 foreach($_COOKIE as $cookie_name=>$cookie_value){
     $value=substr($cookie_value, 0, strpos($cookie_value, 'ß'));
     $id=substr($cookie_name, strpos($cookie_name, "ß")+2);
@@ -42,6 +36,7 @@ if(isset($_POST[$id."interval"]))
     setcookie("current",$name,time()+(86400*30),"/");
     header("Refresh:0");
 }
+
 if(isset($_POST[$id."close"])){
     $aux=substr($cookie_value, strpos($cookie_value, "ß")+2);
     $isInterval=substr($aux, 0, strpos($aux, 'ß'));
@@ -54,28 +49,38 @@ if(isset($_POST[$id."close"])){
     setcookie($cookie_name,"",-1,"/");
     header("Refresh:0");
 }
-
 }
 
 
-$titles=selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
-
-$selects=selectsController::showSelects($cookiesArray);
+selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
+if(array_key_exists("current", $_COOKIE)==TRUE)
+$cookiesArray=CookieMapper::mapCookies($_COOKIE["current"]);
+else $cookiesArray=CookieMapper::mapCookies(NULL);
+$cookiesArray=FilterConfigurator::getInstance()::configureFilters($cookiesArray);
+selectsController::showSelects($cookiesArray);
+//var_dump($cookiesArray);
 $filtersArray=FilterMapper::mapFilters($cookiesArray);
-$list=null;
+//var_dump($filtersArray);
 if(isset($_POST["Search"]))
 {
-    $list=$filtersArray;
+    listController::showList($filtersArray);
 }
 if(isset($_POST["Chart"]))
 {
     geoChartController::showList($filtersArray);
 
 }
-else if(isset($_POST["Map"]))
-{
-    echo $twig->render('map.php.twig',['values'=>$titles, 'selects'=>$selects, 'coords'=>$filtersArray]);
 
-}
-else echo $twig->render('map.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+//////////////////////////////////////
+// $name=substr($cookie_name, 0, strpos($cookie_name, '/'));
+// echo "<label>".$name."</label>";
+// echo "<select value=".$name."></select>";
+// $filterOne = new FilterDataObj(true, 2, 1 , "1970", "iyear");
+// $filterTwo = new FilterDataObj(true, 1, null, "2000", "iyear");
+// $filterThree = new FilterDataObj(false, 3, null, "2010", "iyear");
+// $filtersArray = array();
+// $filtersArray[2] = $filterOne;
+// $filtersArray[1] = $filterTwo;
+// $filtersArray[3] = $filterThree;
+// var_dump(FilterConfigurator::getInstance()::configureFilters($filtersArray)[1]);
 ?>
