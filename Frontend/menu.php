@@ -9,7 +9,7 @@
 </head>
 
 
-<body  style = "background-color:white;">
+<body>
 
 <header>
 <div class="container_menu">
@@ -18,6 +18,7 @@
                <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""></a>
                <ul class="nav-list">
                   <li class="nav-item">
+                     <a href="#" class="nav-link">Home</a>
                   </li>
                 
                </ul>
@@ -31,9 +32,7 @@
 </div>
  
 
-<div class="map" id = "map">
-</div>
-<div class="wrapper" id = "wrapper">
+<div class="wrapper">
      <h1> Choose the visual mode</h1>
 	<div class="container" id="c0">
 		<div class="image" id="i0">
@@ -197,7 +196,5 @@
 </div>
 
 
-<script src="menu.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body></html>
