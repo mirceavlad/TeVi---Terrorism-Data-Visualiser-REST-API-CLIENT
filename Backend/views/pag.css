@@ -6,6 +6,19 @@ select{
     float: left;
 }
 
+<<<<<<< HEAD
+=======
+.map{
+    position: absolute;
+    top: 3%;
+    left: 25%;
+    width: 1000px;
+    height: 900px;
+  
+  }
+
+
+>>>>>>> parent of 2fd3679... Used twig to make MVC and made map
 body{
     display:flex;
     width: 100%;
