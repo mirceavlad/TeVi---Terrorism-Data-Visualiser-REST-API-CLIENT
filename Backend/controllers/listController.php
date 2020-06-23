@@ -2,6 +2,7 @@
 class listController{
     function showList($filtersArray){
         //var_dump($filtersArray);
+        
         echo "<table id=\"list\">";
         echo "<tr id=\"cap\">";
         if (is_array($filtersArray) || is_object($filtersArray))   

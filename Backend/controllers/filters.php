@@ -8,6 +8,10 @@ include '../model/CookieMapper.php';
 include '../model/FilterMapper.php';
 include 'selectsController.php';
 include 'geoChartController.php';
+include 'pieChartController.php';
+include 'scatterChartController.php';
+include 'coloumnChartController.php';
+
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 $twig = new \Twig\Environment($loader);
 $ignoreFilter = null;
@@ -77,6 +81,27 @@ if(isset($_POST["Chart"]))
 else if(isset($_POST["Map"]))
 {
     echo $twig->render('map.php.twig',['values'=>$titles, 'selects'=>$selects, 'coords'=>$filtersArray]);
+
+}
+
+else if(isset($_POST["PieChart"]))
+{
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    pieChartController::showList($filtersArray);
+
+}
+
+else if(isset($_POST["BarChart"]))
+{
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    coloumnChartController::showList($filtersArray);
+
+}
+
+else if(isset($_POST["ScatterChart"]))
+{
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    scatterChartController::showList($filtersArray);
 
 }
 else echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);

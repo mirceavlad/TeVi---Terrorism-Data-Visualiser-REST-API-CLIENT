@@ -15,7 +15,7 @@
 <div class="container_menu">
             <nav class="nav">
               
-               <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""></a>
+               <a href="../controllers/filters.php" class="logo"><img src="./assets/logo.png" alt=""></a>
                <ul class="nav-list">
                   <li class="nav-item">
                   </li>

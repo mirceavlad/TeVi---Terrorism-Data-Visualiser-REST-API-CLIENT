@@ -95,14 +95,11 @@ header{
 
 .footer{
     background: url("./assets/pic_7.gif") center no-repeat;
-    width: 22%;
+    width: 35rem;
+    background-size: cover;
     height: 100vh;
-    display: flex;
-    padding-top: 0rem;
-    position: initial;
-    background-size: 30rem 70rem;
+    float: left;
 
-    right: 0;
 }
 
 #c0 {
@@ -373,7 +370,7 @@ li:nth-child(2) {
 }
 
 /*Media queries*/
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1000px){
   section{
    padding: 7.9rem;
   }

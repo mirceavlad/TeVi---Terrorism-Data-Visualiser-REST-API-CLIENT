@@ -1,9 +1,9 @@
 <?php
-class geoChartController
+class pieChartController
 {
-    function showList($filtersArray)
-    {
-        
+    
+    function showList($filtersArray){
+
         $countries_map  = array();
         $countries_array = array();
         $i              = 0;
@@ -30,32 +30,31 @@ class geoChartController
                     }
             }
         }
-        
-        if (is_array($filtersArray) || is_object($filtersArray)) {
-            echo "<script>
-        google.charts.load('current', {
-            'packages':['geochart'],
-            'mapsApiKey': 'AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo'
-          });
-          google.charts.setOnLoadCallback(function drawRegionsMap(){
-              var data = google.visualization.arrayToDataTable([
-              ['Country', 'Results'],";
 
-            echo "[\"" . $countries_array[0] . "\"" . "," . $countries_map[$countries_array[0]]. ']';
+        echo "<script>google.charts.load('current', {packages:['corechart']});
+        google.charts.setOnLoadCallback(function drawChart(){;
+          var data = google.visualization.arrayToDataTable([
+            ['Country', 'Attacks'],";
+            echo "[\"" . $countries_array[0] . "\"" . "," . $countries_map[$countries_array[0]]. "]";
             for ($i = 1; $i < sizeof($countries_array); $i++) {
-                echo ",[\"" . $countries_array[$i] . "\"" . "," . $countries_map[$countries_array[$i]] . ']';
+                echo ",[\"" . $countries_array[$i] . "\"" . "," . $countries_map[$countries_array[$i]] . "]";
             }
-            echo "]);
-    
-            var options = {colorAxis: {colors: ['#367ea3', '#a1436d']}};
-    
-            var chart = new google.visualization.GeoChart(document.getElementById('map'));
-    
-            chart.draw(data, options);
-          });
-          </script>";
-        }
+          echo "]);
+  
+          var options = {
+            title: 'Attacks vs. Attacks',
+            is3D: true,
+            height: 1000,
+            colors: ['#9dbdeb', '#669be8', '#346dbf', '#34588c', '#194078', '#67a1f5'],
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('map'));
+          chart.draw(data, options);});
+          </script>
+        ";
     }
 }
+
+
 
 ?>

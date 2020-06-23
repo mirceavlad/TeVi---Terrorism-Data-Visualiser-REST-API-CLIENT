@@ -10,9 +10,8 @@ let body = selectElement('body');
 let map = selectElement('.map');
 
 wrapper.addEventListener('click', function() {
-    body.classList.toggle('close');
+    body.classList.toggle('close');});
 
-}
 
   
     
