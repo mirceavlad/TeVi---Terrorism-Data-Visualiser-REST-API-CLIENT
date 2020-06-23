@@ -56,6 +56,16 @@ class scatterChartController
   
           var chart = new google.visualization.ScatterChart(document.getElementById('map'));
   
+          google.visualization.events.addListener(chart, 'ready', function () {
+			var imgUri = chart.getImageURI();
+			document.getElementById('PNGdownload').href = imgUri;
+			
+			var svgAsXML = (new XMLSerializer).serializeToString(document.getElementsByTagName('svg')[0]);
+			var svgData = 'data:image/svg+xml,' + encodeURIComponent(svgAsXML);
+			
+			document.getElementById('SVGdownload').href = svgData;
+        });
+        
           chart.draw(data, options);});
           </script>
           ";

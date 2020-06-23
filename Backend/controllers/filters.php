@@ -13,9 +13,15 @@ include 'scatterChartController.php';
 include 'coloumnChartController.php';
 include 'downloadCSV.php';
 include 'downloadPNG.php';
+
+include '../controllers/newsController.php';
+
+$news=newsController::getNews();
+
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 $twig = new \Twig\Environment($loader);
 $ignoreFilter = null;
+
 if(isset($_POST['filter'])){
     $cookie_name=$_POST['filter'];
     $ignoreFilter = $_POST['filter'];
@@ -91,20 +97,21 @@ if(isset($_POST["Search"]))
 if(isset($_POST["Chart"]))
 {   
     geoChartController::showList($filtersArray);
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list, 'valuesNews'=>$news]);
 
 
 }
 else if(isset($_POST["Map"]))
 {
-    echo $twig->render('map.php.twig',['values'=>$titles, 'selects'=>$selects, 'coords'=>$filtersArray]);
+    echo $twig->render('map.php.twig',['values'=>$titles, 'selects'=>$selects, 'coords'=>$filtersArray, 'valuesNews'=>$news]);
 
 }
 
 else if(isset($_POST["PieChart"]))
 {
     pieChartController::showList($filtersArray);
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list, 'valuesNews'=>$news]);
+   
 
 
 }
@@ -112,7 +119,7 @@ else if(isset($_POST["PieChart"]))
 else if(isset($_POST["BarChart"]))
 {
     coloumnChartController::showList($filtersArray);
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list, 'valuesNews'=>$news]);
 
 
 }
@@ -120,11 +127,11 @@ else if(isset($_POST["BarChart"]))
 else if(isset($_POST["ScatterChart"]))
 {
     scatterChartController::showList($filtersArray);
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list, 'valuesNews'=>$news]);
 
 
 }
-else echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+else echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list, 'valuesNews'=>$news]);
 }
 ?>
 
