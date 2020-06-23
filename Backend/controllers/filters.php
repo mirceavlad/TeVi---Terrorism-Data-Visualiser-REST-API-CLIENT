@@ -1,4 +1,4 @@
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <?php
  
 require_once '../vendor/autoload.php';
@@ -11,7 +11,8 @@ include 'geoChartController.php';
 include 'pieChartController.php';
 include 'scatterChartController.php';
 include 'coloumnChartController.php';
-
+include 'downloadCSV.php';
+include 'downloadPNG.php';
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 $twig = new \Twig\Environment($loader);
 $ignoreFilter = null;
@@ -56,7 +57,7 @@ if(isset($_POST[$id."close"])){
     {
         $secondId=substr($aux, strpos($aux, "ß") + 1);
         if($secondId!=NULL)
-        selectsController::removeInterval($secondId,$cookiesArray);
+            selectsController::removeInterval($secondId,$cookiesArray);
     }
     setcookie($cookie_name,"",-1,"/");
     header("Refresh:0");
@@ -71,6 +72,18 @@ $selects=selectsController::showSelects($cookiesArray);
 
 $filtersArray=FilterMapper::mapFilters($cookiesArray);
 $list=null;
+if(isset($_POST["CSV"]))
+{
+    ob_end_clean();
+    downloadCSV::download($cookiesArray);
+}
+else if(isset($_POST["PNG"]))
+{
+    ob_end_clean();
+    downloadPNG::download($cookiesArray);
+}
+else
+{
 if(isset($_POST["Search"]))
 {
     $list=$filtersArray;
@@ -112,4 +125,6 @@ else if(isset($_POST["ScatterChart"]))
 
 }
 else echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+}
 ?>
+
