@@ -22,6 +22,7 @@ if(isset($_POST['filter'])){
     setcookie("current",$ignoreFilter,time()+(86400*30),"/");
     header("Refresh:0");
 }
+
 if(array_key_exists("current", $_COOKIE)==TRUE)
 $cookiesArray=CookieMapper::mapCookies($_COOKIE["current"]);
 else $cookiesArray=CookieMapper::mapCookies(NULL);
@@ -67,6 +68,7 @@ if(isset($_POST[$id."close"])){
 $titles=selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
 
 $selects=selectsController::showSelects($cookiesArray);
+
 $filtersArray=FilterMapper::mapFilters($cookiesArray);
 $list=null;
 if(isset($_POST["Search"]))
