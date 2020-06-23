@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="en">
+   <head>
+   
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <link rel="stylesheet" href="../views/pag.css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500" rel="stylesheet">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>
+         Lista
+      </title>
+   </head>
+   <body  style = "background-color:white;">
+<header>
+
+<div class="container_menu">
+            <nav class="nav">
+               <a href="index.php" class="logo"><img src="../views/assets/logo.png" alt=""></a>
+            </nav>
+            </div>
+      </header>
+
+  <div class="footer">
+<div class="footer-content">
+<div id="param">
+
+    
+      <form method="post" id="filtere">
+         <input name="Search" type="submit" value="Search" class="btn cta-btn"/>
+      </form>
+
+      <form method="post" id="charts">
+        <input name="Chart" type="submit" value="Chart" class="btn cta-btn"/>
+      </form>
+
+       <form method="post" id="bar_charts">
+        <input name="BarChart" type="submit" value="Bar Chart" class="btn cta-btn"/>
+      </form>
+
+       <form method="post" id="scatter_charts" >
+        <input name="ScatterChart" type="submit" value="Scatter Chart" class="btn cta-btn"/>
+      </form>
+
+       <form method="post" id="pie_charts">
+        <input name="PieChart" type="submit" value="Pie Chart" class="btn cta-btn"/>
+      </form>
+
+      <form method="post" id="charts">
+        <input name="Map" type="submit" value="Map" class="btn cta-btn"/>
+        	
+      </form>
+      
+
+      <form action="../controllers/resetController.php">
+         <input type="submit" value="RESET" class="btn cta-btn"/> 
+      </form>
+      
+
+      <form method="post" action="filters.php">
+      <select id="filter" name="filter" class = "box">
+         {% for value in values %}
+        <option value="{{value}}">{{value}} </option>
+         {% endfor %}
+    
+      </select>
+      
+      <input type="Submit" value="Submit" class="btn cta-btn"/>
+      </form>  
+            {% for key,value in selects %}
+      <form method="post">
+         <label id="{{selects[key][0]}}" class = "btn cta-btn">{{selects[key][0]}}</label>
+         <select id="{{key}}" name="{{key}}" value="{{key}}"  onchange=this.form.submit() class = "box">
+         {% for option in selects[key]["options"] %}
+         <option value="{{option}}">{{option}} </option>
+         {% endfor %}
+         </select>
+      </form>
+      <form method="post">
+      <input type="submit" class="closebtn" class="btn cta-btn" id="{{key}}close" name="{{key}}close" value="X">
+      </form>
+         {% if selects[key][-1]==true %}
+         <form action="filters.php" method="post">
+         {% if selects[key][-2]==true %}
+         <input type="submit" id="{{key}}interval" name="{{key}}interval" class="btn cta-btn" style="color:red" disabled value="Between">
+         {% else %}
+                  <input type="submit" id="{{key}}interval" class="btn cta-btn" name="{{key}}interval" value="Between">
+         {% endif %}
+         </form>
+         {% endif %}
+         {% endfor %}
+      </div>
+	  
+     
+	</div></div>
+         <div id="harta"></div>
+</div>
+
+        <script>
+        function initMap() {
+            var mapInitPos = { lat: 25.344, lng: 131.036 };
+            var points = [];
+            var map = new google.maps.Map(
+            document.getElementById('harta'), { zoom: 4, center: mapInitPos });
+  
+            var mapPoints=[];
+
+function createMarker(coordonates,data){
+                var content=data;
+                var marker=new google.maps.Marker({
+                    position: coordonates,
+                    map: map
+                });
+                google.maps.event.addListener(marker,'click', function() {
+                infowindow.setContent(content); 
+                infowindow.open(map,marker);
+                });
+                return marker;}
+
+  {% for coord in coords %}
+  {% if coord["longitude"]==true and coord["latitude"]==true %}
+      var long={{coord["longitude"]}};
+      var lat={{coord["latitude"]}};
+      var year={{coord["iyear"]}};
+      var weapon="{{coord["weaptype1_txt"]}}";
+     var infowindow = new google.maps.InfoWindow();
+     var info="Year:"+year+" Weapon:"+weapon; 
+     var coord=new google.maps.LatLng(lat,long);
+     var pt = createMarker(coord,info);
+     {% endif %}
+    {% endfor %}
+    
+    }
+    
+    
+    
+  </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo&callback=initMap"></script>
+
+        </body> 
+        </html> 

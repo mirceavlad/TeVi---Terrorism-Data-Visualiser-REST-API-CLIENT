@@ -56,7 +56,7 @@
                </div>
                <div class="single-animation">
                   <h5>Global Terrorism Visualizer</h5>
-                  <a href="menu.php" class="btn cta-btn">Explore</a>
+                  <a href="../views/menu.php" class="btn cta-btn">Explore</a>
                </div>
             </div>
          </div>
