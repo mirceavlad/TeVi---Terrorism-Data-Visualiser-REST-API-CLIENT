@@ -25,6 +25,7 @@
 <div class="footer-content">
 <div id="param">
 
+    <a class="btn cta-btn" href="../views/menu.php"> BACK</a>
     
       <form method="post" id="filtere">
          <input name="Search" type="submit" value="Search" class="btn cta-btn"/>
@@ -93,7 +94,7 @@
 	  
      
 	</div></div>
-         <div id="harta"></div>
+         <div id="harta" class = "map"></div>
 </div>
 
         <script>
@@ -136,6 +137,19 @@ function createMarker(coordonates,data){
     
   </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo&callback=initMap"></script>
+<footer>
+<div class="container_menu_footer">
+               
+<marquee aligh = "left" truespeed = "10" class = "news">
+<p>
+Last news from <a href="https://www.foxnews.com/category/world/terrorism">Fox News</a></p>
+ {% for valueNews in valuesNews %}
 
+     <p> {{valueNews}} </p>
+ 
+  {% endfor %}
+  </marquee>
+   </div>
+      </footer>
         </body> 
         </html> 

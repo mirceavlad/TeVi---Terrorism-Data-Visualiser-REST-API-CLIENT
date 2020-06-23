@@ -12,6 +12,7 @@
 <body  style = "background-color:white;">
 
 <header>
+
 <div class="container_menu">
             <nav class="nav">
               
@@ -34,6 +35,7 @@
 <div class="map" id = "map">
 </div>
 <div class="wrapper" id = "wrapper">
+<a class="btn cta-btn" href="../views/index.php"> BACK</a>
      <h1> Choose the visual mode</h1>
 	<div class="container" id="c0">
 		<div class="image" id="i0">

@@ -22,9 +22,10 @@
   <div class="footer">
   
 <div class="footer-content">
+
 <div id="param" >
 
-    
+    <a class="btn cta-btn" href="../views/menu.php"> BACK</a>
       <form method="post" id="filtere">
          <input name="Search" type="submit" value="Search" class="btn cta-btn"/>
       </form>
@@ -99,11 +100,11 @@
           <a class="btn cta-btn" id="PNGdownload" href="#" download="reg.png"  > DOWNLOAD PNG</a>
       </div>
 	  
-     
-	</div></div>
+    
+	</div> </div>
 </div>
     <div class="map" id = "map">
-    <table id="list" class = "map">
+    <table id="list">
       <tr id="cap">
       {% for key,value in tables[0] %}
       <th>{{key}}</th>
@@ -116,9 +117,11 @@
       </tr>
       {% endfor %}
       </tr>
-      </table>
+      </table>  
    </div>
-   <footer>
+ 
+   <footer> 
+   
 <div class="container_menu_footer">
                
 <marquee aligh = "left" truespeed = "10" class = "news">
