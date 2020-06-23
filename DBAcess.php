@@ -1,8 +1,10 @@
 <?php
 class DBAcess {
-    //octavian
+    //Properties
     private static $instance = null;
     private static $mysql = null;
+
+    //CONSTRUCTION
     private function __construct()
     {
         if (mysqli_connect_errno()) {
@@ -25,7 +27,11 @@ class DBAcess {
         return self::$instance;
     }
     
-    //creates the ATTACKS table, having columns names as given in the $headersArray
+    //DDL OPERATIONS
+    /**
+     * 
+     * Creates the ATTACKS table, having columns names as given in the @param $headersArray
+     */
     public function createTerrorTable($headersArray) {
         $queryHeaders = "";
         foreach($headersArray as $columnName){
@@ -38,10 +44,14 @@ class DBAcess {
         }
     }
     
-    //adds an attak to the attaks table
-    //@param $attackDataMap, an array acting as a map, mapping the each column name with a value,
-    //where the key value(array index) should be a string representing the columnName and the value
-    //should be a string representing the value to be added at the respective column
+    //CREATE OPERATIONS
+    /**
+     * adds an attak to the attaks table
+     *@param $attackDataMap, an array acting as a map, mapping the each column name with a value,
+     *  where the key value(array index) should be a string representing the columnName and the value
+     *  should be a string representing the value to be added at the respective column
+     *@param $verbose if true, it outputs the json response of the insert operration, 
+     */
     public function addAttack(array $attakDataMap, $verbose = false) {
         foreach ($attakDataMap as $key => $value) {
             if((strpos($key, '\'') !== false || strpos($value, '\'') !== false)) {
@@ -49,32 +59,128 @@ class DBAcess {
                 return;
             }
         }
+        
         $columnsToInsert = '';
         $valuesToInsert = '';
+        
         foreach ($attakDataMap as $key => $value) {
             $columnsToInsert = $columnsToInsert."".$key.",";
             $valuesToInsert = $valuesToInsert."'".$value."',";
         }
+        
         $columnsToInsert = substr($columnsToInsert, 0, -1);
         $valuesToInsert = substr($valuesToInsert, 0, -1);
-        if(!self::$mysql -> query('INSERT INTO ATTACKS('.$columnsToInsert.') VALUES('.$valuesToInsert.')') && !$verbose) {
-            printf("%s",self::$mysql->error);
+        
+        if(!self::$mysql -> query('INSERT INTO ATTACKS('.$columnsToInsert.') VALUES('.$valuesToInsert.')')) {
+            if($verbose) {
+                echo "{\"status\": 409, \"description\":\"object cannot be created\"}";
+            } else {
+                printf("%s",self::$mysql->error);
+            }
         }
         if($verbose) {
             echo "{\"status\": 200, \"description\":\"object created\"}";
         }
     }
     
+    //READ OPERATIONS
+    /**
+     * @param $filtersDict an associative array, representing the filters that user already has setted, (key => filter_name, value => filters_values)
+     * @return given the $filtersDict as the current filters, it returns all possible values for each filters($key1 => filter_name, $value1 = ($key2 => filter_values, $value2 => number of filter_value occurences))
+     */
     public function getAvailableFilterValuesAsJson($filtersDict) {
         $res = self::getAttacksByFilters($filtersDict);
         return self::mapPosibileFiltersValuesToJson($res);
     }
-    
+
+    /**
+     * @return all possible filter values ($key1 => filter_name, $value1 = ($key2 => filter_values, $value2 => number of filter_value occurences))
+     */
     public function getAllAvailableFilters() {
         $res = self::selectAll();
         return self::mapPosibileFiltersValuesToJson($res);
     }
     
+    /**
+     * @param $filtersDict - an associative array containing all user - setted filters 
+     * @param $limit - if !null, the start page index, else, all available data will be flushed to output
+     */
+    public function getAttacksByFilters($filtersDict, $limit = null) {
+        $whereClause = self::generateWhereClauseFromUserFilters($filtersDict);
+        $res = null;
+        if($limit == null) {
+            $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause);
+        } else {
+            $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause.' LIMIT '.$limit.',3500');
+        }
+        return $res;
+    }
+
+    /**
+     * @param $filtersDict - already setted user filters
+     * @param $limit - if !null, the start page index, else, all available data will be flushed to output
+     * @return a json string, representing the attacks resources
+     */
+    public function getAttacksByFiltersAsJson($filtersDict, $limit = null) {
+        $res = null;
+        $res = self::getAttacksByFilters($filtersDict,$limit);
+        return self::toJsonString($res);
+    }
+    
+    /**
+     * @param $limit - if !null, the start page index, else, all available data will be flushed to output
+     * @return a mysql  query result
+     */
+    public function selectAll($limit = null) {
+        if($limit != null) {
+            $res = self::$mysql->query('SELECT * FROM ATTACKS LIMIT '.$limit.',3500');
+            return $res;
+        }
+        $res = self::$mysql->query('SELECT * FROM ATTACKS');
+        return $res;
+    }
+
+    //DELETE OPERATIONS
+    public function deleteAttacks($filtersMap) {
+        $whereClause = self::generateWhereClauseFromUserFilters($filtersMap["for_attacks_matching"]);
+        $query = "DELETE FROM ATTACKS ".$whereClause;
+        echo $query;
+        self::$mysql->query($query); 
+        if(self::$mysql->error != "") {
+            echo "{\"status:\": 404}";
+        }
+    }
+
+    //UPDATE OPERATIONS
+    public function updateAttacks($withQueryValues) {
+        $query = self::generateSetColumnStatement($withQueryValues["values_to_update"])." ".self::generateWhereClauseFromUserFilters($withQueryValues["for_attacks_matching"]);
+         self::$mysql -> query($query);
+         if(self::$mysql -> error != "") {
+            echo "{\"status:\": 404}";
+         } else {
+            echo "{\"status:\": 200, \"description\":\"object updated\"}";
+         }
+    }
+    
+    //HELPERS
+
+    private function generateSetColumnStatement($withQueryValues) {
+        $query = "UPDATE ATTACKS SET ";
+        $isInitial = true;
+        foreach($withQueryValues as $field => $value) {
+            if($isInitial) {
+                $query = $query." ".$field." = ".$value;
+            } else {
+                $query = $query.", ".$field." = ".$value;
+            }
+        }
+        return $query;
+    }
+
+    /**
+     * @param $filtersDict - an associative array containing all user - setted filters
+     * @return given $filtersDict, returns the "WHERE CLAUSE" for the sql query, in order to apply correct filters to data
+     */
     private function generateWhereClauseFromUserFilters($filtersDict) {
         $whereClause = "WHERE";
         $firstIntervalHead = null;
@@ -144,67 +250,7 @@ class DBAcess {
         }
         return $whereClause;
     }
-    
-    public function getAttacksByFilters($filtersDict, $limit = null) {
-        $whereClause = self::generateWhereClauseFromUserFilters($filtersDict);
-        $res = null;
-        if($limit == null) {
-            $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause);
-        } else {
-            $res = self::$mysql->query('SELECT * FROM ATTACKS '.$whereClause.' LIMIT '.$limit.',3500');
-        }
-        return $res;
-    }
-    
-    public function getAttacksByFiltersAsJson($filtersDict, $limit = null) {
-        $res = null;
-        $res = self::getAttacksByFilters($filtersDict,$limit);
-        return self::toJsonString($res);
-    }
-    
-    
-    public function selectAll($limit = null) {
-        if($limit != null) {
-            $res = self::$mysql->query('SELECT * FROM ATTACKS LIMIT '.$limit.',3500');
-            return $res;
-        }
-        $res = self::$mysql->query('SELECT * FROM ATTACKS');
-        return $res;
-    }
 
-    private function generateSetColumnStatement($withQueryValues) {
-        $query = "UPDATE ATTACKS SET ";
-        $isInitial = true;
-        foreach($withQueryValues as $field => $value) {
-            if($isInitial) {
-                $query = $query." ".$field." = ".$value;
-            } else {
-                $query = $query.", ".$field." = ".$value;
-            }
-        }
-        return $query;
-    }
-
-    public function deleteAttacks($filtersMap) {
-        $whereClause = self::generateWhereClauseFromUserFilters($filtersMap["for_attacks_matching"]);
-        $query = "DELETE FROM ATTACKS ".$whereClause;
-        echo $query;
-        self::$mysql->query($query); 
-        if(self::$mysql->error != "") {
-            echo "{\"status:\": 404}";
-        }
-    }
-
-    public function updateAttacks($withQueryValues) {
-        $query = self::generateSetColumnStatement($withQueryValues["values_to_update"])." ".self::generateWhereClauseFromUserFilters($withQueryValues["for_attacks_matching"]);
-         self::$mysql -> query($query);
-         if(self::$mysql -> error != "") {
-            echo "{\"status:\": 404}";
-         } else {
-            echo "{\"status:\": 200, \"description\":\"object updated\"}";
-         }
-    }
-    
     public function generateAndSendCsv($res) {
         $filename = uniqid().".csv";
         $filePointer = fopen($filename, "w+");
@@ -231,56 +277,130 @@ class DBAcess {
         unlink($filename);
     }
 
-    //octavian
-    //selects all from the terror db, converts it to a json,
-    //returns a string representing data as json
-    public function selectAllAsJson($limit = null) {
-        $query_results = self::selectAll($limit);
-        return self::toJsonString($query_results);
-    }
-    
-    //octavian
-    //selects attacks between 2 nr
-    //returns a string representin data as json
-    public function selectBetweenJson($nr, $country, $year, $weapon) {
-        if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
-            echo "status 400 bad request";
-            return;
-        }
-        $queryResult = self::selectBetween($nr, $country, $year, $weapon);
-        return self::toJsonString($queryResult);
-    }
-    
+    public function generateAndSendPNG($jsonString) {
+        $resultsArray = json_decode($jsonString, true);
 
-    //milea octavian
-    // encodes a db query into a json, (key: int, value-> array of each db select result), and a pair(key: "size", value: "int"))
-    // which represents the numberof results;
-    private function toJsonString($fromQuery) {
-        $resultsCount = 0;
-        $resultsArrayMapping = array();
-        while($attacks = $fromQuery -> fetch_assoc()) {
-            $resultsArrayMapping[$resultsCount] = $attacks;
-            $resultsCount = $resultsCount + 1;
+        $responseSize = $resultsArray["dataSz"];
+
+        $long = array();
+        $lat  = array();
+
+        for ($i = 0; $i < $responseSize; $i++) {
+            $long[$i] = $resultsArray[$i]["longitude"];
+            $lat[$i]  = $resultsArray[$i]["latitude"];
+            
         }
-        $resultsArrayMapping["dataSz"] = $resultsCount;
-        return json_encode($resultsArrayMapping);
-    }
-    
-    private function mapPosibileFiltersValuesToJson($fromQuery) {
-        $filtersOutputMap = array();
-        $filtersArray = array();
-        while($attack = $fromQuery -> fetch_assoc()) {
-            foreach($attack as $column => $value) {
-                //if(!isset($filtersOutputMap[$column])) {
-                //  $filtersOutputMap[$column] = array();
-                // }
-                if(!isset($filtersOutputMap[$column])) {
-                    $filtersOutputMap[$column] = array();
-                }
-                $filtersOutputMap[$column][$value] = 1;
+
+        $totalMarkers = 'markers=color:red%7Clabel:%7C' . $lat[0] . ',' . $long[0];
+
+        $maxNr=300;
+        if($maxNr>$responseSize)
+        $maxNr=$responseSize;
+        for ($i = 1; $i < $maxNr; $i++) {
+            if ($long[$i] != NULL && $lat[$i] != NULL) {
+                
+                $totalMarkers = $totalMarkers . '&markers=color:red%7Clabel:%7C' . $lat[$i] . ',' . $long[$i];
             }
         }
-        return json_encode($filtersOutputMap);
+
+
+
+        $image = file_get_contents("https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=1&size=2024x4048&maptype=roadmap&" . $totalMarkers . "&key=AIzaSyDtKxEnjmFmud3qf7EQAxdvUyDGrbxhXeo");
+
+        $file_name = 'GoogleMap.png';
+
+        $fp    = fopen($file_name , 'w+');
+        fputs($fp, $image); 
+
+        if (is_file($file_name)) {
+            
+            if (ini_get('zlib.output_compression')) {
+                ini_set('zlib.output_compression', 'Off');
+            }
+            
+            
+            switch (strtolower(substr(strrchr($file_name, '.'), 1))) {
+                case 'pdf':
+                    $mime = 'application/pdf';
+                    break;
+                case 'zip':
+                    $mime = 'application/zip';
+                    break;
+                case 'jpeg':
+                case 'jpg':
+                    $mime = 'image/jpg';
+                    break;
+                case 'png':
+                    $mime = 'image/png';
+                    break;
+                default:
+                    $mime = 'application/force-download';
+            }
+            fclose($fp);
+            if (file_exists($file_name)) {
+                header('Pragma: public');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Cache-Control: private', false);
+                header('Content-Type: ' . $mime);
+                header('Content-Disposition: attachment; filename="' . basename($file_name) . '"');
+                header('Content-Transfer-Encoding: binary');
+                header('Content-Length: ' . filesize($file_name));
+                readfile($file_name);
+            }
+        }
     }
+
+            //octavian
+            //selects all from the terror db, converts it to a json,
+            //returns a string representing data as json
+            public function selectAllAsJson($limit = null) {
+                $query_results = self::selectAll($limit);
+                return self::toJsonString($query_results);
+            }
+            
+            //octavian
+            //selects attacks between 2 nr
+            //returns a string representin data as json
+            public function selectBetweenJson($nr, $country, $year, $weapon) {
+                if((strpos($weapon, '\'') !== false || strpos($year, '\'') !== false || strpos($country, '\'') !== false)) {
+                    echo "status 400 bad request";
+                    return;
+                }
+                $queryResult = self::selectBetween($nr, $country, $year, $weapon);
+                return self::toJsonString($queryResult);
+            }
+            
+
+            //milea octavian
+            // encodes a db query into a json, (key: int, value-> array of each db select result), and a pair(key: "size", value: "int"))
+            // which represents the numberof results;
+            private function toJsonString($fromQuery) {
+                $resultsCount = 0;
+                $resultsArrayMapping = array();
+                while($attacks = $fromQuery -> fetch_assoc()) {
+                    $resultsArrayMapping[$resultsCount] = $attacks;
+                    $resultsCount = $resultsCount + 1;
+                }
+                $resultsArrayMapping["dataSz"] = $resultsCount;
+                return json_encode($resultsArrayMapping);
+            }
+            
+            private function mapPosibileFiltersValuesToJson($fromQuery) {
+                $filtersOutputMap = array();
+                $filtersArray = array();
+                while($attack = $fromQuery -> fetch_assoc()) {
+                    foreach($attack as $column => $value) {
+                        //if(!isset($filtersOutputMap[$column])) {
+                        //  $filtersOutputMap[$column] = array();
+                        // }
+                        if(!isset($filtersOutputMap[$column])) {
+                            $filtersOutputMap[$column] = array();
+                        }
+                        $filtersOutputMap[$column][$value] = 1;
+                    }
+                }
+                return json_encode($filtersOutputMap);
+            }
 }
 ?>

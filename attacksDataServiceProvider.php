@@ -5,7 +5,7 @@
             $filter_options_json = file_get_contents('php://input');
             $filters_map = json_decode($filter_options_json, true);
             if($_GET["option"] == "all") {
-                if(!isset($_GET["csv"])) {
+                if(!isset($_GET["csv"]) && !isset($_GET["png"])) {
                     if(isset($_GET["pag"])) {
                         $res = DBAcess::getInstance()::selectAllAsJson($_GET["pag"]);
                         echo $res;
@@ -13,7 +13,7 @@
                         $res = DBAcess::getInstance()::selectAllAsJson();
                         echo $res;
                     }
-                } else {
+                } else if(isset($_GET["csv"])){
                     if(isset($_GET["pag"])) {
                         $res = DBAcess::getInstance()::selectAll($_GET["pag"]);
                         DBAcess::getInstance()::generateAndSendCsv($res);
@@ -21,23 +21,39 @@
                         $res = DBAcess::getInstance()::selectAll();
                         DBAcess::getInstance()::generateAndSendCsv($res);
                     }
+                } else if(isset($_GET["png"])) {
+                    if(isset($_GET["pag"])) {
+                        $res = DBAcess::getInstance()::selectAllAsJson($_GET["pag"]);
+                        DBAcess::getInstance()::generateAndSendPNG($res);
+                    } else {
+                        $res = DBAcess::getInstance()::selectAllAsJson();
+                        DBAcess::getInstance()::generateAndSendPNG($res);
+                    }
                 }
             } else if($_GET["option"] == "filtered") {
                 if($filters_map == null) {
                     echo "status 400 bad request";
-                } else if(!isset($_GET["csv"])) {
+                } else if(!isset($_GET["csv"]) && !isset($_GET["png"])) {
                     if(isset($_GET["pag"])) {
                         echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map, $_GET["pag"]);
                     } else {
                         echo DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map);
                     }
-                } else {
+                } else if(isset($_GET["csv"])){
                     if(isset($_GET["pag"])) {
                          $res = DBAcess::getInstance()::getAttacksByFilters($filters_map, $_GET["pag"]);
                          DBAcess::getInstance()::generateAndSendCsv($res);
                     } else {
                         $res = DBAcess::getInstance()::getAttacksByFilters($filters_map);
                         DBAcess::getInstance()::generateAndSendCsv($res);
+                    }
+                } else if(isset($_GET["png"])) {
+                    if(isset($_GET["pag"])) {
+                        $res =  DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map, $_GET["pag"]);
+                        DBAcess::getInstance()::generateAndSendPNG($res);
+                    } else {
+                        $res =  DBAcess::getInstance()::getAttacksByFiltersAsJson($filters_map);
+                        DBAcess::getInstance()::generateAndSendPNG($res);
                     }
                 }
             } else if($_GET["option"] == "availablefilters") {
