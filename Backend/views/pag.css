@@ -11,7 +11,6 @@ body{
 }
 
 
-
 @import url('https://fonts.googleapis.com/css?family=Raleway:200');
 *,
 *::before,
@@ -169,10 +168,16 @@ input{
     font-size: 1rem;
 }
 
+#list:empty{
+  display:none;
+}
+
 #list{
 position:relative;
 display: block;
-overflow: scroll;
+overflow: auto;
+border-collapse: collapse;
+
 }
 
 #map, #harta{
@@ -267,13 +272,34 @@ text-align: center;
       #list{ width: 100%;}
   }
 
-th{
-    background: lightgray;
+#cap{
+
+  background-image: radial-gradient(circle at top left, #0bb5d4, #b0135c), radial-gradient(circle at top left, #0bb5d4, #b0135c);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  transition: background-color .5s;
     position:sticky;
     top:0;
+    text-align: center;
+    font-weight: bolder;
+
 }
 
-td,th{
+#list tr:nth-child(even){
+  background-color: #bbd3f8;
+}
+
+#list tr:nth-child(odd){
+  background-color: #daf0ff;
+}
+
+th{
+  color: white;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+td{
     border: 1px solid black;
     text-align: center;
 }
