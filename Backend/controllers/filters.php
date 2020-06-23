@@ -15,7 +15,7 @@ if(isset($_POST['filter'])){
     setcookie("current",$ignoreFilter,time()+(86400*30),"/");
     header("Refresh:0");
 }
-foreach($_COOKIE as $cookie_name=>$cookie_value){
+foreach($_COOKIE as $cookie_name=>$cookie_value) {
     $value=substr($cookie_value, 0, strpos($cookie_value, '/'));
     $id=substr($cookie_name, strpos($cookie_name, "/")+1);
     $name=substr($cookie_name, 0, strpos($cookie_name, "/"));
@@ -50,7 +50,6 @@ if(isset($_POST[$id."close"])){
     header("Refresh:0");
 }
 }
-
 
 selectsController::initFilters(FilterConfigurator::getInstance()::getFiltersTitles());
 if(array_key_exists("current", $_COOKIE)==TRUE)
