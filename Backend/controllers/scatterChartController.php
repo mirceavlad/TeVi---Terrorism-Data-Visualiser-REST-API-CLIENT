@@ -47,6 +47,8 @@ class scatterChartController
   
           var options = {
             title: 'Year vs. Attacks comparison',
+            width: 1000,
+                height: 700,
             hAxis: {title: 'Year', minValue: 0, maxValue: 2010},
             vAxis: {title: 'Attacks', minValue: 0, maxValue: 10000},
             legend: 'none'

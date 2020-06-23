@@ -50,8 +50,8 @@ class coloumnChartController
   
         var options = {
           title: 'Density of terrorist attack per country',
-          width: 1500,
-          height: 800,
+          width: 1000,
+          height: 700,
           bar: {groupWidth: '95%'},
           legend: { position: 'none' },
         };

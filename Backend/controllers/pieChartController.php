@@ -44,7 +44,7 @@ class pieChartController
           var options = {
             title: 'Attacks vs. Attacks',
             is3D: true,
-            height: 1000,
+            height: 800,
             colors: ['#9dbdeb', '#669be8', '#346dbf', '#34588c', '#194078', '#67a1f5'],
           };
   

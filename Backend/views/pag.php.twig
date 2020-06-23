@@ -15,13 +15,7 @@
 <header>
 <div class="container_menu">
             <nav class="nav">
-              
                <a href="index.php" class="logo"><img src="../views/assets/logo.png" alt=""></a>
-               <ul class="nav-list">
-                  <li class="nav-item">
-                  </li>
-                
-               </ul>
             </nav>
             </div>
       </header>
@@ -86,10 +80,10 @@
          {% if selects[key][-1]==true %}
          <form action="filters.php" method="post">
          {% if selects[key][-2]==true %}
-         <input type="submit" id="{{key}}interval" name="{{key}}interval" style="color:red" disabled value="Between">
+         <input type="submit" id="{{key}}interval" name="{{key}}interval" class="btn cta-btn" style="color:red" disabled value="Between">
          {% else %}
-                  <input type="submit" id="{{key}}interval" name="{{key}}interval" value="Between">
-{% endif %}
+                  <input type="submit" id="{{key}}interval" class="btn cta-btn" name="{{key}}interval" value="Between">
+         {% endif %}
          </form>
          {% endif %}
          {% endfor %}

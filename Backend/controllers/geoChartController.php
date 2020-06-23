@@ -47,7 +47,10 @@ class geoChartController
             }
             echo "]);
     
-            var options = {colorAxis: {colors: ['#367ea3', '#a1436d']}};
+            var options = {
+                width: 1000,
+                height: 700,
+                colorAxis: {colors: ['#367ea3', '#a1436d']}};
     
             var chart = new google.visualization.GeoChart(document.getElementById('map'));
     

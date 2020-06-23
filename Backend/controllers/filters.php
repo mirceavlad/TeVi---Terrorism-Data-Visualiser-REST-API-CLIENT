@@ -74,8 +74,10 @@ if(isset($_POST["Search"]))
     $list=$filtersArray;
 }
 if(isset($_POST["Chart"]))
-{   echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+{   
     geoChartController::showList($filtersArray);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+
 
 }
 else if(isset($_POST["Map"]))
@@ -86,22 +88,25 @@ else if(isset($_POST["Map"]))
 
 else if(isset($_POST["PieChart"]))
 {
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
     pieChartController::showList($filtersArray);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+
 
 }
 
 else if(isset($_POST["BarChart"]))
 {
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
     coloumnChartController::showList($filtersArray);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+
 
 }
 
 else if(isset($_POST["ScatterChart"]))
 {
-    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
     scatterChartController::showList($filtersArray);
+    echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
+
 
 }
 else echo $twig->render('pag.php.twig',['values'=>$titles, 'selects'=>$selects, 'tables'=>$list]);
