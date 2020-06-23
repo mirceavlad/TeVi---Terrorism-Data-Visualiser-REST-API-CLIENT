@@ -66,8 +66,8 @@ p{
   position: absolute;
   top: 20%;
   left: 45%;
-  width: 400px;
-  height: 600px;
+  width: 1000px;
+  height: 1000px;
   perspective: 900px;
   margin-left: 7rem;
 }
@@ -137,18 +137,24 @@ footer{
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, .5), transparent);
 }
 .box{
-  background: radial-gradient(circle at top left, #0bb5d4, #b0135c), radial-gradient(circle at top left, #0bb5d4, #b0135c);
-  color: radial-gradient(circle at top left, #0bb5d4, #b0135c), radial-gradient(circle at top left, #0bb5d4, #b0135c);
+  
   margin-top: 1.5rem;
   justify-content: initial;
+  text-decoration: none;
   border: 2px solid transparent;
   border-radius: 20px;
   font-size: 0.8rem;
   box-shadow: 0 5px 25px rgba(0, 0, 0, .5);
   display: inline-block;
   text-transform: uppercase;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
   letter-spacing: 2px;
   justify-content: initial;
+  padding: .5rem 1.2rem;
+  width: 160px;
+  height: 40px;
+  background-image: radial-gradient(circle at top left, #0bb5d4, #b0135c), radial-gradient(circle at top left, #0bb5d4, #b0135c);
 }
 
 
@@ -156,6 +162,8 @@ footer{
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 2px;
+width: 160px;
+height: 40px;
   
 }
 
@@ -163,6 +171,7 @@ footer{
   box-shadow: 0 5px 25px rgba(0, 0, 0, .5);
   font-size: 0.8rem;
   margin-top: 1rem;
+  
   justify-content: initial;
   text-decoration: none;
   padding: .5rem 1.2rem;

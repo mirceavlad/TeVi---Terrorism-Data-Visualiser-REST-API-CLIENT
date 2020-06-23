@@ -74,7 +74,7 @@
 		<div class="story" id="s0">
 			<div class="info">
 			<h3>Map</h3>
-			<p> Built during a time when Egypt was one of the richest and most powerful civilizations in the world. Their massive scale reflects the unique role that the pharaoh played in ancient Egyptian society.</p>
+			<p> Terrorism in the European sections of the intercontinental countries of Turkey and Russia are not included in this list.</p>
 			</div>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
 		<div class="story" id="s1">
 			<div class="info">
 				<h3>List</h3>
-			<p> Stonehenge is a prehistoric monument in Wiltshire, England. It was constructed in several stages between 3000 and 1500 B.C., spanninng to the Bronze Age.</p>
+			<p> Terrorism in the European sections of the intercontinental countries of Turkey and Russia are not included in this list.</p>
 			</div>
 		</div>
 	</div>
@@ -178,7 +178,7 @@
 		<div class="story" id="s2">
 			<div class="info">
 			<h3>Charts</h3>
-			<p> The Leaning Tower of Pisa or simply the Tower of Pisa is the campanile, or freestanding bell tower, of the cathedral of the Italian city of Pisa, known worldwide for its unintended tilt</p>
+			<p> Terrorism in the European sections of the intercontinental countries of Turkey and Russia are not included in this list.</p>
 
 			</div>
         </div>

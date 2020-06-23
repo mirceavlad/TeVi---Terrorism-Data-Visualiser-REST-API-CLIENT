@@ -45,7 +45,8 @@ class pieChartController
             title: 'Attacks vs. Attacks',
             is3D: true,
             height: 800,
-            colors: ['#9dbdeb', '#669be8', '#346dbf', '#34588c', '#194078', '#67a1f5'],
+            colors: ['#9dbdeb', '#669be8', '#346dbf', '#34588c', '#194078', '#67a1f5']
+            
           };
   
           var chart = new google.visualization.PieChart(document.getElementById('map'));

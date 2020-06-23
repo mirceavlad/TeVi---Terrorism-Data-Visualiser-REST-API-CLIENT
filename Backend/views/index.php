@@ -22,19 +22,19 @@
                <a href="index.php" class="logo"><img src="./assets/logo.png" alt=""</a>
                <ul class="nav-list">
                   <li class="nav-item">
-                     <a href="../views/index.php" class="nav-link active">Home</a>
+                     <a href="../views/menu.php" class="nav-link active">Home</a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">List</a>
+                     <a href="../views/menu.php" class="nav-link">List</a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">Map</a>
+                     <a href="../views/menu.php" class="nav-link">Map</a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">Statistics</a>
+                     <a href="../views/menu.php" class="nav-link">Statistics</a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">Contact</a>
+                     <a href="../views/menu.php" class="nav-link">Contact</a>
                   </li>
                </ul>
             </nav>
@@ -71,14 +71,14 @@
             
             <div class="headline-description_section_2">
                <div class="single-animation">
-                  <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br>
-                  incididunt ut labore et dolore magna aliqua <br>
-                  tellus orci ac.<br><br>
+               <h5>There is a long history of terrorism in Europe.This has often<br>
+                   been linked to nationalist and separatist movements <br>
+                   (separating countries), while other <br>
+                   acts have been related <br>
+                   to politics. <br><br>
 
-                  Tortor consequat id porta nibh venenatis cras sed.<br>
-                  Semper feugiat nibh sed pulvinar.<br>
                   </h5>
-                  <a href="#" class="explore cta-btn_section_2"><span>Explore</span></a>
+                  <a href="../views/menu.php" class="explore cta-btn_section_2"><span>Explore</span></a>
                </div>
             </div>
             </div>
@@ -92,12 +92,12 @@
             
             <div class="headline-description_section_2">
                <div class="single-animation">
-                  <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br>
-                  incididunt ut labore et dolore magna aliqua <br>
-                  tellus orci ac.<br><br>
+                  <h5>There is a long history of terrorism in Europe.This has often<br>
+                   been linked to nationalist and separatist movements <br>
+                   (separating countries), while other <br>
+                   acts have been related <br>
+                   to politics. <br><br>
 
-                  Tortor consequat id porta nibh venenatis cras sed.<br>
-                  Semper feugiat nibh sed pulvinar.<br>
                   </h5>
                 
                </div>
@@ -112,14 +112,14 @@
             
             <div class="headline-description_section_2">
                <div class="single-animation">
-                  <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br>
-                  incididunt ut labore et dolore magna aliqua <br>
-                  tellus orci ac.<br><br>
+               <h5>There is a long history of terrorism in Europe.This has often<br>
+                   been linked to nationalist and separatist movements <br>
+                   (separating countries), while other <br>
+                   acts have been related <br>
+                   to politics. <br><br>
 
-                  Tortor consequat id porta nibh venenatis cras sed.<br>
-                  Semper feugiat nibh sed pulvinar.<br>
                   </h5>
-                  <a href="#" class="explore cta-btn_section_2"><span>Explore</span></a>
+                  <a href="../views/menu.php" class="explore cta-btn_section_2"><span>Explore</span></a>
                </div>
             </div>
          </div>
