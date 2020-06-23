@@ -1,15 +1,11 @@
 <?php
     class FilterConfigurator {
+        //PROPERTIES
         private static $instance = null;
         public static $availableFieldsForSelect = null;
-        private function __construct() {
-        }
 
-        public function getFiltersTitles() {
-            if(self::$availableFieldsForSelect ==  null) {
-                self::$availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
-            }
-            return self::$availableFieldsForSelect;
+        //CONSTRUCTORS
+        private function __construct() {
         }
 
         public static function getInstance() {
@@ -19,6 +15,21 @@
             return self::$instance;
         }
 
+
+        /**
+         * @return all filters names
+         */
+        public function getFiltersTitles() {
+            if(self::$availableFieldsForSelect ==  null) {
+                self::$availableFieldsForSelect = self::makeQueryForAvailableFiltersData(array());
+            }
+            return self::$availableFieldsForSelect;
+        }
+
+        /**
+         * @param $filtersArray current applied filters
+         * @return the same @param $filtersArray, but with the allPossible values populated for each filter
+         */
         public function configureFilters($filtersArray) {
             //var_dump($filtersArray);
             $filtersMap = self::mapFilters($filtersArray);
@@ -34,6 +45,10 @@
             return $filtersArray;
         }
 
+        /**
+         * @param $filtersArray current applied filters
+         * @return a map having the filters groupped for query (aka prepares filters for query)
+        */
         public function mapFilters($filtersArray) {
             $filtersOptions = array();
                 foreach($filtersArray as $filterId => $filterObj) {
@@ -60,7 +75,9 @@
         }
 
         
-
+        /**
+         * Perform query to api with filters 
+         */
         public function makeQueryForAvailableFiltersData($withFilterMap) {
             $availableFiltersValues = null;
             $availableFiltersMapByCategories = array();
