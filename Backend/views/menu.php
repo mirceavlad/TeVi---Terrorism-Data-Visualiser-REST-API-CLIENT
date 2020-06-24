@@ -73,15 +73,15 @@
 		</div>
 		<div class="story" id="s0">
 			<div class="info">
-			<h3>Map</h3>
+			<h3>Description</h3>
 			<p> Terrorism in the European sections of the intercontinental countries of Turkey and Russia are not included in this list.</p>
 			</div>
 		</div>
 	</div>
-	<div class="container" id="c1">
+	<!--<div class="container" id="c1">
 		<div class="image" id="i1">
 			<div class="city">
-			<!--?xml version="1.0" encoding="utf-8"?-->
+	
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 225" style="enable-background:new 0 0 300 225;" xml:space="preserve">
 			<ellipse class="st5" id="sh3" cx="150.5" cy="224.75" rx="77.5" ry="77.5"></ellipse>
 
@@ -127,7 +127,7 @@
 	<div class="container" id="c2">
 		<div class="image" id="i2">
 			<div class="city">
-			<!--?xml version="1.0" encoding="utf-8"?-->
+			
 
 
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 225" style="enable-background:new 0 0 300 225;" xml:space="preserve">
@@ -183,7 +183,7 @@
 			</div>
         </div>
         
-        
+        -->
 	</div>
 
 	<div class="page">
