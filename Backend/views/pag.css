@@ -118,7 +118,7 @@ header{
 
 .container_menu_footer{
   width: 100%;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 1rem 1rem 1rem 1rem;
   left: 0;
   bottom: 0;
   text-align: center;
@@ -126,6 +126,10 @@ header{
   background-image:  radial-gradient(circle at top left, #0bb5d4, #b0135c), radial-gradient(circle at top left, #0bb5d4, #b0135c);
 
 
+}
+
+.container_menu_footer p{
+font-size: 1rem;
 }
 
 footer{
@@ -260,7 +264,7 @@ margin-top: 10rem;
       }
       #param{
         height: 100vh;
-        padding: 6rem 4rem 4rem 4rem;
+        padding: 6rem 4rem 6rem 4rem;
     width: 50vh;
       }
       #list{
@@ -277,6 +281,7 @@ margin-top: 10rem;
         margin-top: 80px;
       }
       rect{
+        position: relative;
         float: left;
       }
   }

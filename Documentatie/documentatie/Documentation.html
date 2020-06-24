@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentatie</title>
+</head>
+<body prefix="schema: http://schema.org/">
+    <header>
+        <p class="title" style="font-size: 2rem;font-weight: bolder;text-align: center;">Terrorism Web Project</p>
+    </header>
+
+    <article id="doc" typeof="schema:ScholarlyArticle" resource="#">
+        <h1>Documentation</h1>
+        <section id="projstructure">
+            <h3>
+                Project structure</h3>
+            <p>
+                The project contains 3 main parts:
+                <ul>
+                <li>
+                    REST API, providing attacks data
+                </li>
+                <li>
+                    DATA VISUALIZER APP backend
+                </li>
+                <li>
+                    DATA VISUALIZER APP Frontend
+                </li>
+            </ul>
+        </p>
+        </section>
+        <section id="apistructure">
+            <h3>API Structure</h3>
+            <figure>
+                <figcaption>ENDPOINTS & RESPONSE TYPES</figcaption>
+                <img src="SS\API_ENDPOINTS+RETURN.jpg" alt="API Endpoints and Return" width="50%">
+            </figure>
+        </section>
+        <section id="apicontrolflow">
+            <h3>API Control Flow</h3>
+            <ol>
+                <li>
+                    “/attacks”(POST)
+                    <pre>
+Used for  creating an attack. A post request shall be created,
+where the content shall be a json describing the new attack and the admin_token for manipulating data on server.
+An attack can be described by a json where key = “attack_property_name”, value = “attack_property_value”. Properties describing an attack wich are not in the JSON, will be set to NULL.
+This is a payload example for creating an attack which has eventid = 1:
+{
+   "eventid":"1",
+   "admin_token":"some_key"
+}
+
+And a full query example with curl
+curl -d '{"eventid":"1","admin_token":"some_key"}' -H "Content-Type: a	pplication/json" -X POST http://192.168.64.2/attacks
+
+For both success or failure of this query, the response will be a JSON
+containing a status code and a description.
+EG.
+{"status": 200, "description":"object created"}
+
+If the query failed due to bad token, the response will look like:
+{"status": 400, "description": "Bad request, admin_token not valid"}
+                    </pre>
+                </li>
+                <li>
+                    “/attacks”(PUT)
+                    <pre>
+Used for updating attacks, the JSON payload shall contain an array describing for which attacks to update a certain value(key = “for_attacks_matching”, value = json_describing_filters), “values_to_update” -> array of values to be updated, admin_token -> the admin key, for updating server data.
+
+Here is a query example, which updates iyear to 1999, for every attack which took place between 1970 - 2000 or 2001 - 2002 or in 2010 or in 2011 or in 2012 and it happend in Germany or Italy
+
+curl -d '{
+   "for_attacks_matching":{
+     "intervals":{"iyear":[1970,2000,2001, 2002]}, 
+     "iyear":[2010,2011,2012],
+     "country_txt":["germany", "italy"]   
+   },
+   "admin_token":"some_key",
+   "values_to_update":{
+      "iyear":"1999"
+   }
+}' -H "Content-Type: application/json" -X PUT  http://192.168.64.2/attacks
+
+At higher level, the JSON payload can be viewed like here:
+
+<img src="SS\json_view.png" alt="json view"  width="30%">
+
+The response is a JSON containing a response code and a description, Eg.
+{"status:": 200, "description":"object updated"} 
+                    </pre>
+                </li>
+                <li>
+                    “/attacks”(DELETE)
+                    <pre>
+Used for deleting attacks which are matching  a filter criteria. Therefore, the JSON Payload shall also contain the “for_attacks_matching” field, and the admin_token for updating server data.
+Here is an example of a query for deleting attacks having eventid = 1.
+curl -d '{                                                                                                                  
+   "for_attacks_matching":{
+      "eventid":[
+        "1"
+      ]
+},
+    "admin_token":"some_key"
+}' -H "Content-Type: application/json" -X DELETE  http://192.168.64.2/attacks
+                    
+The output is the same as POST/PUT: status + description    
+                    </pre>
+                </li>
+                <li>
+                “attacks/all” (POST/GET)
+                <pre>
+A simple GET/POST request to this endpoint will cause the API to respond with a JSON describing an array  consisting of all attacks
+Hence these doesn’t need any kind of filtering, POST request is also available, and the JSON payload won’t be taken into consideration.
+Internally, these are stored as an associative array between an index and another asoociative array, EG:
+attacks{
+	0 => array(130) {“country_txt”:”germany”,”iyear”:1990, ect.}
+	1 => …
+	.
+	.
+	n => ...
+	“dataSz” => n - 1
+}
+
+Given this representation, the JSON will look the same, eg:
+
+<img src="SS\json_view2.png" alt="json view 2" width="90%">
+<img src="SS\json_view3.png" alt="json view 3" width="90%">             
+                </pre>  
+                </li>
+                <li>
+                    “attacks/all/pag/{page_number}” (POST/GET)
+                    <pre>
+Same as point 5, but it returns only one page of data, a page contains 3500 attacks, page number indicate which page you want.
+                    </pre>
+                </li>
+                <li>
+                    “attacks/all/csv”(POST/GET)
+                    <pre>
+Sends a csv file describing the attacks
+                    </pre>
+                </li>
+                <li>
+“attacks/all/png”
+                    <pre>
+Sends a png cartographic map representation of the attacks.
+                    </pre>
+                </li>
+                <li>
+                    “attacks/filtered”(POST)
+                <pre>
+Given some user filters, returns the attacks matching the filters
+The JSON payload contains the user filters, in the folowing form:
+array() {
+	intervals:{“field1”:[interval_left, interval_right, interval_left_1, interval_right_1, ..]},
+	“field_name”:”field_value”
+	.
+	.
+	.
+}
+Payload json example for selecting all atacks between 1970 and 200, or 2001 and 2002 or in 2010,oe 2011, or 2012
+{
+  "intervals": {
+    "iyear": [
+      1970,
+      2000,
+      2001,
+      2002
+    ]
+  },
+  "iyear": [
+    2010,
+    2011,
+    2012
+  ],
+  "country_txt": [
+    "germany",
+    "italy"
+  ]
+}
+
+An example of a query for all atacks between 1970 - 200 or 2001-2002, or 2010,or 2011, or 2012, and happened in germany or italy.
+
+ curl -d '{"intervals":{"iyear":[1970,2000,2001, 2002]}, "iyear":[2010,2011,2012], "country_txt":["germany", "italy"]}' -H "Content-Type: application/json" -X POST  http://192.168.64.2/attacks/all/pag/1
+
+the response is the same as point 4. 
+                    </pre>
+                </li>
+<li>
+    “attacks/filtered/pag/{page_number}”(POST)
+<pre>
+Same as point 8, but it returns only one page of data, a page contains 3500 attacks, page number indicate which page you want.
+</pre>
+</li>
+<li>
+    “attacks/filtered/csv”(POST)
+    <pre>
+Returns the filtered attacks as  csv representation.
+    </pre>
+</li>
+<li>
+    “attacks/filtered/png”(POST)
+    <pre>
+Returns the filtered attacks as  cartographic representation.
+    </pre>
+</li>
+<li>
+    ”attacks/availablefilters”(POST)
+    <pre>
+For a given set of filters, it returns all possible values for each filter.
+The JSON Payload shall be formatted the same as for point 8.
+The response is structured internally as an associative array:
+	array() => {“field_name” => array()=>{“field_value”:”number _of_occurences”}}, this structure implements the behaviour of a set.
+More explicit, here is a possible json response only for the eventid field:
+
+<img src="SS\json_view4.png" alt="json view 4" width="30%">
+   
+{
+    "eventid": {
+      "197001080001": 1,
+      "197003010001": 1,
+      "201211290024": 1
+    }
+}
+  
+</pre>
+</li>
+<li>
+    ”attacks/availablefilters”(POST/GET)
+    <pre>
+Same behaviour as point 10, but it always returns all filters values, it doesn’t  need filters input, hence for a post request, the payload won’t be taken into consideration.
+    </pre>
+</li>
+            </ol>
+        </section>
+        <section id="backend">
+            <h3>App Backend</h3>
+            <p>
+                The app backend design is implemented as follows from the UML diagram.
+            
+            <img src="SS\backend_UML.png" alt="backend" width="100%">
+
+            All filters added by an user are persisted into cookies.
+            
+            </p>
+        </section>
+        <section id="frontend">
+            <h3>App Frontend</h3>
+            <p>
+                Divided into separate views, templated with twig engine.
+            </p>
+        </section>
+        </article>
+</body>
+</html>
